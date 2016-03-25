@@ -15,18 +15,33 @@
         <script src="~/scripts/app.js"></script>
         <style>
             .command {
-                border-style:none;
                 resize:none;
-                width:90%;
+                width:100%;
+                border-style:none;
             }
 
             .command:focus {
                 outline: none;
             }
+            table {
+                width:100%;
+                border-collapse: collapse;
+                font-family: Consolas;
+            }
+            tr {
+                display: flex;
+                align-items: stretch;
+            }
+            td:last-child {
+                flex: 1;
+                display:inline-block;
+            }
+
         </style>
     </head>
     
     <body>
-        <ul id="console" style="list-style-type:none"></ul>
+        <table id="console">
+        </table>
     </body>
 </html>
