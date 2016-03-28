@@ -33,16 +33,13 @@ var commandLine = Backbone.View.extend({
 
     render: function () {
         var view = this;
-        if (this.template == undefined)
-            $.get('/templates/emptyCmdLine.html', function (template) {
-                this.emptyTemplate = template;
-                var renderedView = Mustache.render(template, {
-                    prompt: view.prompt
-                });
-                view.$el.html(renderedView);
-                view.$el.find('.command').focus();
+        $.get('/templates/emptyCmdLine.html', function (template) {
+            var renderedView = Mustache.render(template, {
+                prompt: view.prompt
             });
-        else
+            view.$el.html(renderedView);
+            view.$el.find('.command').focus();
+        });
         return this;
     }
 });

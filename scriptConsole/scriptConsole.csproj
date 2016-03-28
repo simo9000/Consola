@@ -206,6 +206,7 @@
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\moment.min.js" />
     <Content Include="templates\emptyCmdLine.html" />
+    <Content Include="templates\finishedCmdLine.html" />
     <Content Include="Web.config" />
     <Content Include="Views\Home.cshtml" />
   </ItemGroup>
