@@ -69,9 +69,22 @@ var commandPrompt = Backbone.View.extend({
     }
 });
 
+var m = Backbone.Model.extend({
+    constructor: function () {
+        var a = arguments;
+        Backbone.Model.apply(this, arguments);
+    }
+});
+
 
 $(document).ready(function () {
     var prompt = new commandPrompt({});
     prompt.render();
     $('#console').append(prompt.el);
+
+    var M = new m({
+        name: 'tasty',
+        forest: 242,
+        tireFire: [1, 4, 4, 5]
+    });
 });
