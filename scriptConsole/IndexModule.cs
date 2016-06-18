@@ -15,5 +15,10 @@ namespace scriptConsole
                 return View["Home"];
             };
         }
+
+        internal void test(int[] t)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

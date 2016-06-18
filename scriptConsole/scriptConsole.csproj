@@ -168,10 +168,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="scripts\app.js" />
+    <Content Include="scripts\APP\app.js" />
+    <Content Include="scripts\APP\Global.js" />
+    <Content Include="scripts\APP\Views\commandLine.js" />
+    <Content Include="scripts\APP\Views\commandPrompt.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\backbone.min.js" />
-    <Content Include="scripts\mustache.js" />
     <Content Include="scripts\underscore.js" />
     <Content Include="scripts\underscore.min.js" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
@@ -205,8 +207,6 @@
     <Content Include="scripts\moment-with-locales.min.js" />
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\moment.min.js" />
-    <Content Include="templates\emptyCmdLine.html" />
-    <Content Include="templates\finishedCmdLine.html" />
     <Content Include="Web.config" />
     <Content Include="Views\Home.cshtml" />
   </ItemGroup>
@@ -221,9 +221,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scripts\APP_DATA\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
