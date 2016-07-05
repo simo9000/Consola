@@ -14,15 +14,15 @@ namespace scriptConsole.Library
     {
         private ScriptEngine engine;
         public ScriptScope scope { get; }
-        private MemoryStreamWithEvents buffer;
+        private ForwardingMemoryStream buffer;
 
         public ScriptSession(Action<string> outputMethod)
         {
             engine = Python.CreateEngine();
-            buffer = new MemoryStreamWithEvents();
+            buffer = new ForwardingMemoryStream();
             buffer.writeEvent = outputMethod;
-            engine.Runtime.IO.SetOutput(buffer, Encoding.Unicode);
-            scope = engine.CreateScope();
+            scope = engine.CreateScope(); 
+            engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
         }
 
         public void executeCommand(string command)

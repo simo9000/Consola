@@ -54,7 +54,7 @@ commandLine = Backbone.View.extend({
     },
 
     appendText: function (text) {
-        var crlf = "\r\0\n\0";
+        var crlf = "\r\n";
         if (text == crlf)
             this.addNewLine(false);
         else
