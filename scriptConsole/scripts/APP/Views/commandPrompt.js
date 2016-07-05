@@ -7,13 +7,25 @@ commandPrompt = Backbone.View.extend({
 
     tagName: 'tbody',
 
-    createNewLine: function () {
-        this.activeCommand = new commandLine({});
-        this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
+    initialize: function () {
+        this.hub = $.connection.consoleHub;
+        var console = this;
+        $.connection.hub.start({ transport: 'longPolling' }).done(function () {
+            console.hub.server.registerEngine();
+            console.createNewLine({
+                hub: console.hub
+            });
+        });
+        this.hub.client.pushOutput = function (text) {
+            console.activeCommand.appendText(text);
+        };
     },
 
-    initialize: function () {
-        this.createNewLine();
+    createNewLine: function () {
+        this.activeCommand = new commandLine({
+            hub: this.hub
+        });
+        this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
     },
 
     render: function (opt) {

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scriptConsole", "scriptConsole\scriptConsole.csproj", "{8EE3BD16-6CDC-45A6-B0EA-7A553CD15B03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "..\Console\Console\Console.csproj", "{FA315514-9968-4386-A8AF-9E600A44025E}"
 EndProject
 Global
 	GlobalSection(Performance) = preSolution
@@ -18,6 +20,10 @@ Global
 		{8EE3BD16-6CDC-45A6-B0EA-7A553CD15B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EE3BD16-6CDC-45A6-B0EA-7A553CD15B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EE3BD16-6CDC-45A6-B0EA-7A553CD15B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA315514-9968-4386-A8AF-9E600A44025E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA315514-9968-4386-A8AF-9E600A44025E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA315514-9968-4386-A8AF-9E600A44025E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA315514-9968-4386-A8AF-9E600A44025E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

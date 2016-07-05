@@ -8,8 +8,9 @@ commandLine = Backbone.View.extend({
 
     tagName: 'tr',
 
-    initialize: function () {
+    initialize: function (e) {
         this.prompt = "$>";
+        this.hub = e.hub
     },
 
     events: {
@@ -25,12 +26,18 @@ commandLine = Backbone.View.extend({
     CRLF: function (e) {
         var view = this;
         if (e.which === ENTER_KEY) {
-            var line = this.$el.find('.command').val();
-            view.$el.find('textarea').replaceWith(this.finishedTemplate({
-                content: line
-            }));
-            view.trigger('newLine');
+            view.addNewLine(true);
         }
+    },
+
+    addNewLine: function (submit) {
+        var view = this;
+        var line = this.$el.find('.command').val();
+        view.$el.find('textarea').replaceWith(this.finishedTemplate({
+            content: line
+        }));
+        if (submit) this.hub.server.submitCommand(line);
+        view.trigger('newLine');
     },
 
     render: function () {
@@ -38,12 +45,19 @@ commandLine = Backbone.View.extend({
         view.$el.html(this.emptyTemplate({
             prompt: this.prompt
         }));
-        view.$el.find('.command').focus();
-
+        this.focus();
         return this;
     },
 
     focus: function () {
         this.$el.find('.command').focus();
+    },
+
+    appendText: function (text) {
+        var crlf = "\r\0\n\0";
+        if (text == crlf)
+            this.addNewLine(false);
+        else
+            this.$el.find('.command').append(text);
     }
 });
