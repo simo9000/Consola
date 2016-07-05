@@ -8,7 +8,7 @@ namespace scriptConsole
 {
     public class IndexModule : NancyModule
     {
-        public IndexModule()
+        public IndexModule() : base("/Console")
         {
             Get["/"] = parameters =>
             {
