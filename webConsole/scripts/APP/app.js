@@ -8,6 +8,6 @@
 $(document).ready(function () {
     var prompt = new commandPrompt({});
     prompt.render();
-    $('#console').append(prompt.el);
+    $('body').append(prompt.el);
     prompt.focus();
 });

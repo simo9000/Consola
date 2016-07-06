@@ -5,7 +5,19 @@
 
 commandPrompt = Backbone.View.extend({
 
-    tagName: 'tbody',
+    events: {
+        "click .spaceHolder" : "focus"
+    },
+
+    tagName: 'div',
+
+    template: _.template('<table>\
+                            <thead>\
+                            </thead>\
+                            <tbody>\
+                            </tbody>\
+                          </table>\
+                          <div class="spaceHolder" style="height:100%"/>'),
 
     initialize: function () {
         this.hub = $.connection.consoleHub;
@@ -27,14 +39,17 @@ commandPrompt = Backbone.View.extend({
         this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
     },
 
-    render: function (opt) {
+    render: function () {
+        this.$el.html(this.template({}));
+        this.$el.css('height', '100vh');
+        this.$el.css('width', '100vw');
         this.addNewLine();
     },
 
     addNewLine: function () {
         this.createNewLine();
         this.activeCommand.render();
-        this.$el.append(this.activeCommand.$el);
+        this.$el.find('tbody').append(this.activeCommand.$el);
         this.focus();
     },
 
