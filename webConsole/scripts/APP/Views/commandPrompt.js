@@ -11,7 +11,6 @@ commandPrompt = Backbone.View.extend({
         this.hub = $.connection.consoleHub;
         var console = this;
         $.connection.hub.start({ transport: 'longPolling' }).done(function () {
-            console.hub.server.registerEngine();
             console.createNewLine({
                 hub: console.hub
             });
