@@ -12,15 +12,19 @@ namespace scriptConsole.Library
 {
     public class ScriptSession
     {
+        private const string scriptErrorNameSpace = "IronPython.Runtime";
         private ScriptEngine engine;
         public ScriptScope scope { get; }
         private ForwardingMemoryStream buffer;
 
+        private Action<string> consoleOut;
+
         public ScriptSession(Action<string> outputMethod)
         {
+            this.consoleOut = outputMethod;
             engine = Python.CreateEngine();
             buffer = new ForwardingMemoryStream();
-            buffer.writeEvent = outputMethod;
+            buffer.writeEvent = consoleOut;
             scope = engine.CreateScope(); 
             engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
         }
@@ -28,7 +32,18 @@ namespace scriptConsole.Library
         public void executeCommand(string command)
         {
             ScriptSource source = engine.CreateScriptSourceFromString(command);
-            source.Execute(scope);
+            try
+            {
+                source.Execute(scope);
+            }
+            catch(Exception e){
+                Type exceptionType = e.GetType();
+                if (exceptionType.Namespace.Contains(scriptErrorNameSpace))
+                {
+                    consoleOut(e.Message);
+                    consoleOut("\r\n");
+                }
+            }
         }
     }
 }
