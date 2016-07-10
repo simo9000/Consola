@@ -25,8 +25,14 @@ commandLine = Backbone.View.extend({
 
     CRLF: function (e) {
         var view = this;
-        if (e.which === ENTER_KEY) {
+        if (e.which === ENTER_KEY && !e.shiftKey) {
             view.addNewLine(true);
+        }
+        else {
+            var textArea = this.$el.find('.command');
+            var line = textArea.val();
+            var numberOfLines = (line.match(/\n/g) || []).length + 1;
+            textArea.attr('rows', numberOfLines);
         }
     },
 
