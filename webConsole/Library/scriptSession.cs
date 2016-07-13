@@ -12,7 +12,8 @@ namespace scriptConsole.Library
 {
     public class ScriptSession
     {
-        private const string scriptErrorNameSpace = "IronPython.Runtime";
+        private const string pythonErrorNameSpace = "IronPython.Runtime";
+        private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private ScriptEngine engine;
         public ScriptScope scope { get; }
         private ForwardingMemoryStream buffer;
@@ -38,7 +39,8 @@ namespace scriptConsole.Library
             }
             catch(Exception e){
                 Type exceptionType = e.GetType();
-                if (exceptionType.Namespace.Contains(scriptErrorNameSpace))
+                if (exceptionType.Namespace.Contains(scriptErrorNameSpace) 
+                    || exceptionType.Namespace.Contains(pythonErrorNameSpace))
                 {
                     consoleOut(e.Message);
                     consoleOut("\r\n");
