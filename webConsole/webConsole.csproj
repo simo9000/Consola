@@ -200,6 +200,7 @@
     <Content Include="scripts\APP\Global.js" />
     <Content Include="scripts\APP\Views\commandLine.js" />
     <Content Include="scripts\APP\Views\commandPrompt.js" />
+    <Content Include="scripts\APP\Views\finishedLine.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\backbone.min.js" />
     <Content Include="scripts\underscore.js" />

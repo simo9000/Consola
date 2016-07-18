@@ -19,8 +19,6 @@ commandLine = Backbone.View.extend({
     emptyTemplate: _.template('<td style="font-size:17px;color:white;"><%= prompt %></td>\
                           <td><textarea spellcheck="false" class="command" style="font-size:15px;color:white;background-color:black;" rows="1"></textarea></td>'),
 
-    finishedTemplate: _.template('<span style="font-size:15px;color:white;"><%= content %></span></br>'),
-
     keyDown: function(e){
         if (e.keyCode == 9) {
             e.preventDefault();
