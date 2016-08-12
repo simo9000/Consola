@@ -165,6 +165,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
@@ -190,6 +194,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\sweetalert2.css" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -203,11 +208,14 @@
     <Content Include="scripts\APP\Views\finishedLine.js" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\backbone.min.js" />
+    <Content Include="scripts\es6-promise.min.js" />
+    <Content Include="scripts\sweetalert2.js" />
     <Content Include="scripts\underscore.js" />
     <Content Include="scripts\underscore.min.js" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="scripts\underscore.min.map" />
     <Content Include="scripts\backbone.min.map" />
+    <Content Include="Views\test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,7 +8,9 @@ commandLine = Backbone.View.extend({
 
     initialize: function (e) {
         this.prompt = "$>";
-        this.hub = e.hub
+        this.hub = e.hub;
+        this.getFromHistory = e.getFromHistory;
+        this.historyIndex = 0;
     },
 
     events: {
@@ -20,7 +22,7 @@ commandLine = Backbone.View.extend({
                           <td><textarea spellcheck="false" class="command" style="font-size:15px;color:white;background-color:black;" rows="1"></textarea></td>'),
 
     keyDown: function(e){
-        if (e.keyCode == 9) {
+        if (e.keyCode == TAB_KEY) {
             e.preventDefault();
             //http://stackoverflow.com/questions/6637341/use-tab-to-indent-in-textarea
             //http://jsfiddle.net/jz6J5/
@@ -45,6 +47,14 @@ commandLine = Backbone.View.extend({
         if (e.which === ENTER_KEY && !e.shiftKey) {
             view.addNewLine(true);
         }
+        else if (e.which === UP_KEY)
+        {
+            if (this.historyIndex >= 0) {
+                e.preventDefault();
+                this.replaceText(this.getFromHistory(this.historyIndex));
+                this.historyIndex++;
+            }
+        }
         else {
             var textArea = this.$el.find('.command');
             var line = textArea.val();
@@ -65,7 +75,7 @@ commandLine = Backbone.View.extend({
         });
         view.$el.find('textarea').replaceWith(lines);
         if (submit) this.hub.server.submitCommand(line);
-        view.trigger('newLine');
+        view.trigger('newLine',submit ? line : null);
     },
 
     render: function () {
@@ -85,11 +95,15 @@ commandLine = Backbone.View.extend({
         return (line.match(/\n/g) || []).length + 1;
     },
 
-    appendText: function (text) {
+    appendText: function (text, isExternal) {
         var crlf = "\r\n";
-        if (text == crlf)
+        if (text == crlf && isExternal)
             this.addNewLine(false);
         else
             this.$el.find('.command').append(text);
+    },
+
+    replaceText: function (text) {
+        this.$el.find('.command').text(text);
     }
 });

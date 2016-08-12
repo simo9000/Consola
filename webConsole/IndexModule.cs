@@ -14,6 +14,8 @@ namespace scriptConsole
             {
                 return View["Home"];
             };
+
+            Get["/test"] = x => View["test"];
         }
 
         internal void test(int[] t)
