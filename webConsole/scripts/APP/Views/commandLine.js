@@ -47,14 +47,6 @@ commandLine = Backbone.View.extend({
         if (e.which === ENTER_KEY && !e.shiftKey) {
             view.addNewLine(true);
         }
-        else if (e.which === UP_KEY)
-        {
-            if (this.historyIndex >= 0) {
-                e.preventDefault();
-                this.replaceText(this.getFromHistory(this.historyIndex));
-                this.historyIndex++;
-            }
-        }
         else {
             var textArea = this.$el.find('.command');
             var line = textArea.val();
