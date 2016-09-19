@@ -20,5 +20,7 @@ namespace scriptConsole
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("templates", @"/templates"));
 
         }
+
+        
     }
 }

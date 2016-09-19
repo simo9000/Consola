@@ -243,6 +243,7 @@
     <Compile Include="ConsoleHub.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Library\ForwardingMemoryStream.cs" />
+    <Compile Include="Library\IScriptable.cs" />
     <Compile Include="Library\scriptSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RazorConfig.cs" />

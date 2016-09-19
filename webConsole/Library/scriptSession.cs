@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 
@@ -15,22 +16,24 @@ namespace scriptConsole.Library
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private ScriptEngine engine;
-        public ScriptScope scope { get; }
+        private static List<IScriptable> scriptObjects;
+        private ScriptScope scope { get; }
         private ForwardingMemoryStream buffer;
 
         private Action<string> consoleOut;
 
-        public ScriptSession(Action<string> outputMethod)
+        internal ScriptSession(Action<string> outputMethod)
         {
             this.consoleOut = outputMethod;
             engine = Python.CreateEngine();
             buffer = new ForwardingMemoryStream();
             buffer.writeEvent = consoleOut;
-            scope = engine.CreateScope(); 
+            dynamic mScope = scope = engine.CreateScope();
+            populateScope(mScope);
             engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
         }
 
-        public void executeCommand(string command)
+        internal void executeCommand(string command)
         {
             ScriptSource source = engine.CreateScriptSourceFromString(command);
             try
@@ -47,5 +50,22 @@ namespace scriptConsole.Library
                 }
             }
         }
+
+        private void populateScope(ref dynamic ScriptScope)
+        {
+            foreach (IScriptable obj in scriptObjects)
+            {
+                obj.initialize(this);
+                ScriptScope[obj.GetType().Name] = obj;
+            }
+        }
+
+        public void WriteLine(string text)
+        {
+            byte[] output = Encoding.Default.GetBytes(text.ToArray<char>());
+            buffer.Write(output, 0, output.Length);
+        }
     }
+
+
 }
