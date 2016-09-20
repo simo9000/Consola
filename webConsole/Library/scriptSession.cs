@@ -16,7 +16,7 @@ namespace scriptConsole.Library
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private ScriptEngine engine;
-        private static List<IScriptable> scriptObjects;
+        private static List<IScriptable> scriptObjects = new List<IScriptable>();
         private ScriptScope scope { get; }
         private ForwardingMemoryStream buffer;
 
@@ -29,7 +29,7 @@ namespace scriptConsole.Library
             buffer = new ForwardingMemoryStream();
             buffer.writeEvent = consoleOut;
             dynamic mScope = scope = engine.CreateScope();
-            populateScope(mScope);
+            populateScope(ref mScope);
             engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
         }
 
@@ -65,7 +65,7 @@ namespace scriptConsole.Library
             foreach (IScriptable obj in scriptObjects)
             {
                 Type type = obj.GetType();
-                WriteLine(String.Concat(type.Name, Environment.NewLine);
+                WriteLine(String.Concat(type.Name, Environment.NewLine));
             }
         }
 

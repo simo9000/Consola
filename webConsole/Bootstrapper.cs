@@ -25,7 +25,7 @@ namespace scriptConsole
         private void loadScriptObjects()
         {
             Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            Type[] scriptables = loadedAssemblies.
+            //Type[] scriptables = loadedAssemblies.
         }
     }
 }
