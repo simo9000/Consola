@@ -55,8 +55,17 @@ namespace scriptConsole.Library
         {
             foreach (IScriptable obj in scriptObjects)
             {
-                obj.initialize(this);
+                obj.session = this;
                 ScriptScope[obj.GetType().Name] = obj;
+            }
+        }
+
+        private void ListObjects()
+        {
+            foreach (IScriptable obj in scriptObjects)
+            {
+                Type type = obj.GetType();
+                WriteLine(String.Concat(type.Name, Environment.NewLine);
             }
         }
 

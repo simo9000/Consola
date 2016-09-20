@@ -9,24 +9,52 @@ namespace scriptConsole.Library
 {
     interface IScriptable
     {
-        void initialize(ScriptSession session);
+        ScriptSession session { get; set; }
     }
 
     internal static class Exstensions
     {
-        static string show(this IScriptable obj)
+        internal static void show(this IScriptable obj)
         {
-            StringBuilder builder = new StringBuilder();
+            Type type = obj.GetType();
+            StringBuilder builder = new StringBuilder(type.Name);
+            builder.Append(":");
+            builder.Append(Environment.NewLine);
+            builder.Append(new String('-', type.Name.Count()));
+            builder.Append(Environment.NewLine);
             PropertyInfo[] properties = obj.GetType().GetProperties();
-            foreach(PropertyInfo property in properties)
+            if (properties.Count() > 0)
             {
-
+                builder.Append("Properties:");
+                foreach (PropertyInfo property in properties)
+                {
+                    builder.Append('\t');
+                    builder.Append(property.Name);
+                    builder.Append(String.Format(" ({0}) ", property.PropertyType.ToString()));
+                    Attribute descriptionAttribute = property.GetCustomAttribute(typeof(Description));
+                    builder.Append(descriptionAttribute == null ? String.Empty : descriptionAttribute.ToString());
+                    builder.Append(Environment.NewLine);
+                }
             }
-
-
-
-            return builder.ToString();
+            obj.session.WriteLine(builder.ToString());
         }
     }
 
+    [AttributeUsage (AttributeTargets.Property |
+        AttributeTargets.Method | AttributeTargets.Field,
+         AllowMultiple = false, Inherited = true)]
+    public class Description : Attribute
+    {
+        private string desc;
+        public Description(string desc)
+        {
+            this.desc = desc; 
+        }
+
+        public override string ToString()
+        {
+            return desc;
+        }
+    }
+    
 }
