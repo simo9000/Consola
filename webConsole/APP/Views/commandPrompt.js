@@ -1,9 +1,12 @@
-﻿/// <reference path="~/scripts/linq.js"/>
-/// <reference path="~/scripts/linq-vsdoc.js"/>
-/// <reference path="~/scripts/jquery-2.2.1.js"/>
-/// <refernece path="~/scripts/jquery-2.1.0-vsdoc.js"/>
+﻿var underscore = require('underscore');
+//global.jQuery = require('jquery');
+//global.$ = jQuery;
+var Backbone = require('backbone');
+Backbone.$ = $;
+var signalR = require('ms-signalr-client');
+var commandLine = require('./commandLine');
 
-commandPrompt = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
     events: {
         "click .spaceHolder" : "focus"

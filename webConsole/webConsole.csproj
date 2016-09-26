@@ -205,13 +205,8 @@
     <Content Include="APP\Views\commandLine.js" />
     <Content Include="APP\Views\commandPrompt.js" />
     <Content Include="APP\Views\finishedLine.js" />
-    <Content Include="scripts\backbone.js" />
-    <Content Include="scripts\backbone.min.js" />
-    <Content Include="scripts\underscore.js" />
-    <Content Include="scripts\underscore.min.js" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="scripts\underscore.min.map" />
-    <Content Include="scripts\backbone.min.map" />
+    <Content Include="package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -220,21 +215,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\ai.0.15.0-build58334.js" />
-    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
-    <None Include="scripts\jquery-2.1.0-vsdoc.js" />
-    <Content Include="scripts\jquery-2.2.1.js" />
-    <Content Include="scripts\jquery-2.2.1.min.js" />
-    <Content Include="scripts\jquery-2.2.1.min.map" />
-    <None Include="scripts\linq-vsdoc.js" />
-    <Content Include="scripts\jquery.signalR-2.2.0.js" />
-    <Content Include="scripts\jquery.signalR-2.2.0.min.js" />
-    <Content Include="scripts\linq.js" />
-    <Content Include="scripts\linq.min.js" />
-    <Content Include="scripts\moment-with-locales.js" />
-    <Content Include="scripts\moment-with-locales.min.js" />
-    <Content Include="scripts\moment.js" />
-    <Content Include="scripts\moment.min.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home.cshtml" />
   </ItemGroup>

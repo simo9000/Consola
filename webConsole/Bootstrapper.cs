@@ -15,7 +15,6 @@ namespace scriptConsole
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             base.ApplicationStartup(container, pipelines);
-            this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Scripts",@"/scripts"));
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("APP", @"/APP"));
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Content", @"/Content"));
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", @"/fonts"));

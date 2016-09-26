@@ -1,8 +1,10 @@
-﻿/// <reference path="~/scripts/jquery-2.2.1.js"/>
-/// <refernece path="~/scripts/jquery-2.1.0-vsdoc.js"/>
+﻿var underscore = require('underscore');
+var Backbone = require('backbone');
+Backbone.$ = $;
+require('../Global');
+var finishedLine = require('./finishedLine');
 
-
-commandLine = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
     tagName: 'tr',
 

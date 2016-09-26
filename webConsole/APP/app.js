@@ -1,10 +1,9 @@
-﻿/// <reference path="~/scripts/linq.js"/>
-/// <reference path="~/scripts/linq-vsdoc.js"/>
-/// <reference path="~/scripts/jquery-2.2.1.js"/>
-/// <refernece path="~/scripts/jquery-2.1.0-vsdoc.js"/>
-/// <reference path="~/scripts/APP/Views/commandPrompt.js"/>
-
-
+﻿global.jQuery = require('jquery');
+global.$ = jQuery;
+global.underscore = require('underscore');
+global._ = underscore;
+var commandPrompt = require('./Views/commandPrompt');
+  
 $(document).ready(function () {
     var prompt = new commandPrompt({});
     prompt.render();
