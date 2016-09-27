@@ -14,7 +14,7 @@ Install [browserify](http://browserify.org/) if you haven't already:
 npm install -g browserify
 ````
 
-Compile web client from `/webConsole/APP`:
+Compile web client from `/webConsole/APP` build in visual studio or:
 ````
 browserify app.js --debug | exorcist ./output/bundle.js.map > ./output/bundle.js
 ````

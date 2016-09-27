@@ -2,6 +2,7 @@
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.TinyIoc;
+using Nancy.ViewEngines;
 using scriptConsole.Library;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,27 @@ namespace scriptConsole
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
+        protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+        {
+            base.ConfigureApplicationContainer(container);
+            var assembly = GetType().Assembly;
+            ResourceViewLocationProvider
+                .RootNamespaces.Add(assembly, "scriptConsole.Views");
+        }
+
+        protected override NancyInternalConfiguration InternalConfiguration
+        {
+            get
+            {
+                return NancyInternalConfiguration.WithOverrides(OnConfigurationBuilder);
+            }
+        }
+
+        void OnConfigurationBuilder(NancyInternalConfiguration x)
+        {
+            x.ViewLocationProvider = typeof(ResourceViewLocationProvider);
+        }
+
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             base.ApplicationStartup(container, pipelines);
