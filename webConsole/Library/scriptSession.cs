@@ -16,7 +16,7 @@ namespace scriptConsole.Library
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private ScriptEngine engine;
-        private static List<IScriptable> scriptObjects = new List<IScriptable>();
+        internal static List<IScriptable> scriptObjects = new List<IScriptable>();
         private ScriptScope scope { get; }
         private ForwardingMemoryStream buffer;
 

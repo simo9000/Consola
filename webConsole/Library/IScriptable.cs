@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace scriptConsole.Library
 {
-    interface IScriptable
+    public interface IScriptable
     {
         ScriptSession session { get; set; }
     }
