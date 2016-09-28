@@ -36,13 +36,8 @@ namespace Tests
         [ClassInitialize]
         public static void initialize(TestContext context)
         {
-            HostConfiguration hostConfigs = new HostConfiguration();
-            hostConfigs.UrlReservations.CreateAutomatically = true;
-            host = new NancyHost(hostLocation,new Bootstrapper(),hostConfigs);
-            host.Start();
-            browser = new PhantomJSDriver();
-            browser.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 30));
-            
+            startServer();
+            startBrowser();
         }
         
         [TestInitialize]
@@ -72,6 +67,21 @@ namespace Tests
                 }
             }
             
+        }
+
+        public static void startServer()
+        {
+            HostConfiguration hostConfigs = new HostConfiguration();
+            hostConfigs.UrlReservations.CreateAutomatically = true;
+            host = new NancyHost(hostLocation, new Bootstrapper(), hostConfigs);
+            host.Start();
+            
+        }
+
+        public static void startBrowser()
+        {
+            browser = new PhantomJSDriver();
+            browser.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 30));
         }
     }
 }

@@ -219,6 +219,7 @@
     <Content Include="Web.config" />
     <EmbeddedResource Include="Views\Home.html" />
     <EmbeddedResource Include="APP\output\bundle.js" />
+    <EmbeddedResource Include="APP\output\bundle.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
