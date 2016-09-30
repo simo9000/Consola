@@ -4,16 +4,15 @@ using Nancy.Conventions;
 using Nancy.Responses;
 using Nancy.TinyIoc;
 using Nancy.ViewEngines;
-using Microsoft.Owin.Host;
-using scriptConsole.Library;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using webConsole.Library;
 
-namespace scriptConsole
+namespace webConsole
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
@@ -22,7 +21,7 @@ namespace scriptConsole
             base.ConfigureApplicationContainer(container);
             var assembly = GetType().Assembly;
             ResourceViewLocationProvider
-                .RootNamespaces.Add(assembly, "scriptConsole.Views");
+                .RootNamespaces.Add(assembly, "webConsole.Views");
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
@@ -59,10 +58,10 @@ namespace scriptConsole
             var path = builder.ToString();
             var thisExe = System.Reflection.Assembly.GetExecutingAssembly();
             string[] resources = thisExe.GetManifestResourceNames();
-            string compareName = "scriptConsole." + path;
+            string compareName = "webConsole." + path;
             if (resources.Contains(compareName, StringComparer.CurrentCultureIgnoreCase))
                 return new EmbeddedFileResponse(thisExe,
-                                                "scriptConsole." + pathDir.Substring(1, pathDir.Length - 1).Replace("\\", "."),
+                                                "webConsole." + pathDir.Substring(1, pathDir.Length - 1).Replace("\\", "."),
                                                 Path.GetFileName(ctx.Request.Url.Path));
 
             return null;

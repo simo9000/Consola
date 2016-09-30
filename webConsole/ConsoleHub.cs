@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNet.SignalR;
-using scriptConsole.Library;
-using System;
+using webConsole.Library;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Owin;
 
-namespace scriptConsole
+namespace webConsole
 {
     public class ConsoleHub : Hub
     {
@@ -33,6 +33,14 @@ namespace scriptConsole
         public void pushOutput(string line)
         {
             Clients.Caller.pushOutput(line);
+        }
+    }
+
+    public static class start
+    {
+        public static void startApp(IAppBuilder app)
+        {
+            app.MapSignalR();
         }
     }
 }

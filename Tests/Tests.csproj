@@ -81,11 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\webConsole\webConsole.csproj">
-      <Project>{8ee3bd16-6cdc-45a6-b0ea-7a553cd15b03}</Project>
+      <Project>{ed4b4484-60ba-419e-880c-77e58cf8d6e8}</Project>
       <Name>webConsole</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

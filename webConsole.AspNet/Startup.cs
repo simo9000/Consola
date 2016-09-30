@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-[assembly: OwinStartup(typeof(scriptConsole.Startup))]
+[assembly: OwinStartup(typeof(webConsole.AspNet.Startup))]
 
-namespace scriptConsole
+namespace webConsole.AspNet
 {
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
+            webConsole.start.startApp(app);
         }
     }
 }

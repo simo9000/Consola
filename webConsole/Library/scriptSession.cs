@@ -9,7 +9,7 @@ using System.Text;
 using System.Web;
 
 
-namespace scriptConsole.Library
+namespace webConsole.Library
 {
     public class ScriptSession
     {

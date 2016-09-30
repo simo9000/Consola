@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace scriptConsole.Library
+namespace webConsole.Library
 {
     public class ForwardingMemoryStream : MemoryStream
     {

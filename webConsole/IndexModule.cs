@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 
-namespace scriptConsole
+namespace webConsole
 {
     public class IndexModule : NancyModule
     {

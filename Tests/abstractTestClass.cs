@@ -4,7 +4,7 @@ using Nancy.Hosting.Self;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
-using scriptConsole;
+using webConsole;
 using System.Collections.ObjectModel;
 using System.Text;
 

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace scriptConsole.Library
+namespace webConsole.Library
 {
     public interface IScriptable
     {
