@@ -9,9 +9,10 @@ Loading in [webConsole.csproj](./webConsole/webConsole.csproj) VSTO 2012 or grea
 npm install
 ````
 
-Install [browserify](http://browserify.org/) if you haven't already:
+Install [browserify](http://browserify.org/) and exorcist if you haven't already:
 ````
 npm install -g browserify
+npm install -g exorcist
 ````
 
 Compile web client from `/webConsole/APP` build in visual studio or:
