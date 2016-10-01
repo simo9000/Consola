@@ -3,8 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nancy.Hosting.Self;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
-using OpenQA.Selenium.Remote;
-using webConsole;
+using webConsole.SelfHost;
 using System.Collections.ObjectModel;
 using System.Text;
 
@@ -15,7 +14,7 @@ namespace Tests
     {
         private static NancyHost host;
         private static PhantomJSDriver browser;
-        private static Uri hostLocation = new Uri("http://localhost:3589");
+        private static Uri hostLocation = new Uri("http://localhost:80");
 
         protected static ReadOnlyCollection<LogEntry> jsErrors
         {
@@ -39,6 +38,13 @@ namespace Tests
             startServer();
             startBrowser();
         }
+
+        [ClassCleanup]
+        public static void tearDown()
+        {
+            Host.stop();
+            browser.Close();
+        }
         
         [TestInitialize]
         public void test_start()
@@ -52,6 +58,7 @@ namespace Tests
             try
             {
                 browser.FindElementByClassName("spaceHolder");
+                var i = 1;
             }
             catch
             {
@@ -71,11 +78,7 @@ namespace Tests
 
         public static void startServer()
         {
-            HostConfiguration hostConfigs = new HostConfiguration();
-            hostConfigs.UrlReservations.CreateAutomatically = true;
-            host = new NancyHost(hostLocation, new Bootstrapper(), hostConfigs);
-            host.Start();
-            
+            Host.start();           
         }
 
         public static void startBrowser()

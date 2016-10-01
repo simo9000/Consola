@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
       <Private>True</Private>
@@ -80,12 +84,6 @@
     <Compile Include="Scriptables\BasicFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\webConsole\webConsole.csproj">
-      <Project>{ed4b4484-60ba-419e-880c-77e58cf8d6e8}</Project>
-      <Name>webConsole</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -97,6 +95,16 @@
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\webConsole.SelfHost\webConsole.SelfHost.csproj">
+      <Project>{ebe6a7b4-ac8a-43a3-bdb5-095749eb0cda}</Project>
+      <Name>webConsole.SelfHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\webConsole\webConsole.csproj">
+      <Project>{ed4b4484-60ba-419e-880c-77e58cf8d6e8}</Project>
+      <Name>webConsole</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
