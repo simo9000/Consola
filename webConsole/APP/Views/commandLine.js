@@ -2,7 +2,7 @@
 var Backbone = require('backbone');
 Backbone.$ = $;
 require('../Global');
-var finishedLine = require('./finishedLine');
+
 
 module.exports = Backbone.View.extend({
 
@@ -11,7 +11,7 @@ module.exports = Backbone.View.extend({
     initialize: function (e) {
         this.prompt = "$>";
         this.hub = e.hub;
-        this.getFromHistory = e.getFromHistory;
+        this.lineManager = e.lineManager;
         this.historyIndex = 0;
     },
 
@@ -63,12 +63,13 @@ module.exports = Backbone.View.extend({
         var lines = line.split(/\n/g);
         if (lines[lines.length - 1] == '') lines.pop();
         lines = _.map(lines, function (l) {
-            return new finishedLine({
-                contents: l
-            }).render().$el;
+            return view.lineManager.createFinishedLine(l);
         });
         view.$el.find('textarea').replaceWith(lines);
-        if (submit) this.hub.server.submitCommand(line);
+        if (submit) {
+            view.lineManager.appendCommand(line);
+            view.hub.server.submitCommand(line);
+        }
         view.trigger('newLine',submit ? line : null);
     },
 

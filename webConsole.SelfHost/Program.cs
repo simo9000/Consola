@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using Microsoft.Owin.Hosting;
 using System;
+using System.Net;
 
 namespace webConsole.SelfHost
 {
@@ -17,8 +18,15 @@ namespace webConsole.SelfHost
 
         public static void start()
         {
-            var url = "http://+:80";
-            app = WebApp.Start<Startup>(url);
+            var url = "http://+:80/";
+            try
+            {
+                app = WebApp.Start<Startup>(url);
+            }
+            catch (HttpListenerException ex)
+            {
+                throw new UnauthorizedAccessException(String.Format("Administrative permission for ({0}) required. Run as Administrator or See https://msdn.microsoft.com/en-us/library/ms733768.aspx.", url), ex);
+            }
             Console.WriteLine("Running on {0}", url);
         }
 

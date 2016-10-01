@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var signalR = require('ms-signalr-client');
 var commandLine = require('./commandLine');
+var lineManager = require('../lineManager');
 
 module.exports = Backbone.View.extend({
 
@@ -26,10 +27,11 @@ module.exports = Backbone.View.extend({
         this.hub = $.connection.consoleHub;
         this.history = [];
         var console = this;
+        this.lineManager = new lineManager();
+        this.hubStatus = 'starting';
         $.connection.hub.start({ transport: 'longPolling' }).done(function () {
-            console.createNewLine({
-                hub: console.hub
-            });
+            console.addNewLine();
+            console.hubStatus = 'connected';
         });
         this.hub.client.pushOutput = function (text) {
             console.activeCommand.appendText(text,true);
@@ -39,10 +41,8 @@ module.exports = Backbone.View.extend({
     createNewLine: function () {
         var view = this;
         this.activeCommand = new commandLine({
-            getFromHistory: function(index){
-                return view.history[index];
-            },
-            hub: this.hub
+            hub: this.hub,
+            lineManager: this.lineManager
         });
         this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
     },
@@ -51,19 +51,12 @@ module.exports = Backbone.View.extend({
         this.$el.html(this.template({}));
         this.$el.css('height', '100vh');
         this.$el.css('width', '100vw');
-        this.addNewLine();
     },
 
-    addNewLine: function (previousLine) {
-        if (previousLine != null)
-            this.history.unshift(previousLine);
+    addNewLine: function () {
         this.createNewLine();
         this.activeCommand.render();
         this.$el.find('tbody').append(this.activeCommand.$el);
-        this.focus();
-    },
-
-    focus: function () {
         this.activeCommand.focus();
     }
 });

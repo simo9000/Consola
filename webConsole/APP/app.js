@@ -8,5 +8,4 @@ $(document).ready(function () {
     var prompt = new commandPrompt({});
     prompt.render();
     $('body').append(prompt.el);
-    prompt.focus();
 });
