@@ -128,15 +128,11 @@
     <EmbeddedResource Include="Views\test.html" />
     <EmbeddedResource Include="Views\Home.html" />
     <EmbeddedResource Include="APP\output\bundle.js" />
-    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>browserify $(ProjectDir)APP\app.js --debug | exorcist $(ProjectDir)APP\output\bundle.js.map &gt; $(ProjectDir)APP\output\bundle.js</PreBuildEvent>
+    <PreBuildEvent>del /Q $(ProjectDir)Scripts
+browserify $(ProjectDir)APP\app.js --debug | exorcist $(ProjectDir)APP\output\bundle.js.map &gt; $(ProjectDir)APP\output\bundle.js</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
