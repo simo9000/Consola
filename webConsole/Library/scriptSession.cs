@@ -2,6 +2,7 @@
 using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,7 +17,7 @@ namespace webConsole.Library
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private ScriptEngine engine;
-        internal static List<IScriptable> scriptObjects = new List<IScriptable>();
+        internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
         private ForwardingMemoryStream buffer;
 
@@ -53,25 +54,29 @@ namespace webConsole.Library
 
         private void populateScope(ref dynamic ScriptScope)
         {
-            foreach (IScriptable obj in scriptObjects)
+            IDictionary<string, object> proxy = new ExpandoObject();
+            foreach (Type t in scriptObjects)
             {
-                obj.session = this;
-                ScriptScope[obj.GetType().Name] = obj;
+                ConstructorInfo CI = t.GetConstructor(new Type[0]);
+                Scriptable obj = (Scriptable)CI.Invoke(new dynamic[0]);
+                obj.setSession(this);
+                proxy.Add(obj.GetType().Name, obj);
             }
+            ScriptScope.proxy = proxy;
+            ScriptScope.ListObjects = new Action(ListObjects);
         }
 
         private void ListObjects()
         {
-            foreach (IScriptable obj in scriptObjects)
-            {
-                Type type = obj.GetType();
-                WriteLine(String.Concat(type.Name, Environment.NewLine));
-            }
+            foreach (Type t in scriptObjects)
+                WriteLine(String.Concat("proxy.",t.Name));
         }
 
         public void WriteLine(string text)
         {
             byte[] output = Encoding.Default.GetBytes(text.ToArray<char>());
+            buffer.Write(output, 0, output.Length);
+            output = Encoding.Default.GetBytes(Environment.NewLine.ToArray<char>());
             buffer.Write(output, 0, output.Length);
         }
     }

@@ -73,8 +73,12 @@ namespace webConsole
             IEnumerable<Type> scriptables = loadedAssemblies.Where((assembly) => {
                 try
                 {
-                    var i = assembly.ExportedTypes;
-                    return !assembly.IsDynamic;
+                    if (!assembly.IsDynamic)
+                    {
+                        var i = assembly.ExportedTypes;
+                        return true;
+                    }
+                    return false;
                 }
                 catch (Exception e)
                 {
@@ -82,14 +86,16 @@ namespace webConsole
                 }
                 }).SelectMany((assembly) =>
             {
-                    return assembly.ExportedTypes.Where((t) => t is IScriptable);
+                    return assembly.ExportedTypes.Where((t) => {
+                        return typeof(Scriptable).IsAssignableFrom(t);
+                    });
             });
 
             foreach(Type scriptable in scriptables)
             {
-                ConstructorInfo CI = scriptable.GetConstructor(new Type[1] { scriptable });
-                IScriptable obj = (IScriptable)CI.Invoke(new dynamic[0]);
-                ScriptSession.scriptObjects.Add(obj);
+                ConstructorInfo CI = scriptable.GetConstructor(new Type[0]);
+                if (CI != null)
+                    ScriptSession.scriptObjects.Add(scriptable);
             }
         }
     }
