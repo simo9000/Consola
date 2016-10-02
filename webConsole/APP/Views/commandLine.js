@@ -20,7 +20,7 @@ module.exports = Backbone.View.extend({
         "keydown .command": "keyDown"
     },
 
-    emptyTemplate: _.template('<td style="font-size:17px;color:white;"><%= prompt %></td>\
+    emptyTemplate: _.template('<td class="promptSymbol" style="font-size:17px;color:white;"><%= prompt %></td>\
                           <td><textarea spellcheck="false" class="command" style="font-size:15px;color:white;background-color:black;" rows="1"></textarea></td>'),
 
     keyDown: function(e){
@@ -65,6 +65,8 @@ module.exports = Backbone.View.extend({
         lines = _.map(lines, function (l) {
             return view.lineManager.createFinishedLine(l);
         });
+        if (!submit)
+            view.$el.find('.promptSymbol').text('');
         view.$el.find('textarea').replaceWith(lines);
         if (submit) {
             view.lineManager.appendCommand(line);
