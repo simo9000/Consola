@@ -110,6 +110,7 @@
     <Compile Include="Library\ForwardingMemoryStream.cs" />
     <Compile Include="Library\Scriptable.cs" />
     <Compile Include="Library\scriptSession.cs" />
+    <Compile Include="Library\SessionStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

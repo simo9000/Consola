@@ -69,8 +69,20 @@ namespace webConsole
 
         private void loadScriptObjects()
         {
+            IEnumerable<Type> scriptables = getQualifiedTypes(typeof(Scriptable));
+
+            foreach(Type scriptable in scriptables)
+            {
+                ConstructorInfo CI = scriptable.GetConstructor(new Type[0]);
+                if (CI != null)
+                    ScriptSession.scriptObjects.Add(scriptable);
+            }
+        }
+
+        internal static IEnumerable<Type> getQualifiedTypes(Type T)
+        {
             Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            IEnumerable<Type> scriptables = loadedAssemblies.Where((assembly) => {
+            return loadedAssemblies.Where((assembly) => {
                 try
                 {
                     if (!assembly.IsDynamic)
@@ -84,19 +96,12 @@ namespace webConsole
                 {
                     return false;
                 }
-                }).SelectMany((assembly) =>
+            }).SelectMany((assembly) =>
             {
-                    return assembly.ExportedTypes.Where((t) => {
-                        return typeof(Scriptable).IsAssignableFrom(t);
-                    });
+                return assembly.ExportedTypes.Where((t) => {
+                    return T.IsAssignableFrom(t);
+                });
             });
-
-            foreach(Type scriptable in scriptables)
-            {
-                ConstructorInfo CI = scriptable.GetConstructor(new Type[0]);
-                if (CI != null)
-                    ScriptSession.scriptObjects.Add(scriptable);
-            }
         }
     }
 }
