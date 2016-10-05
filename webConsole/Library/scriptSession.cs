@@ -16,7 +16,7 @@ namespace webConsole.Library
     {
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
-        private const string defaultStartUpMessage = @""
+        private const string defaultStartUpMessage = @"webConsole Startup";
         private ScriptEngine engine;
         internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
@@ -34,6 +34,7 @@ namespace webConsole.Library
             dynamic mScope = scope = engine.CreateScope();
             populateScope(ref mScope);
             engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
+            startupMessage = defaultStartUpMessage;
             IEnumerable<Type> startUpClasses = Bootstrapper.getQualifiedTypes(typeof(SessionStartup));
             foreach (Type T in startUpClasses)
                 ((SessionStartup)T.GetConstructor(new Type[0]).Invoke(new dynamic[0])).Startup(this);
@@ -55,6 +56,11 @@ namespace webConsole.Library
                     consoleOut("\r\n");
                 }
             }
+        }
+
+        internal void WriteStartupMessage()
+        {
+            WriteLine(startupMessage);
         }
 
         private void populateScope(ref dynamic ScriptScope)

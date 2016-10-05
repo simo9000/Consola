@@ -23,7 +23,8 @@ module.exports = Backbone.View.extend({
                           </table>\
                           <div class="spaceHolder" style="height:100%"/>'),
 
-    initialize: function () {
+    initialize: function() {
+        var prompt = this;
         this.hub = $.connection.consoleHub;
         this.history = [];
         var console = this;
@@ -32,6 +33,7 @@ module.exports = Backbone.View.extend({
         $.connection.hub.start({ transport: 'longPolling' }).done(function () {
             console.addNewLine();
             console.hubStatus = 'connected';
+            prompt.hub.server.consoleReady();
         });
         this.hub.client.pushOutput = function (text) {
             console.activeCommand.appendText(text,true);

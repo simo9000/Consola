@@ -10,6 +10,14 @@ namespace webConsole
     {
         private static Dictionary<string, ScriptSession> sessions = new Dictionary<string, ScriptSession>();
 
+        private ScriptSession Session
+        {
+            get
+            {
+                return sessions[this.Context.ConnectionId];
+            }
+        }
+
         public override Task OnConnected()
         {
             string id = this.Context.ConnectionId;
@@ -17,6 +25,11 @@ namespace webConsole
             sessions.Add(id, session);
             return base.OnConnected();
         }
+
+        public void consoleReady()
+        {
+            Session.WriteStartupMessage();
+        } 
 
         public override Task OnDisconnected(bool stopCalled)
         {
@@ -26,8 +39,7 @@ namespace webConsole
 
         public void submitCommand(string command)
         {
-            ScriptSession session = sessions[this.Context.ConnectionId];
-            session.executeCommand(command);
+            Session.executeCommand(command);
         }
                 
         public void pushOutput(string line)
