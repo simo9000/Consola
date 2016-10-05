@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using webConsole.Library;
 
-namespace Tests.Scriptables
+namespace Tests
 {
-    class BasicFunctions : IScriptable
+    public class BasicFunctions : Scriptable
     {
-        public ScriptSession session{ get; set; }
+        [Description("Basic name feild")]
+        public string name { get; set; }
 
         public void printMessage()
         {
-            session.WriteLine("Hello World");
+            Session.WriteLine("Hello World");
         }
     }
 }
