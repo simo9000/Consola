@@ -25,19 +25,28 @@ module.exports = Backbone.View.extend({
 
     initialize: function() {
         var prompt = this;
-        this.hub = $.connection.consoleHub;
         this.history = [];
         var console = this;
         this.lineManager = new lineManager();
         this.hubStatus = 'starting';
-        $.connection.hub.start({ transport: 'longPolling' }).done(function () {
-            console.addNewLine();
-            console.hubStatus = 'connected';
-            prompt.hub.server.consoleReady();
+        var scriptLocation = '/APP/output/bundle.js';
+        var signalRLocation = document.querySelector('script[src*="' + scriptLocation + '"]');
+        signalRLocation = signalRLocation.src.replace(scriptLocation,'/signalr/js');
+        $.ajax({
+            url: signalRLocation,
+            dataType: 'script',
+            success: function() {
+                console.hub = $.connection.consoleHub;
+                $.connection.hub.start({ transport: 'longPolling' }).done(function() {
+                    console.addNewLine();
+                    console.hubStatus = 'connected';
+                    prompt.hub.server.consoleReady();
+                });
+                console.hub.client.pushOutput = function(text) {
+                    console.activeCommand.appendText(text, true);
+                };
+            }
         });
-        this.hub.client.pushOutput = function (text) {
-            console.activeCommand.appendText(text,true);
-        };
     },
 
     createNewLine: function () {
