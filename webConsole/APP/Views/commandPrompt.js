@@ -1,6 +1,7 @@
-﻿var underscore = require('underscore');
-//global.jQuery = require('jquery');
-//global.$ = jQuery;
+﻿global.underscore = require('underscore');
+global._ = underscore;
+global.jQuery = require('jquery');
+global.$ = jQuery;
 var Backbone = require('backbone');
 Backbone.$ = $;
 var signalR = require('ms-signalr-client');

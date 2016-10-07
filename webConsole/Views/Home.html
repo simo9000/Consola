@@ -3,6 +3,14 @@
     <head>
         <title>Script Console</title>
         <script src="../APP/output/bundle.js"></script>
+        <script>
+            var commandPrompt = require('commandPrompt');
+            $(document).ready(function() {
+                var prompt = new commandPrompt({});
+                prompt.render();
+                $('body').append(prompt.el);
+            });
+        </script>
         <style>
             .command {
                 resize:none;
