@@ -38,14 +38,14 @@ module.exports = Backbone.View.extend({
             dataType: 'script',
             success: function() {
                 console.hub = $.connection.consoleHub;
+                console.hub.client.pushOutput = function(text) {
+                    console.activeCommand.appendText(text, true);
+                };
                 $.connection.hub.start({ transport: 'longPolling' }).done(function() {
                     console.addNewLine();
                     console.hubStatus = 'connected';
                     prompt.hub.server.consoleReady();
-                });
-                console.hub.client.pushOutput = function(text) {
-                    console.activeCommand.appendText(text, true);
-                };
+                }); 
             }
         });
     },
