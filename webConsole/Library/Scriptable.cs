@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace webConsole.Library
 {
+    /// <summary>
+    /// Classed derived from Scriptable will be loaded as members of the proxy object in the scripting environment.
+    /// </summary>
     public abstract class Scriptable
     {
         private ScriptSession session;
+        /// <summary>
+        /// Reference to the script environment where the derived class is instantiated.
+        /// </summary>
         protected ScriptSession Session
         {
             get { return session; }
@@ -17,6 +23,9 @@ namespace webConsole.Library
 
         internal void setSession(ScriptSession session) { this.session = session; }
 
+        /// <summary>
+        /// Displays the derived class members to the console user.
+        /// </summary>
         [Description("Inherited: Displays info about class memebers")]
         public void show()
         {
@@ -88,21 +97,29 @@ namespace webConsole.Library
         }
     }
 
+    /// <summary>
+    /// Attribute used to display metadata about members of classes derived from Scriptable with show()
+    /// </summary>
     [AttributeUsage (AttributeTargets.Property |
         AttributeTargets.Method | AttributeTargets.Field,
          AllowMultiple = false, Inherited = true)]
     public class Description : Attribute
     {
         private string desc;
+        /// <summary>
+        /// Creates an attribute for the Sciptable derived class member
+        /// </summary>
+        /// <param name="desc">Description to display during show()</param>
         public Description(string desc)
         {
             this.desc = desc; 
         }
-
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public override string ToString()
         {
             return desc;
         }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
-    
+
 }

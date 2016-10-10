@@ -14,6 +14,7 @@ using webConsole.Library;
 
 namespace webConsole
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Bootstrapper : DefaultNancyBootstrapper
     {
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
@@ -48,7 +49,7 @@ namespace webConsole
             
         }
 
-        public static Func<NancyContext, string, Response> embeddedContentHandler = (ctx, rootPath) => {
+        private static Func<NancyContext, string, Response> embeddedContentHandler = (ctx, rootPath) => {
             var pathDir = Path.GetDirectoryName(ctx.Request.Url.Path) ?? string.Empty;
             const string resourcePath = @"\APP";
             if (!pathDir.StartsWith(resourcePath, System.StringComparison.OrdinalIgnoreCase))
@@ -92,7 +93,7 @@ namespace webConsole
                     }
                     return false;
                 }
-                catch (Exception e)
+                catch
                 {
                     return false;
                 }
@@ -104,4 +105,5 @@ namespace webConsole
             });
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

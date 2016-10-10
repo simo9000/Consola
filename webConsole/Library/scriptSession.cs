@@ -12,6 +12,9 @@ using System.Web;
 
 namespace webConsole.Library
 {
+    /// <summary>
+    /// Container class for interfacing with script environment.
+    /// </summary>
     public class ScriptSession
     {
         private const string pythonErrorNameSpace = "IronPython.Runtime";
@@ -20,6 +23,9 @@ namespace webConsole.Library
         private ScriptEngine engine;
         internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
+        /// <summary>
+        /// Message displayed at console start up.
+        /// </summary>
         public string startupMessage { get; set; }
         private ForwardingMemoryStream buffer;
 
@@ -83,6 +89,10 @@ namespace webConsole.Library
                 WriteLine(String.Concat("proxy.",t.Name));
         }
 
+        /// <summary>
+        /// Output text to console.
+        /// </summary>
+        /// <param name="text">Text to output</param>
         public void WriteLine(string text)
         {
             byte[] output = Encoding.Default.GetBytes(text.ToArray<char>());

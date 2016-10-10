@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>webConsole</id>
+    <version>0.1.0</version>
+    <title>webConsole</title>
+    <authors>simo9000</authors>
+    <owners>simo9000</owners>
+    <licenseUrl>https://raw.githubusercontent.com/simo9000/webConsole/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/simo9000/webConsole</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>extendable web based python console</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+  <files>
+    <file src="./bin/Release/webConsole.dll" target="lib\webConsole.dll"/>
+    <file src="./bin/Release/webConsole.XML" target="lib\webConsole.XML"/>
+  </files>
+</package>

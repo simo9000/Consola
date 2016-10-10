@@ -9,6 +9,7 @@ using System.Web;
 
 namespace webConsole
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class IndexModule : NancyModule
     {
         public IndexModule() : base("/Console")
@@ -28,4 +29,5 @@ namespace webConsole
             Get["/test"] = x => View["test"];
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
