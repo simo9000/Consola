@@ -39,22 +39,24 @@ namespace Tests
         public void simplePrintTest()
         {
             IWebElement prompt = browser.FindElementByClassName("command");
+            Thread.Sleep(200);
             prompt.SendKeys("print('test')");
             prompt.SendKeys(Keys.Enter);
-            IWebElement outputLine = browser.FindElementByClassName(getLineClass(2));
+            IWebElement outputLine = browser.FindElementByClassName(getLineClass(3));
             Assert.AreEqual("test", outputLine.Text);
         }
 
         [TestMethod]
         public void simpleMathTest() {
             IWebElement prompt = browser.FindElementByClassName("command");
+            Thread.Sleep(200);
             prompt.SendKeys("i = 1 + 1");
             prompt.SendKeys(Keys.Enter);
-            browser.FindElementByClassName(getLineClass(1));
+            browser.FindElementByClassName(getLineClass(2));
             prompt = browser.FindElementByClassName("command");
             prompt.SendKeys("print(i)");
             prompt.SendKeys(Keys.Enter);
-            IWebElement outputLine = browser.FindElementByClassName(getLineClass(3));
+            IWebElement outputLine = browser.FindElementByClassName(getLineClass(4));
             Assert.AreEqual("2", outputLine.Text);
         }
     }
