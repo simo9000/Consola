@@ -12,9 +12,22 @@
     <description>extendable web based python console</description>
     <releaseNotes>Initial release.</releaseNotes>
     <copyright>Copyright 2016</copyright>
+    <dependencies>
+      <group targetFramework="net452">
+        <dependency id="IronPython" version="2.7.5"/>
+        <dependency id="Microsoft.AspNet.SignalR" version="2.2.1"/>
+        <dependency id="Microsoft.Owin" version="3.0.1" />
+        <dependency id="Nancy" version="1.4.3"/>
+        <dependency id="Owin" version="1.0"/>
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" targetFramework="net40" />
+    </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="./bin/Release/webConsole.dll" target="lib\webConsole.dll"/>
-    <file src="./bin/Release/webConsole.XML" target="lib\webConsole.XML"/>
+    <file src="bin\Release\webConsole.dll" target="lib\net452\"/>
+    <file src="bin\Release\webConsole.XML" target="lib\net452\"/>
   </files>
+  
 </package>
