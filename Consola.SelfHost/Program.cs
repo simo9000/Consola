@@ -3,7 +3,7 @@ using Microsoft.Owin.Hosting;
 using System;
 using System.Net;
 
-namespace webConsole.SelfHost
+namespace Consola.SelfHost
 {
     public class Host
     {

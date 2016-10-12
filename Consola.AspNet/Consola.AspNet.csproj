@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>webConsole.AspNet</RootNamespace>
-    <AssemblyName>webConsole.AspNet</AssemblyName>
+    <RootNamespace>Consola.AspNet</RootNamespace>
+    <AssemblyName>Consola.AspNet</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -99,6 +99,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Consola.AspNet.nuspec" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -117,9 +118,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\webConsole\webConsole.csproj">
+    <ProjectReference Include="..\Consola\Consola.csproj">
       <Project>{ed4b4484-60ba-419e-880c-77e58cf8d6e8}</Project>
-      <Name>webConsole</Name>
+      <Name>Consola</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

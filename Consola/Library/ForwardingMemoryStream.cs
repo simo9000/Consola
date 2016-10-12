@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace webConsole.Library
+namespace Consola.Library
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class ForwardingMemoryStream : MemoryStream

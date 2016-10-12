@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using webConsole.SelfHost;
+using Consola.SelfHost;
 
 namespace Tests
 {
@@ -39,7 +39,6 @@ namespace Tests
         public void simplePrintTest()
         {
             IWebElement prompt = browser.FindElementByClassName("command");
-            Thread.Sleep(200);
             prompt.SendKeys("print('test')");
             prompt.SendKeys(Keys.Enter);
             IWebElement outputLine = browser.FindElementByClassName(getLineClass(3));
@@ -49,7 +48,6 @@ namespace Tests
         [TestMethod]
         public void simpleMathTest() {
             IWebElement prompt = browser.FindElementByClassName("command");
-            Thread.Sleep(200);
             prompt.SendKeys("i = 1 + 1");
             prompt.SendKeys(Keys.Enter);
             browser.FindElementByClassName(getLineClass(2));

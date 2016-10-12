@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace webConsole.Library
+namespace Consola.Library
 {
     interface SessionStartup
     {

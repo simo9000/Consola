@@ -10,9 +10,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using webConsole.Library;
+using Consola.Library;
 
-namespace webConsole
+namespace Consola
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Bootstrapper : DefaultNancyBootstrapper
@@ -22,7 +22,7 @@ namespace webConsole
             base.ConfigureApplicationContainer(container);
             var assembly = GetType().Assembly;
             ResourceViewLocationProvider
-                .RootNamespaces.Add(assembly, "webConsole.Views");
+                .RootNamespaces.Add(assembly, "Consola.Views");
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
@@ -59,10 +59,10 @@ namespace webConsole
             var path = builder.ToString();
             var thisExe = System.Reflection.Assembly.GetExecutingAssembly();
             string[] resources = thisExe.GetManifestResourceNames();
-            string compareName = "webConsole." + path;
+            string compareName = "Consola." + path;
             if (resources.Contains(compareName, StringComparer.CurrentCultureIgnoreCase))
                 return new EmbeddedFileResponse(thisExe,
-                                                "webConsole." + pathDir.Substring(1, pathDir.Length - 1).Replace("\\", "."),
+                                                "Consola." + pathDir.Substring(1, pathDir.Length - 1).Replace("\\", "."),
                                                 Path.GetFileName(ctx.Request.Url.Path));
 
             return null;

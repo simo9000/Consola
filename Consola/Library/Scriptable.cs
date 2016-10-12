@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace webConsole.Library
+namespace Consola.Library
 {
     /// <summary>
     /// Classed derived from Scriptable will be loaded as members of the proxy object in the scripting environment.

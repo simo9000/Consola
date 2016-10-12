@@ -7,8 +7,8 @@
     <ProjectGuid>{EBE6A7B4-AC8A-43A3-BDB5-095749EB0CDA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>webConsole.SelfHost</RootNamespace>
-    <AssemblyName>webConsole.SelfHost</AssemblyName>
+    <RootNamespace>Consola.SelfHost</RootNamespace>
+    <AssemblyName>Consola.SelfHost</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -94,9 +94,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\webConsole\webConsole.csproj">
+    <ProjectReference Include="..\Consola\Consola.csproj">
       <Project>{ed4b4484-60ba-419e-880c-77e58cf8d6e8}</Project>
-      <Name>webConsole</Name>
+      <Name>Consola</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

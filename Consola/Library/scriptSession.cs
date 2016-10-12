@@ -10,7 +10,7 @@ using System.Text;
 using System.Web;
 
 
-namespace webConsole.Library
+namespace Consola.Library
 {
     /// <summary>
     /// Container class for interfacing with script environment.

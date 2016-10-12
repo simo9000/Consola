@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nancy.Hosting.Self;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
-using webConsole.SelfHost;
+using Consola.SelfHost;
 using System.Collections.ObjectModel;
 using System.Text;
 

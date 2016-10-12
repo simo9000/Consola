@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNet.SignalR;
-using webConsole.Library;
+using Consola.Library;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Owin;
 
-namespace webConsole
+namespace Consola
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class ConsoleHub : Hub

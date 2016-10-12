@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-[assembly: OwinStartup(typeof(webConsole.AspNet.Startup))]
+[assembly: OwinStartup(typeof(Consola.AspNet.Startup))]
 
-namespace webConsole.AspNet
+namespace Consola.AspNet
 {
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            webConsole.start.startApp(app);
+            Consola.start.startApp(app);
         }
     }
 }

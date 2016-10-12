@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webConsole.AspNet", "webConsole.AspNet\webConsole.AspNet.csproj", "{8EE3BD16-6CDC-45A6-B0EA-7A553CD15B03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consola.AspNet", "Consola.AspNet\Consola.AspNet.csproj", "{8EE3BD16-6CDC-45A6-B0EA-7A553CD15B03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution_Items", "Solution_Items", "{941246DB-770B-474A-95DC-CDCBFA1900CF}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution_Items", "Solution_
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{52968C3C-7E53-47F6-9461-E050503C5D98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consola.Tests", "Consola.Tests\Consola.Tests.csproj", "{52968C3C-7E53-47F6-9461-E050503C5D98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webConsole.SelfHost", "webConsole.SelfHost\webConsole.SelfHost.csproj", "{EBE6A7B4-AC8A-43A3-BDB5-095749EB0CDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consola.SelfHost", "Consola.SelfHost\Consola.SelfHost.csproj", "{EBE6A7B4-AC8A-43A3-BDB5-095749EB0CDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webConsole", "webConsole\webConsole.csproj", "{ED4B4484-60BA-419E-880C-77E58CF8D6E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consola", "Consola\Consola.csproj", "{ED4B4484-60BA-419E-880C-77E58CF8D6E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

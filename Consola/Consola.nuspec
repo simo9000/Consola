@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>webConsole</id>
+    <id>Consola</id>
     <version>0.1.0</version>
     <title>webConsole</title>
     <authors>simo9000</authors>
     <owners>simo9000</owners>
-    <licenseUrl>https://raw.githubusercontent.com/simo9000/webConsole/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/simo9000/webConsole</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/simo9000/Consola/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/simo9000/Consola</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>extendable web based python console</description>
     <releaseNotes>Initial release.</releaseNotes>
@@ -26,8 +26,7 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="bin\Release\webConsole.dll" target="lib\net452\"/>
-    <file src="bin\Release\webConsole.XML" target="lib\net452\"/>
+    <file src="bin\Release\Consola.dll" target="lib\net452\"/>
+    <file src="bin\Release\Consola.XML" target="lib\net452\"/>
   </files>
-  
 </package>

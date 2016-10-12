@@ -98,13 +98,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\webConsole.SelfHost\webConsole.SelfHost.csproj">
+    <ProjectReference Include="..\Consola.SelfHost\Consola.SelfHost.csproj">
       <Project>{ebe6a7b4-ac8a-43a3-bdb5-095749eb0cda}</Project>
-      <Name>webConsole.SelfHost</Name>
+      <Name>Consola.SelfHost</Name>
     </ProjectReference>
-    <ProjectReference Include="..\webConsole\webConsole.csproj">
+    <ProjectReference Include="..\Consola\Consola.csproj">
       <Project>{ed4b4484-60ba-419e-880c-77e58cf8d6e8}</Project>
-      <Name>webConsole</Name>
+      <Name>Consola</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
