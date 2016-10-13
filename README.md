@@ -1,10 +1,10 @@
-# webConsole
+# Consola
 
 Python console that runs in the server but is controlled from a web client.
 
 # build instructions
 
-Loading in [webConsole.csproj](./webConsole/webConsole.csproj) VSTO 2012 or greater w/[NTVS](https://www.visualstudio.com/vs/node-js/) will automatically install javascript dependencies. If you are not using VSTO or NTVS you'll have to install them manually:
+Loading in [Consola.csproj](./Consola/Consola.csproj) VSTO 2012 or greater w/[NTVS](https://www.visualstudio.com/vs/node-js/) will automatically install javascript dependencies. If you are not using VSTO or NTVS you'll have to install them manually:
 ````
 npm install
 ````
@@ -15,7 +15,7 @@ npm install -g browserify
 npm install -g exorcist
 ````
 
-Compile web client from `/webConsole/APP` build in visual studio or:
+Compile web client from `/Consola/APP` build in visual studio or:
 ````
 browserify app.js --debug | exorcist ./output/bundle.js.map > ./output/bundle.js
 ````

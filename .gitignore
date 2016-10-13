@@ -252,4 +252,4 @@ paket-files/
 *.sln.iml
 
 # Browserify Output
-webConsole/APP/output/
+Consola/APP/output/
