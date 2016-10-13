@@ -19,7 +19,7 @@ namespace Consola.Library
     {
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
-        private const string defaultStartUpMessage = @"webConsole Startup";
+        private const string defaultStartUpMessage = @"Consola Startup";
         private ScriptEngine engine;
         internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
@@ -40,7 +40,7 @@ namespace Consola.Library
             dynamic mScope = scope = engine.CreateScope();
             populateScope(ref mScope);
             engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
-            startupMessage = defaultStartUpMessage;
+            startupMessage = startupMessage ?? defaultStartUpMessage;
             IEnumerable<Type> startUpClasses = Bootstrapper.getQualifiedTypes(typeof(SessionStartup));
             foreach (Type T in startUpClasses)
                 ((SessionStartup)T.GetConstructor(new Type[0]).Invoke(new dynamic[0])).Startup(this);
@@ -66,7 +66,8 @@ namespace Consola.Library
 
         internal void WriteStartupMessage()
         {
-            WriteLine(startupMessage);
+            if (startupMessage != String.Empty)
+                WriteLine(startupMessage);
         }
 
         private void populateScope(ref dynamic ScriptScope)
@@ -74,8 +75,8 @@ namespace Consola.Library
             IDictionary<string, object> proxy = new ExpandoObject();
             foreach (Type t in scriptObjects)
             {
-                ConstructorInfo CI = t.GetConstructor(new Type[0]);
-                Scriptable obj = (Scriptable)CI.Invoke(new dynamic[0]);
+                ConstructorInfo CI = t.GetConstructor(new Type[1] { typeof(ScriptSession) });
+                Scriptable obj = (Scriptable)CI.Invoke(new ScriptSession[1] { this });
                 obj.setSession(this);
                 proxy.Add(obj.GetType().Name, obj);
             }

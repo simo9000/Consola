@@ -74,7 +74,7 @@ namespace Consola
 
             foreach(Type scriptable in scriptables)
             {
-                ConstructorInfo CI = scriptable.GetConstructor(new Type[0]);
+                ConstructorInfo CI = scriptable.GetConstructor(new Type[1] { typeof(ScriptSession) });
                 if (CI != null)
                     ScriptSession.scriptObjects.Add(scriptable);
             }
