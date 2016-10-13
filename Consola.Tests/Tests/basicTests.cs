@@ -38,23 +38,20 @@ namespace Tests
         [TestMethod]
         public void simplePrintTest()
         {
-            IWebElement prompt = browser.FindElementByClassName("command");
-            prompt.SendKeys("print('test')");
-            prompt.SendKeys(Keys.Enter);
-            IWebElement outputLine = browser.FindElementByClassName(getLineClass(3));
+            cout("print('test')");
+            cout(Keys.Enter);
+            IWebElement outputLine = browser.FindElementByClassName(getLineClass(2));
             Assert.AreEqual("test", outputLine.Text);
         }
 
         [TestMethod]
         public void simpleMathTest() {
-            IWebElement prompt = browser.FindElementByClassName("command");
-            prompt.SendKeys("i = 1 + 1");
-            prompt.SendKeys(Keys.Enter);
-            browser.FindElementByClassName(getLineClass(2));
-            prompt = browser.FindElementByClassName("command");
-            prompt.SendKeys("print(i)");
-            prompt.SendKeys(Keys.Enter);
-            IWebElement outputLine = browser.FindElementByClassName(getLineClass(4));
+            cout("i = 1 + 1");
+            cout(Keys.Enter);
+            browser.FindElementByClassName(getLineClass(1));
+            cout("print(i)");
+            cout(Keys.Enter);
+            IWebElement outputLine = browser.FindElementByClassName(getLineClass(3));
             Assert.AreEqual("2", outputLine.Text);
         }
     }

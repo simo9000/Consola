@@ -73,5 +73,10 @@ namespace Tests
             browser = new PhantomJSDriver();
             browser.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 30));
         }
+
+        protected void cout(string text)
+        {
+            browser.FindElementByClassName("command").SendKeys(text);
+        }
     }
 }

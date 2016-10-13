@@ -12,6 +12,11 @@ namespace Tests
         [Description("Basic name feild")]
         public string name { get; set; }
 
+        public BasicFunctions(ScriptSession session)
+        {
+            session.startupMessage = String.Empty;
+        }
+
         public void printMessage()
         {
             Session.WriteLine("Hello World");
