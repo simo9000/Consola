@@ -1,6 +1,6 @@
 {
 	"version": "1.0.0",
-  "name": "webconsole",
+  "name": "consola",
   "private": true,
   "devDependencies": {
     "underscore": "^1.8.3",

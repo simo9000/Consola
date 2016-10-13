@@ -134,6 +134,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>del /Q $(ProjectDir)Scripts
+
 browserify -r $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt --debug | exorcist $(ProjectDir)APP\output\bundle.js.map &gt; $(ProjectDir)APP\output\bundle.js</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

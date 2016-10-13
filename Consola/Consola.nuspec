@@ -3,14 +3,14 @@
   <metadata>
     <id>Consola</id>
     <version>0.1.0</version>
-    <title>webConsole</title>
+    <title>Consola</title>
     <authors>simo9000</authors>
     <owners>simo9000</owners>
     <licenseUrl>https://raw.githubusercontent.com/simo9000/Consola/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/simo9000/Consola</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>extendable web based python console</description>
-    <releaseNotes>Initial release.</releaseNotes>
+    <releaseNotes>Initial Release.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <dependencies>
       <group targetFramework="net452">
