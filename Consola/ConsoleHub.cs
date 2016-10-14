@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.SignalR;
-using Consola.Library;
+﻿using Consola.Library;
+using Microsoft.AspNet.SignalR;
+using Owin;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Owin;
 
 namespace Consola
 {

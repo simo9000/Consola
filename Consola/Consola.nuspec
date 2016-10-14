@@ -16,7 +16,6 @@
       <group targetFramework="net452">
         <dependency id="IronPython" version="2.7.5"/>
         <dependency id="Microsoft.AspNet.SignalR" version="2.2.1"/>
-        <dependency id="Microsoft.Owin" version="3.0.1" />
         <dependency id="Nancy" version="1.4.3"/>
         <dependency id="Owin" version="1.0"/>
       </group>
