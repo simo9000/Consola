@@ -5,12 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConsoleApplication1")]
+[assembly: AssemblyTitle("Consola.SelfHost")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Air Products and Chemicals, Inc.")]
-[assembly: AssemblyProduct("ConsoleApplication1")]
-[assembly: AssemblyCopyright("Copyright © Air Products and Chemicals, Inc. 2016")]
+[assembly: AssemblyProduct("Consola.SelfHost")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
