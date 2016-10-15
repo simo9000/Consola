@@ -12,7 +12,7 @@ using Consola.SelfHost;
 namespace Tests
 {
     [TestClass]
-    public class basicTests : abstractTestClass
+    public class BasicTests : AbstractTests
     {
         [ClassInitialize]
         public static void initialize(TestContext context)

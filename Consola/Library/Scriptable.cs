@@ -80,6 +80,8 @@ namespace Consola.Library
                 foreach(MethodInfo method in methods)
                 {
                     builder.Append('\t');
+                    builder.Append(method.ReturnType.ToString());
+                    builder.Append(' ');
                     builder.Append(method.Name);
                     ParameterInfo[] parameters = method.GetParameters();
                     builder.Append(parameters.Aggregate("(", (accum, param) =>

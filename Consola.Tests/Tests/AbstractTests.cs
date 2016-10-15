@@ -10,7 +10,7 @@ using System.Text;
 namespace Tests
 {
     [TestClass]
-    public abstract class abstractTestClass
+    public abstract class AbstractTests
     {
         protected static PhantomJSDriver browser;
         protected static Uri hostLocation = new Uri("http://localhost:80");
