@@ -30,9 +30,7 @@ module.exports = Backbone.View.extend({
         var console = this;
         this.lineManager = new lineManager();
         this.hubStatus = 'starting';
-        var scriptLocation = '/APP/output/bundle.js';
-        var signalRLocation = document.querySelector('script[src*="' + scriptLocation + '"]');
-        signalRLocation = signalRLocation.src.replace(scriptLocation,'/signalr/js');
+        var signalRLocation = prompt.createHostPath('/signalr/js');
         $.ajax({
             url: signalRLocation,
             dataType: 'script',
@@ -40,6 +38,9 @@ module.exports = Backbone.View.extend({
                 console.hub = $.connection.consoleHub;
                 console.hub.client.pushOutput = function(text) {
                     console.activeCommand.appendText(text, true);
+                };
+                console.hub.client.initiateDownload = function(key) {
+                    window.location.href = prompt.createHostPath('/Download/' + key);
                 };
                 $.connection.hub.start({ transport: 'longPolling' }).done(function() {
                     console.addNewLine();
@@ -70,5 +71,11 @@ module.exports = Backbone.View.extend({
         this.activeCommand.render();
         this.$el.find('tbody').append(this.activeCommand.$el);
         this.activeCommand.focus();
+    },
+
+    createHostPath: function (path) {
+        var scriptLocation = '/APP/output/bundle.js';
+        var signalRLocation = document.querySelector('script[src*="' + scriptLocation + '"]');
+        return signalRLocation.src.replace(scriptLocation,path);
     }
 });

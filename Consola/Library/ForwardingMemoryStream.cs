@@ -8,7 +8,7 @@ using System.Web;
 namespace Consola.Library
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public class ForwardingMemoryStream : MemoryStream
+    internal class ForwardingMemoryStream : MemoryStream
     {
         public Action<string> writeEvent;
 
@@ -18,7 +18,6 @@ namespace Consola.Library
             string result = Encoding.Default.GetString(buffer.Take(count).ToArray());
             writeEvent(result);
         }
-
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

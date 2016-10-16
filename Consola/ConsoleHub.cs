@@ -22,21 +22,22 @@ namespace Consola
         public override Task OnConnected()
         {
             string id = this.Context.ConnectionId;
-            ScriptSession session = new ScriptSession(pushOutput);
+            ScriptSession session = new ScriptSession(pushOutput,initiateDownload);
             sessions.Add(id, session);
             return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            sessions[this.Context.ConnectionId].clearDownloads();
+            sessions.Remove(this.Context.ConnectionId);
+            return base.OnDisconnected(stopCalled);
         }
 
         public void consoleReady()
         {
             Session.WriteStartupMessage();
-        } 
-
-        public override Task OnDisconnected(bool stopCalled)
-        {
-            sessions.Remove(this.Context.ConnectionId);
-            return base.OnDisconnected(stopCalled);
-        }
+        }       
 
         public void submitCommand(string command)
         {
@@ -46,6 +47,11 @@ namespace Consola
         public void pushOutput(string line)
         {
             Clients.Caller.pushOutput(line);
+        }
+
+        public void initiateDownload(string key)
+        {
+            Clients.Caller.initiateDownload(key);
         }
     }
 

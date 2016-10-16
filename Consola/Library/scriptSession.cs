@@ -21,6 +21,7 @@ namespace Consola.Library
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private const string defaultStartUpMessage = @"Consola Startup";
         private ScriptEngine engine;
+        private List<Guid> downloadKeys;
         internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
         /// <summary>
@@ -29,11 +30,12 @@ namespace Consola.Library
         public string startupMessage { get; set; }
         private ForwardingMemoryStream buffer;
 
-        private Action<string> consoleOut;
+        private Action<string> consoleOut, download;
 
-        internal ScriptSession(Action<string> outputMethod)
+        internal ScriptSession(Action<string> outputMethod, Action<string> downloadMethod)
         {
-            this.consoleOut = outputMethod;
+            consoleOut = outputMethod;
+            download = downloadMethod;
             engine = Python.CreateEngine();
             buffer = new ForwardingMemoryStream();
             buffer.writeEvent = consoleOut;
@@ -100,6 +102,20 @@ namespace Consola.Library
             buffer.Write(output, 0, output.Length);
             output = Encoding.Default.GetBytes(Environment.NewLine.ToArray<char>());
             buffer.Write(output, 0, output.Length);
+        }
+
+        public void pushDownload(Download item)
+        {
+            downloadKeys.Add(item.Key);
+            string key = item.Key.ToString();
+            IndexModule.Downloads.Add(key, item);
+            download(key);
+        }
+
+        internal void clearDownloads()
+        {
+            foreach (Guid key in downloadKeys)
+                IndexModule.Downloads.Remove(key.ToString());
         }
     }
 
