@@ -88,7 +88,7 @@ namespace Consola.Tests
 
         private void cout(string text)
         {
-            browser.FindElementByClassName("command").SendKeys(text);
+            browser.FindElementByClassName("consolaCommand").SendKeys(text);
         }
 
         private string getLineText(int lineNumber)

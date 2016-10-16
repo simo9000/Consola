@@ -1,0 +1,22 @@
+﻿ .consolaCommand {
+    resize:none;
+    width:100%;
+    border-style:none;
+
+}
+.consolaCommand:focus {
+    outline: none;
+}
+.consola {
+    width:100%;
+    border-collapse: collapse;
+    font-family: Consolas;
+}
+.consola tr {
+    display: flex;
+    align-items: stretch;
+}
+.consola td:last-child {
+    flex: 1;
+    display:inline-block;
+}

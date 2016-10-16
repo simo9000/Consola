@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend({
 
     tagName: 'div',
 
-    template: _.template('<table>\
+    template: _.template('<table class="consola">\
                             <thead>\
                             </thead>\
                             <tbody>\

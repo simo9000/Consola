@@ -16,12 +16,12 @@ module.exports = Backbone.View.extend({
     },
 
     events: {
-        "keyup .command": "keyUp",
-        "keydown .command": "keyDown"
+        "keyup .consolaCommand": "keyUp",
+        "keydown .consolaCommand": "keyDown"
     },
 
-    emptyTemplate: _.template('<td class="promptSymbol" style="font-size:17px;color:white;"><%= prompt %></td>\
-                          <td><textarea spellcheck="false" class="command" style="font-size:15px;color:white;background-color:black;" rows="1"></textarea></td>'),
+    emptyTemplate: _.template('<td class="consolaPromptSymbol" style="font-size:17px;color:white;"><%= prompt %></td>\
+                          <td><textarea spellcheck="false" class="consolaCommand" style="font-size:15px;color:white;background-color:black;" rows="1"></textarea></td>'),
 
     keyDown: function(e){
         if (e.keyCode == TAB_KEY) {
@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
             //http://stackoverflow.com/questions/6637341/use-tab-to-indent-in-textarea
             //http://jsfiddle.net/jz6J5/
             //Adapted for Backbone.js
-            var textArea = this.$el.find('.command');
+            var textArea = this.$el.find('.consolaCommand');
             var start = textArea.get(0).selectionStart;
             var end = textArea.get(0).selectionEnd;
 
@@ -50,7 +50,7 @@ module.exports = Backbone.View.extend({
             view.addNewLine(true);
         }
         else {
-            var textArea = this.$el.find('.command');
+            var textArea = this.$el.find('.consolaCommand');
             var line = textArea.val();
             var numberOfLines = this.numberOfLines(line);
             textArea.attr('rows', numberOfLines);
@@ -59,14 +59,14 @@ module.exports = Backbone.View.extend({
 
     addNewLine: function (submit) {
         var view = this;
-        var line = this.$el.find('.command').val();
+        var line = this.$el.find('.consolaCommand').val();
         var lines = line.split(/\n/g);
         if (lines[lines.length - 1] == '') lines.pop();
         lines = _.map(lines, function (l) {
             return view.lineManager.createFinishedLine(l);
         });
         if (!submit)
-            view.$el.find('.promptSymbol').text('');
+            view.$el.find('.consolaPromptSymbol').text('');
         view.$el.find('textarea').replaceWith(lines);
         if (submit) {
             view.lineManager.appendCommand(line);
@@ -85,7 +85,7 @@ module.exports = Backbone.View.extend({
     },
 
     focus: function () {
-        this.$el.find('.command').focus();
+        this.$el.find('.consolaCommand').focus();
     },
 
     numberOfLines: function(line){
@@ -97,10 +97,10 @@ module.exports = Backbone.View.extend({
         if (text == crlf && isExternal)
             this.addNewLine(false);
         else
-            this.$el.find('.command').append(text);
+            this.$el.find('.consolaCommand').append(text);
     },
 
     replaceText: function (text) {
-        this.$el.find('.command').text(text);
+        this.$el.find('.consolaCommand').text(text);
     }
 });

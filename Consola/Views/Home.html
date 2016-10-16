@@ -3,6 +3,7 @@
     <head>
         <title>Script Console</title>
         <script src="../APP/output/bundle.js"></script>
+        <link href="../APP/Consola.css" rel="stylesheet" />
         <script>
             var commandPrompt = require('commandPrompt');
             $(document).ready(function() {
@@ -11,31 +12,6 @@
                 $('body').append(prompt.el);
             });
         </script>
-        <style>
-            .command {
-                resize:none;
-                width:100%;
-                border-style:none;
-
-            }
-            .command:focus {
-                outline: none;
-            }
-            table {
-                width:100%;
-                border-collapse: collapse;
-                font-family: Consolas;
-            }
-            tr {
-                display: flex;
-                align-items: stretch;
-            }
-            td:last-child {
-                flex: 1;
-                display:inline-block;
-            }
-
-        </style>
     </head>
     <body style="background-color:black; margin:0; min-height:100%">
     </body>
