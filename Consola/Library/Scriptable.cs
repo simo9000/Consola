@@ -26,7 +26,7 @@ namespace Consola.Library
         /// <summary>
         /// Displays the derived class members to the console user.
         /// </summary>
-        [Description("Inherited: Displays info about class memebers")]
+        [Description("Inherited: Displays info about class members")]
         public void show()
         {
             Type type = this.GetType();
