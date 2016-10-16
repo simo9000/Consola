@@ -9,14 +9,15 @@ namespace Tests
 {
     public class BasicFunctions : Scriptable
     {
-        [Description("Basic name feild")]
-        public string name { get; set; }
+        [Description("Basic Name field")]
+        public string Name { get; set; }
 
         public BasicFunctions(ScriptSession session)
         {
             session.startupMessage = String.Empty;
         }
 
+        [Description("Prints Hello World")]
         public void printMessage()
         {
             Session.WriteLine("Hello World");

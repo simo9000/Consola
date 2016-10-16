@@ -1,33 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Consola.SelfHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Consola.SelfHost;
 
-namespace Tests
+
+namespace Consola.Tests
 {
-    [TestClass]
-    public class BasicTests : AbstractTests
+    public partial class Tests
     {
-        [ClassInitialize]
-        public static void initialize(TestContext context)
-        {
-            startServer();
-            startBrowser();
-        }
-
-        [ClassCleanup]
-        public static void tearDown()
-        {
-            Host.stop();
-            browser.Close();
-        }
-
         [TestMethod]
         public void pageLoadTest()
         {
@@ -40,19 +20,21 @@ namespace Tests
         {
             cout("print('test')");
             cout(Keys.Enter);
-            IWebElement outputLine = browser.FindElementByClassName(getLineClass(2));
-            Assert.AreEqual("test", outputLine.Text);
+
+            Assert.AreEqual("test", getLineText(2));
         }
 
         [TestMethod]
         public void simpleMathTest() {
             cout("i = 1 + 1");
             cout(Keys.Enter);
+
             browser.FindElementByClassName(getLineClass(1));
+
             cout("print(i)");
             cout(Keys.Enter);
-            IWebElement outputLine = browser.FindElementByClassName(getLineClass(3));
-            Assert.AreEqual("2", outputLine.Text);
+
+            Assert.AreEqual("2", getLineText(3));
         }
     }
 }

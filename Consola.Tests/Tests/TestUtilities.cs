@@ -7,15 +7,27 @@ using Consola.SelfHost;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace Tests
+namespace Consola.Tests
 {
     [TestClass]
-    public abstract class AbstractTests
+    public partial class Tests
     {
-        protected static PhantomJSDriver browser;
-        protected static Uri hostLocation = new Uri("http://localhost:80");
+        private static PhantomJSDriver browser;
+        private static Uri hostLocation = new Uri("http://localhost:80");
 
-        
+        [ClassInitialize]
+        public static void initialize(TestContext context)
+        {
+            startServer();
+            startBrowser();
+        }
+
+        [ClassCleanup]
+        public static void tearDown()
+        {
+            Host.stop();
+            browser.Close();
+        }
 
         [TestInitialize]
         public void test_start()
@@ -23,23 +35,23 @@ namespace Tests
             browser.Navigate().GoToUrl(hostLocation + "Console");
         }
 
-        protected static ReadOnlyCollection<LogEntry> jsErrors
+        private ReadOnlyCollection<LogEntry> jsErrors
         {
             get { return getErrors(LogType.Browser); }
         }
 
-        protected static ReadOnlyCollection<LogEntry> header
+        private ReadOnlyCollection<LogEntry> header
         {
             get { return getErrors("har"); }
         }
 
-        private static ReadOnlyCollection<LogEntry> getErrors(string type)
+        private ReadOnlyCollection<LogEntry> getErrors(string type)
         {
             ILogs logs = browser.Manage().Logs;
             return logs.GetLog(type);
         }
 
-        protected string genMessage(string message)
+        private string genMessage(string message)
         {
             return String.Format("{0}. {1}", message, getJSErrors());
         }
@@ -58,25 +70,30 @@ namespace Tests
             return String.Empty;
         }
 
-        protected string getLineClass(int lineNumber)
+        private string getLineClass(int lineNumber)
         {
             return String.Format("LN{0}", lineNumber);
         }
 
-        protected static void startServer()
+        private static void startServer()
         {
             Host.start();           
         }
 
-        protected static void startBrowser()
+        private static void startBrowser()
         {
             browser = new PhantomJSDriver();
             browser.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 30));
         }
 
-        protected void cout(string text)
+        private void cout(string text)
         {
             browser.FindElementByClassName("command").SendKeys(text);
+        }
+
+        private string getLineText(int lineNumber)
+        {
+            return browser.FindElementByClassName(getLineClass(lineNumber)).Text;
         }
     }
 }
