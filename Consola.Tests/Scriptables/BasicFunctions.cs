@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Consola.Library;
+using System.IO;
 
 namespace Tests
 {
@@ -21,6 +22,15 @@ namespace Tests
         public void printMessage()
         {
             Session.WriteLine("Hello World");
+        }
+
+        [Description("Downloadfile")]
+        public void download(string content)
+        {
+            MemoryStream stream = new MemoryStream();
+            byte[] data = Encoding.Default.GetBytes(content);
+            stream.Write(data, 0, data.Length);
+            Session.pushDownload(new Download("test.txt", stream, "text/plain"));
         }
     }
 }
