@@ -7,6 +7,7 @@ Backbone.$ = $;
 var signalR = require('ms-signalr-client');
 var commandLine = require('./commandLine');
 var lineManager = require('../lineManager');
+require('jquery-file-download');
 
 module.exports = Backbone.View.extend({
 
@@ -40,7 +41,11 @@ module.exports = Backbone.View.extend({
                     console.activeCommand.appendText(text, true);
                 };
                 console.hub.client.initiateDownload = function(key) {
-                    window.location.href = prompt.createHostPath('/Download/' + key);
+                    $.fileDownload(prompt.createHostPath('/Console/Download/' + key), {
+                        successCallback: function(url) {
+                            console.hub.server.confirmDownload(key);
+                        }
+                    });
                 };
                 $.connection.hub.start({ transport: 'longPolling' }).done(function() {
                     console.addNewLine();

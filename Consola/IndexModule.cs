@@ -1,5 +1,6 @@
 ﻿using Consola.Library;
 using Nancy;
+using Nancy.Cookies;
 using Nancy.Responses;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Consola
         {
             Get["/"] = parameters =>
             {
-                return View["Home"];
+                return View["Home"].WithCookie(new NancyCookie("fileDownload", "true"));
             };
 
             Get["/Download/{Key}"] = parameters =>

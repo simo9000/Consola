@@ -21,7 +21,7 @@ namespace Consola.Library
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private const string defaultStartUpMessage = @"Consola Startup";
         private ScriptEngine engine;
-        private List<Guid> downloadKeys;
+        private List<Guid> downloadKeys = new List<Guid>();
         internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
         /// <summary>
@@ -112,10 +112,9 @@ namespace Consola.Library
             download(key);
         }
 
-        internal void clearDownloads()
+        internal void removeDownload(string key)
         {
-            foreach (Guid key in downloadKeys)
-                IndexModule.Downloads.Remove(key.ToString());
+            IndexModule.Downloads.Remove(key);
         }
     }
 

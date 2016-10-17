@@ -29,7 +29,6 @@ namespace Consola
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            sessions[this.Context.ConnectionId].clearDownloads();
             sessions.Remove(this.Context.ConnectionId);
             return base.OnDisconnected(stopCalled);
         }
@@ -52,6 +51,11 @@ namespace Consola
         public void initiateDownload(string key)
         {
             Clients.Caller.initiateDownload(key);
+        }
+
+        public void confirmDownload(string key)
+        {
+            sessions[this.Context.ConnectionId].removeDownload(key);
         }
     }
 
