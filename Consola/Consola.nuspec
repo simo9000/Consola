@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Consola</id>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <title>Consola</title>
     <authors>simo9000</authors>
     <owners>simo9000</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/simo9000/Consola</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>extendable web based python console</description>
-    <releaseNotes>Initial Release.</releaseNotes>
+    <releaseNotes>Added download function to Scriptable objects, moved CSS to seperate embedded CSS file</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <dependencies>
       <group targetFramework="net452">
