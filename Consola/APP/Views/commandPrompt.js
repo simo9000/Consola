@@ -31,11 +31,24 @@ module.exports = Backbone.View.extend({
         var console = this;
         this.lineManager = new lineManager();
         this.hubStatus = 'starting';
-        var signalRLocation = prompt.createHostPath('/signalr/js');
-        $.ajax({
-            url: signalRLocation,
-            dataType: 'script',
-            success: function() {
+        var asyncLoad = Promise.all([new Promise(function(resolve, reject) {
+            var signalRLocation = prompt.createHostPath('/signalr/js');
+            $.ajax({
+                url: signalRLocation,
+                dataType: 'script',
+                success: resolve
+            });
+        }), new Promise(function(resolve, reject){
+            var cssLocation = prompt.createHostPath('/APP/Consola.css');
+            $.ajax({
+                url: cssLocation,
+                dataType: 'text',
+                success: function(data) {
+                    $('<style type="text/css">\n' + data + '</style>').appendTo("head");
+                    resolve();
+                }
+            });
+        })]).then( function() {
                 console.hub = $.connection.consoleHub;
                 console.hub.client.pushOutput = function(text) {
                     console.activeCommand.appendText(text, true);
@@ -52,8 +65,7 @@ module.exports = Backbone.View.extend({
                     console.hubStatus = 'connected';
                     prompt.hub.server.consoleReady();
                 }); 
-            }
-        });
+       });
     },
 
     createNewLine: function () {
