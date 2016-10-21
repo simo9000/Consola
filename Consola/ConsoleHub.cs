@@ -63,7 +63,7 @@ namespace Consola
     {
         public static void startApp(IAppBuilder app)
         {
-            app.MapSignalR();
+            app.MapSignalR(new HubConfiguration { EnableJSONP = true });
         }
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

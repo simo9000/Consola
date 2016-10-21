@@ -31,15 +31,15 @@ module.exports = Backbone.View.extend({
         var console = this;
         this.lineManager = new lineManager();
         this.hubStatus = 'starting';
+        var signalRLocation = prompt.createHostPath('/signalr/js');
         var asyncLoad = Promise.all([new Promise(function(resolve, reject) {
-            var signalRLocation = prompt.createHostPath('/signalr/js');
             $.ajax({
                 url: signalRLocation,
                 dataType: 'script',
                 success: resolve
             });
         }), new Promise(function(resolve, reject){
-            var cssLocation = prompt.createHostPath('/APP/Consola.css');
+            var cssLocation = prompt.createHostPath('/app/Consola.css');
             $.ajax({
                 url: cssLocation,
                 dataType: 'text',
@@ -60,7 +60,8 @@ module.exports = Backbone.View.extend({
                         }
                     });
                 };
-                $.connection.hub.start({ transport: 'longPolling' }).done(function() {
+                $.connection.hub.url = signalRLocation;
+                $.connection.hub.start({ transport: 'longPolling', jsonp:true }).done(function() {
                     console.addNewLine();
                     console.hubStatus = 'connected';
                     prompt.hub.server.consoleReady();
@@ -91,7 +92,7 @@ module.exports = Backbone.View.extend({
     },
 
     createHostPath: function (path) {
-        var scriptLocation = '/APP/output/bundle.js';
+        var scriptLocation = '/app/output/bundle.js';
         var signalRLocation = document.querySelector('script[src*="' + scriptLocation + '"]');
         return signalRLocation.src.replace(scriptLocation,path);
     }

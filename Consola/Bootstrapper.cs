@@ -46,7 +46,13 @@ namespace Consola
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", @"/fonts"));
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("templates", @"/templates"));
             loadScriptObjects();
-            
+
+            pipelines.AfterRequest.AddItemToEndOfPipeline((ctx) =>
+            {
+                ctx.Response.WithHeader("Access-Control-Allow-Origin", "http://*")
+                            .WithHeader("Access-Control-Allow-Methods", "GET")
+                            .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type");
+            });
         }
 
         private static Func<NancyContext, string, Response> embeddedContentHandler = (ctx, rootPath) => {
@@ -61,9 +67,14 @@ namespace Consola
             string[] resources = thisExe.GetManifestResourceNames();
             string compareName = "Consola." + path;
             if (resources.Contains(compareName, StringComparer.CurrentCultureIgnoreCase))
-                return new EmbeddedFileResponse(thisExe,
+            {
+                Response response = new EmbeddedFileResponse(thisExe,
                                                 "Consola." + pathDir.Substring(1, pathDir.Length - 1).Replace("\\", "."),
                                                 Path.GetFileName(ctx.Request.Url.Path));
+                return response.WithHeader("Access-Control-Allow-Origin", "*")
+                               .WithHeader("Access-Control-Allow-Methods", "GET")
+                               .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type");
+            }
 
             return null;
         };
