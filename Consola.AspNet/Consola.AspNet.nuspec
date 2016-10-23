@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Consola.AspNet</id>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <title>Consola.AspNet</title>
     <authors>simo9000</authors>
     <owners>simo9000</owners>
@@ -15,7 +15,7 @@
     <dependencies>
       <group targetFramework="net452">
         <dependency id="Nancy.Hosting.Aspnet" version="1.4.1"/>
-        <dependency id="Consola" version="0.1.0"/>
+        <dependency id="Consola" version="0.1.2"/>
         <dependency id="Microsoft.Owin.Host.SystemWeb" version ="2.1.0"/>
       </group>
     </dependencies>
