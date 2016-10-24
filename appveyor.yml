@@ -2,8 +2,10 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node 
   # install modules
-  - npm install
   - npm install browserify -g
+  - cd Consola
+  - npm install
+  - cd ..
   - nuget restore
 
 # Post-install test scripts.
