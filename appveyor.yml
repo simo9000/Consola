@@ -4,6 +4,7 @@ install:
   # install modules
   - npm install
   - npm install browserify -g
+  - nuget restore
 
 # Post-install test scripts.
 test_script:
