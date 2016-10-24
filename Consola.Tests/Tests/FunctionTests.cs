@@ -14,10 +14,11 @@ namespace Consola.Tests
             cout(Keys.Enter);
             
             Assert.AreEqual("proxy.BasicFunctions", getLineText(2));
+            Assert.AreEqual("proxy.CreatorFunctions", getLineText(3));
         }
 
         [TestMethod]
-        public void BasicTests_showTest()
+        public void BasicFunctions_showTest()
         {
             cout("proxy.BasicFunctions.show()");
             cout(Keys.Enter);
@@ -32,7 +33,7 @@ namespace Consola.Tests
         }
 
         [TestMethod]
-        public void BasicTests_getSetName()
+        public void BasicFunctions_getSetName()
         {
             cout("proxy.BasicFunctions.Name = 'steve'");
             cout(Keys.Enter);
@@ -44,12 +45,26 @@ namespace Consola.Tests
         }
 
         [TestMethod]
-        public void BasicTests_printMessage()
+        public void BasicFunctions_printMessage()
         {
             cout("proxy.BasicFunctions.printMessage()");
             cout(Keys.Enter);
 
             Assert.AreEqual("Hello World", getLineText(2));
+        }
+
+        [TestMethod]
+        public void CreatorFunctions_CreateProgeny()
+        {
+            cout("progeny = proxy.CreatorFunctions.CreateProgeny()");
+            cout(Keys.Enter);
+            Thread.Sleep(500); // needed to allow for script env state change
+            cout("progeny.show()");
+            cout(Keys.Enter);
+            Assert.AreEqual("Progeny:", getLineText(3));
+            Assert.AreEqual("--------------", getLineText(4));
+            Assert.AreEqual("Properties:", getLineText(5));
+            Assert.AreEqual(" Name (System.String) Simple Name field", getLineText(6));
         }
     }
 }

@@ -13,15 +13,31 @@ namespace Consola.Library
     public abstract class Scriptable
     {
         private ScriptSession session;
+        private readonly TypeLoadException uninitializedException = new TypeLoadException("Scriptable types that do not contain the appropriate constructor must be initialized by Scriptable.initialize before calling show, initializing other Scriptables or otherwise accessing the session.");
         /// <summary>
         /// Reference to the script environment where the derived class is instantiated.
         /// </summary>
         protected ScriptSession Session
         {
-            get { return session; }
+            get {
+                if (session == null)
+                    throw uninitializedException;
+                return session;
+            }
         }
 
         internal void setSession(ScriptSession session) { this.session = session; }
+
+        /// <summary>
+        /// Method used to initialize Scriptable derived classes generated from derived methods
+        /// </summary>
+        /// <param name="child">Progeny Scriptable instance</param>
+        protected void initialize(Scriptable child)
+        {
+            if (session == null)
+                throw uninitializedException;
+            child.setSession(session);
+        }
 
         /// <summary>
         /// Displays the derived class members to the console user.
@@ -29,6 +45,8 @@ namespace Consola.Library
         [Description("Inherited: Displays info about class members")]
         public void show()
         {
+            if (session == null)
+                throw uninitializedException;
             Type type = this.GetType();
             StringBuilder builder = new StringBuilder(type.Name);
             builder.Append(":");
