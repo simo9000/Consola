@@ -3,7 +3,7 @@ install:
   - ps: Install-Product node 
   # install modules
   - npm install
-  - npm install broswerify -g
+  - npm install browserify -g
 
 # Post-install test scripts.
 test_script:
