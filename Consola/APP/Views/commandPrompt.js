@@ -8,6 +8,7 @@ var signalR = require('ms-signalr-client');
 var commandLine = require('./commandLine');
 var lineManager = require('../lineManager');
 require('jquery-file-download');
+var Promise = require('promise');
 
 module.exports = Backbone.View.extend({
 

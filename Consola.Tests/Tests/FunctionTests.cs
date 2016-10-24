@@ -29,7 +29,8 @@ namespace Consola.Tests
             Assert.AreEqual(" Name (System.String) Basic Name field", getLineText(5));
             Assert.AreEqual("Methods:", getLineText(6));
             Assert.AreEqual(" System.Void printMessage() Prints Hello World", getLineText(7));
-            Assert.AreEqual(" System.Void show() Inherited: Displays info about class members", getLineText(8));
+            Assert.AreEqual(" System.Void download(System.String content) Downloads file", getLineText(8));
+            Assert.AreEqual(" System.Void show() Inherited: Displays info about class members", getLineText(9));
         }
 
         [TestMethod]

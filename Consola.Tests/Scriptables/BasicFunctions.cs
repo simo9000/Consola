@@ -24,7 +24,7 @@ namespace Tests
             Session.WriteLine("Hello World");
         }
 
-        [Description("Downloadfile")]
+        [Description("Downloads file")]
         public void download(string content)
         {
             MemoryStream stream = new MemoryStream();
