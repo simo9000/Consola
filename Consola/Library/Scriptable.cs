@@ -86,7 +86,7 @@ namespace Consola.Library
                     ParameterInfo[] parameters = method.GetParameters();
                     builder.Append(parameters.Aggregate("(", (accum, param) =>
                      {
-                         return String.Format("{0}{1} {2}{3}", accum, param.GetType().ToString(), 
+                         return String.Format("{0}{1} {2}{3}", accum, param.ParameterType.ToString(), 
                                               param.Name, param != parameters.Last() ? "," : String.Empty);
                      }));
                     builder.Append(") ");
