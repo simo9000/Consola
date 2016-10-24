@@ -63,9 +63,9 @@ namespace Consola.Tests
             cout("progeny.show()");
             cout(Keys.Enter);
             Assert.AreEqual("Progeny:", getLineText(3));
-            Assert.AreEqual("--------------", getLineText(4));
+            Assert.AreEqual("-------", getLineText(4));
             Assert.AreEqual("Properties:", getLineText(5));
-            Assert.AreEqual(" Name (System.String) Simple Name field", getLineText(6));
+            Assert.AreEqual(" Name (System.String) Simple Name Field", getLineText(6));
         }
     }
 }
