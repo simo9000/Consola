@@ -26,4 +26,5 @@ build:
   project: Consola.sln
 
 test:
-  - '**\*.Tests.dll'
+  assemblies:
+	- '**\*.Tests.dll'
