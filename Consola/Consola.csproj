@@ -145,7 +145,7 @@ browserify -r $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt --debug | ex
 ) ELSE ( 
 
 
-browserify $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt -o $(ProjectDir)APP\output\bundle.js
+browserify -r $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt -o $(ProjectDir)APP\output\bundle.js
 )
 </PreBuildEvent>
   </PropertyGroup>
