@@ -136,7 +136,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
+    <PreBuildEvent>mkdir $(ProjectDir)APP\output\
 IF "$(ConfigurationName)" == "Debug" (
 
 
