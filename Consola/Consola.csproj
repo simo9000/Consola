@@ -117,7 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="APP\output\bundle.js.map" />
     <Content Include="APP\lineManager.js" />
     <EmbeddedResource Include="APP\Consola.css" />
     <Content Include="package.json" />
