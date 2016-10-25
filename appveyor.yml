@@ -6,6 +6,7 @@ install:
   - nuget restore
   - cd Consola
   - npm install
+  - cd ..
 
 # Post-install test scripts.
 test_script:
