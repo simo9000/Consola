@@ -3,9 +3,9 @@ install:
   - ps: Install-Product node 
   # install modules
   - npm install browserify -g
+  - nuget restore
   - cd Consola
   - npm install
-  - nuget restore
 
 # Post-install test scripts.
 test_script:
