@@ -3,7 +3,7 @@ install:
   - ps: Install-Product node 
   # install modules
   - npm install browserify -g
-  - cd Conola
+  - cd Consola
   - npm install
   - nuget restore
 
