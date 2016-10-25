@@ -15,8 +15,15 @@ test_script:
   - npm --version
   # run tests
 
-configuration: Release
+configuration: 
+  - Release
+  - Debug
+
+matrix:
+  fast_finish: true
 
 build:
   project: Consola.sln
 
+test:
+  - '**\*.Tests.dll'

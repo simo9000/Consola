@@ -125,6 +125,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <EmbeddedResource Include="APP\output\bundle.js.map" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="APP\Global.js" />
     <Content Include="APP\Views\commandLine.js" />
