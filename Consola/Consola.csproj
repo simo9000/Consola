@@ -135,19 +135,20 @@
     <EmbeddedResource Include="APP\output\bundle.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PreBuildEvent>
+  <PropertyGroup>
+    <PreBuildEvent>
+$(ConfigurationName) == "Debug" (
 
-      browserify -r $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt --debug | exorcist $(ProjectDir)APP\output\bundle.js.map &gt; $(ProjectDir)APP\output\bundle.js
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PreBuildEvent>
+
 
 browserify -r $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt --debug | exorcist $(ProjectDir)APP\output\bundle.js.map &gt; $(ProjectDir)APP\output\bundle.js
-    </PreBuildEvent>
+) ELSE ( 
+
+
+browserify $(ProjectDir)APP\Views\commandPrompt.js:commandPrompt -o $(ProjectDir)APP\output\bundle.js
+)
+</PreBuildEvent>
   </PropertyGroup>
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
