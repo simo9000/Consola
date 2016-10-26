@@ -1,5 +1,7 @@
 # Consola
 
+[![Build status](https://ci.appveyor.com/api/projects/status/0eq02srptldmm5pu?svg=true)](https://ci.appveyor.com/project/simo9000/consola)
+
 Python console that runs in the server but is controlled from a web client.
 
 # build instructions
