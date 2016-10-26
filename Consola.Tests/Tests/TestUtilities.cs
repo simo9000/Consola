@@ -27,6 +27,7 @@ namespace Consola.Tests
         {
             Host.stop();
             browser.Close();
+            browser.Dispose();
         }
 
         [TestInitialize]
