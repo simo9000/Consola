@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Consola.Library;
 using System.IO;
+using System.Text;
+
+using Consola.Library;
+using Consola.Library.util;
 
 namespace Tests
 {
