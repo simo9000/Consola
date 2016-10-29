@@ -1,14 +1,11 @@
-﻿using Consola.Library;
+﻿using System.Collections.Generic;
+
+using Consola.Library.util;
 using Nancy;
 using Nancy.Cookies;
 using Nancy.Responses;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+
+
 
 namespace Consola
 {

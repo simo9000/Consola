@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Consola.Library
+namespace Consola.Library.util
 {
     /// <summary>
     /// Container for download metadata and stream

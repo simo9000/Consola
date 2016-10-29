@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 
-namespace Consola.Library
+namespace Consola.Library.util
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     internal class ForwardingMemoryStream : MemoryStream

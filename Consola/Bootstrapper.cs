@@ -1,16 +1,17 @@
-﻿using Nancy;
-using Nancy.Bootstrapper;
-using Nancy.Conventions;
-using Nancy.Responses;
-using Nancy.TinyIoc;
-using Nancy.ViewEngines;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using Consola.Library;
+
+using Nancy;
+using Nancy.Bootstrapper;
+using Nancy.Conventions;
+using Nancy.Responses;
+using Nancy.TinyIoc;
+using Nancy.ViewEngines;
 
 namespace Consola
 {
