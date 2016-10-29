@@ -29,15 +29,14 @@ namespace Consola.Library
         public string startupMessage { get; set; }
         private ForwardingMemoryStream buffer;
 
-        private Action<string> consoleOut, download;
+        private HubCallbacks client;
 
-        internal ScriptSession(Action<string> outputMethod, Action<string> downloadMethod)
+        internal ScriptSession(HubCallbacks callbacks)
         {
-            consoleOut = outputMethod;
-            download = downloadMethod;
+            this.client = callbacks;    
             engine = Python.CreateEngine();
             buffer = new ForwardingMemoryStream();
-            buffer.writeEvent = consoleOut;
+            buffer.writeEvent = callbacks.output;
             dynamic mScope = scope = engine.CreateScope();
             populateScope(ref mScope);
             engine.Runtime.IO.SetOutput(buffer, Encoding.Default);
@@ -59,8 +58,8 @@ namespace Consola.Library
                 if (exceptionType.Namespace.Contains(scriptErrorNameSpace) 
                     || exceptionType.Namespace.Contains(pythonErrorNameSpace))
                 {
-                    consoleOut(e.Message);
-                    consoleOut("\r\n");
+                    client.output(e.Message);
+                    client.output("\r\n");
                 }
             }
         }
@@ -111,7 +110,7 @@ namespace Consola.Library
         {
             string key = item.Key.ToString();
             IndexModule.Downloads.Add(key, item);
-            download(key);
+            client.download(key);
         }
 
         internal void removeDownload(string key)

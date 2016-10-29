@@ -100,6 +100,11 @@ module.exports = Backbone.View.extend({
             this.$el.find('.consolaCommand').append(text);
     },
 
+    appendHtml: function(html){
+        var element = $(html);
+        this.$el.find('.consolaCommand').append(element);
+    },
+
     replaceText: function (text) {
         this.$el.find('.consolaCommand').text(text);
     }

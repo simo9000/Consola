@@ -1,6 +1,7 @@
 ﻿using Consola.Library;
 using Microsoft.AspNet.SignalR;
 using Owin;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,7 +23,12 @@ namespace Consola
         public override Task OnConnected()
         {
             string id = this.Context.ConnectionId;
-            ScriptSession session = new ScriptSession(pushOutput,initiateDownload);
+            ScriptSession session = new ScriptSession(new HubCallbacks
+            {
+                output = pushOutput,
+                download = initiateDownload,
+                outputHtml = pushHtmlOutput
+            });
             sessions.Add(id, session);
             return base.OnConnected();
         }
@@ -48,6 +54,11 @@ namespace Consola
             Clients.Caller.pushOutput(line);
         }
 
+        public void pushHtmlOutput(string line)
+        {
+            Clients.Caller.pushHtmlOutput(line);
+        }
+
         public void initiateDownload(string key)
         {
             Clients.Caller.initiateDownload(key);
@@ -65,6 +76,13 @@ namespace Consola
         {
             app.MapSignalR(new HubConfiguration { EnableJSONP = true });
         }
+    }
+
+    internal struct HubCallbacks
+    {
+        internal Action<string> output;
+        internal Action<string> download;
+        internal Action<string> outputHtml;
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
