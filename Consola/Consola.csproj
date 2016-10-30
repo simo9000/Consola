@@ -108,11 +108,13 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ConsoleHub.cs" />
     <Compile Include="IndexModule.cs" />
+    <Compile Include="Library\util\DescriptionAttribute.cs" />
     <Compile Include="Library\util\Download.cs" />
     <Compile Include="Library\util\ForwardingMemoryStream.cs" />
     <Compile Include="Library\Scriptable.cs" />
     <Compile Include="Library\scriptSession.cs" />
     <Compile Include="Library\SessionStartup.cs" />
+    <Compile Include="Library\util\HiddenAttribute.cs" />
     <Compile Include="Library\util\Outputline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
