@@ -9,6 +9,19 @@ namespace Tests
 {
     public class BasicFunctions : Scriptable
     {
+        #region hidden
+        // these members should not apper in show()
+        [Hidden]
+        public int hiddenField; 
+
+        [Hidden]
+        public int hiddenProperty; 
+
+        [Hidden]
+        public void hiddenMethod() { }
+
+        #endregion
+
         [Description("Basic Name field")]
         public string Name { get; set; }
 
