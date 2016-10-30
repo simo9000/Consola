@@ -57,7 +57,7 @@ namespace Consola.Library.util
             return Append(String.Format(colorTemplate, color, text));
         }
 
-        private const string linkTemplate = "<a href=\"{0}\">{1}</a>";
+        private const string linkTemplate = "<a href=\"{0}\" target=\"_blank\">{1}</a>";
         public Outputline AppendLink(string url, string text = null)
         {
             if (text == null) text = url;
