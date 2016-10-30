@@ -1,7 +1,10 @@
-﻿using Consola.SelfHost;
+﻿using System.Text;
+using System.Threading;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using System.Threading;
+using System;
+using System.Linq;
 
 namespace Consola.Tests
 {
@@ -22,15 +25,20 @@ namespace Consola.Tests
         {
             cout("proxy.BasicFunctions.show()");
             cout(Keys.Enter);
-
-            Assert.AreEqual("BasicFunctions:", getLineText(2));
-            Assert.AreEqual("--------------", getLineText(3));
-            Assert.AreEqual("Properties:", getLineText(4));
-            Assert.AreEqual(" Name (System.String) Basic Name field", getLineText(5));
-            Assert.AreEqual("Methods:", getLineText(6));
-            Assert.AreEqual(" System.Void printMessage() Prints Hello World", getLineText(7));
+            string expectation = 
+@"BasicFunctions:
+--------------
+Properties:
+    Name String Basic Name field
+Methods:
+    Void printMessage() Prints Hello World
+    Void download(String content) Downloads file
+    Void show() Inherited: Displays info about class members";
+            var result = getLineText(2);
+            Assert.AreEqual(expectation, result);
+            /*Assert.AreEqual(" System.Void printMessage() Prints Hello World", getLineText(7));
             Assert.AreEqual(" System.Void download(System.String content) Downloads file", getLineText(8));
-            Assert.AreEqual(" System.Void show() Inherited: Displays info about class members", getLineText(9));
+            Assert.AreEqual(" System.Void show() Inherited: Displays info about class members", getLineText(9));*/
         }
 
         [TestMethod]
@@ -62,10 +70,16 @@ namespace Consola.Tests
             Thread.Sleep(500); // needed to allow for script env state change
             cout("progeny.show()");
             cout(Keys.Enter);
-            Assert.AreEqual("Progeny:", getLineText(3));
-            Assert.AreEqual("-------", getLineText(4));
-            Assert.AreEqual("Properties:", getLineText(5));
-            Assert.AreEqual(" Name (System.String) Simple Name Field", getLineText(6));
+            var expected = 
+@"Progeny:
+-------
+Properties:
+    Name String Simple Name Field
+Methods:
+    Void show() Inherited: Displays info about class members";
+            var result = getLineText(3);
+            Assert.AreEqual(expected, result);
+
         }
     }
 }

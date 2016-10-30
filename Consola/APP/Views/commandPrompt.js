@@ -55,7 +55,7 @@ module.exports = Backbone.View.extend({
                     console.activeCommand.appendText(text, true);
                 };
                 console.hub.client.pushHtmlOutput = function(html) {
-                    console.activeCommand.appendHTML(text);
+                    console.activeCommand.appendHTML(html);
                 };
                 console.hub.client.initiateDownload = function(key) {
                     $.fileDownload(prompt.createHostPath('/Console/Download/' + key), {

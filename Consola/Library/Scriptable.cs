@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
+using Consola.Library.util;
+
 namespace Consola.Library
 {
     /// <summary>
@@ -11,6 +13,10 @@ namespace Consola.Library
     /// </summary>
     public abstract class Scriptable
     {
+        protected string TYPECOLOR = "#00ffcc";
+        protected string COMMENTCOLOR = "#336600";
+        protected string PRIMATIVECOLOR = "#3333ff";
+        protected readonly string TAB = string.Concat(Enumerable.Repeat("&nbsp;", 4));
         private ScriptSession session;
         private readonly TypeLoadException uninitializedException = new TypeLoadException("Scriptable types that do not contain the appropriate constructor must be initialized by Scriptable.initialize before calling show, initializing other Scriptables or otherwise accessing the session.");
         /// <summary>
@@ -47,38 +53,39 @@ namespace Consola.Library
             if (session == null)
                 throw uninitializedException;
             Type type = this.GetType();
-            StringBuilder builder = new StringBuilder(type.Name);
-            builder.Append(":");
-            builder.Append(Environment.NewLine);
-            builder.Append(new String('-', type.Name.Count()));
-            builder.Append(Environment.NewLine);
+            Outputline builder = new Outputline();
+            builder.AppendColor(type.Name, TYPECOLOR);
+            builder.Append(":").Append(Environment.NewLine);
+            builder.Append(new String('-', type.Name.Count())).Append(Environment.NewLine);
             IEnumerable<FieldInfo> fields = this.GetType().GetFields().Where((FI) => FI.IsPublic);
             if (fields.Count() > 0)
             {
-                builder.Append("Fields:");
-                builder.Append(Environment.NewLine);
+                builder.Append("Fields:").Append(Environment.NewLine);
                 foreach(FieldInfo field in fields)
                 {
-                    builder.Append('\t');
-                    builder.Append(field.Name);
-                    builder.Append(String.Format(" ({0}) ", field.FieldType.ToString()));
+                    builder.Append(TAB)
+                           .Append(field.Name)
+                           .Append(' ')
+                           .AppendColor(field.FieldType.Name, isPrimative(field.FieldType) ? PRIMATIVECOLOR : TYPECOLOR);
                     Attribute descriptionAttribute = field.GetCustomAttribute(typeof(Description));
-                    builder.Append(descriptionAttribute == null ? String.Empty : descriptionAttribute.ToString());
+                    if (descriptionAttribute != null)
+                        builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
                     builder.Append(Environment.NewLine);
                 }
             }
             IEnumerable<PropertyInfo> properties = this.GetType().GetProperties();
             if (properties.Count() > 0)
             {
-                builder.Append("Properties:");
-                builder.Append(Environment.NewLine);
+                builder.Append("Properties:").Append(Environment.NewLine);
                 foreach (PropertyInfo property in properties)
                 {
-                    builder.Append('\t');
-                    builder.Append(property.Name);
-                    builder.Append(String.Format(" ({0}) ", property.PropertyType.ToString()));
+                    builder.Append(TAB)
+                           .Append(property.Name)
+                           .Append(' ')
+                           .AppendColor(property.PropertyType.Name, isPrimative(property.PropertyType) ? PRIMATIVECOLOR : TYPECOLOR);
                     Attribute descriptionAttribute = property.GetCustomAttribute(typeof(Description));
-                    builder.Append(descriptionAttribute == null ? String.Empty : descriptionAttribute.ToString());
+                    if (descriptionAttribute != null)
+                        builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
                     builder.Append(Environment.NewLine);
                 }
             }
@@ -92,27 +99,36 @@ namespace Consola.Library
                                                                                     );
             if (methods.Count() > 0)
             {
-                builder.Append("Methods:");
-                builder.Append(Environment.NewLine);
+                builder.Append("Methods:").Append(Environment.NewLine);
                 foreach(MethodInfo method in methods)
                 {
-                    builder.Append('\t');
-                    builder.Append(method.ReturnType.ToString());
-                    builder.Append(' ');
-                    builder.Append(method.Name);
+                    builder.Append(TAB)
+                           .AppendColor(method.ReturnType.Name, isPrimative(method.ReturnType) ? PRIMATIVECOLOR : TYPECOLOR)
+                           .Append(' ')
+                           .Append(method.Name);
                     ParameterInfo[] parameters = method.GetParameters();
-                    builder.Append(parameters.Aggregate("(", (accum, param) =>
+                    builder.Append(parameters.Aggregate(new Outputline("("), (accum, param) =>
                      {
-                         return String.Format("{0}{1} {2}{3}", accum, param.ParameterType.ToString(), 
-                                              param.Name, param != parameters.Last() ? "," : String.Empty);
+                         accum.AppendColor(param.ParameterType.Name, isPrimative(param.ParameterType) ? PRIMATIVECOLOR : TYPECOLOR)
+                              .Append(' ')
+                              .Append(param.Name);
+                         if (param != parameters.Last())
+                            accum.Append(',');
+                         return accum;
                      }));
                     builder.Append(") ");
                     Attribute descriptionAttribute = method.GetCustomAttribute(typeof(Description));
-                    builder.Append(descriptionAttribute == null ? String.Empty : descriptionAttribute.ToString());
+                    if (descriptionAttribute != null)
+                        builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
                     builder.Append(Environment.NewLine);
                 }
             }
-            this.Session.WriteLine(builder.ToString());
+            this.Session.WriteLine(builder);
+        }
+
+        private bool isPrimative(Type type)
+        {
+            return type.IsPrimitive || type == typeof(string) || type == typeof(Decimal) || type == typeof(void);
         }
     }
 

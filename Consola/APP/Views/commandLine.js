@@ -100,9 +100,13 @@ module.exports = Backbone.View.extend({
             this.$el.find('.consolaCommand').append(text);
     },
 
-    appendHtml: function(html){
-        var element = $(html);
-        this.$el.find('.consolaCommand').append(element);
+    appendHTML: function(html) {
+        var view = this;
+        var element = $('<div style="color:white;">' + html + '</div>');
+        element = view.lineManager.createFinishedHtmlLine(element);
+        view.$el.find('.consolaPromptSymbol').text('');
+        view.$el.find('textarea').replaceWith(element);
+        view.trigger('newLine', null);
     },
 
     replaceText: function (text) {

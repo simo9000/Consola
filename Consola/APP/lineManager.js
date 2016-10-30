@@ -14,6 +14,12 @@ module.exports = function lineManager() {
         }).render().$el;
     },
 
+    this.createFinishedHtmlLine = function(element) {
+        lines++;
+        element.addClass('LN' + lines);
+        return element;
+    },
+
     this.appendCommand = function(command) {
         command = command.slice(0, command.length - 1);
         commands.push(command);

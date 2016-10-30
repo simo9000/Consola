@@ -103,6 +103,11 @@ namespace Consola.Library
             buffer.Write(output, 0, output.Length);
         }
 
+        public void WriteLine(Outputline line)
+        {
+            client.outputHtml(line.generateString());
+        }
+
         /// <summary>
         /// Initiates a download to client
         /// </summary>
