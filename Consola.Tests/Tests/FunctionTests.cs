@@ -25,20 +25,16 @@ namespace Consola.Tests
         {
             cout("proxy.BasicFunctions.show()");
             cout(Keys.Enter);
-            string expectation = 
-@"BasicFunctions:
---------------
-Properties:
-    Name String Basic Name field
-Methods:
-    Void printMessage() Prints Hello World
-    Void download(String content) Downloads file
-    Void show() Inherited: Displays info about class members";
+            string expectation = @"BasicFunctions:
+                                   --------------
+                                   Properties:
+                                       Name String Basic Name field
+                                   Methods:
+                                       Void printMessage() Prints Hello World
+                                       Void download(String content) Downloads file
+                                       Void show() Inherited: Displays info about class members";
             var result = getLineText(2);
-            Assert.AreEqual(expectation, result);
-            /*Assert.AreEqual(" System.Void printMessage() Prints Hello World", getLineText(7));
-            Assert.AreEqual(" System.Void download(System.String content) Downloads file", getLineText(8));
-            Assert.AreEqual(" System.Void show() Inherited: Displays info about class members", getLineText(9));*/
+            showCompare(expectation, result);
         }
 
         [TestMethod]
@@ -70,15 +66,14 @@ Methods:
             Thread.Sleep(500); // needed to allow for script env state change
             cout("progeny.show()");
             cout(Keys.Enter);
-            var expected = 
-@"Progeny:
--------
-Properties:
-    Name String Simple Name Field
-Methods:
-    Void show() Inherited: Displays info about class members";
+            var expected = @"Progeny:
+                             -------
+                             Properties:
+                                 Name String Simple Name Field
+                             Methods:
+                                 Void show() Inherited: Displays info about class members";
             var result = getLineText(3);
-            Assert.AreEqual(expected, result);
+            showCompare(expected, result);
 
         }
     }

@@ -6,6 +6,7 @@ using OpenQA.Selenium.PhantomJS;
 using Consola.SelfHost;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Consola.Tests
 {
@@ -95,6 +96,19 @@ namespace Consola.Tests
         private string getLineText(int lineNumber)
         {
             return browser.FindElementByClassName(getLineClass(lineNumber)).Text;
+        }
+
+        private void showCompare(string expected, string actual)
+        {
+            string newlineRegex = "\r\n|\r|\n";
+            string[] expectedLines = Regex.Split(expected, newlineRegex );
+            string[] actualLines = Regex.Split(actual, newlineRegex );
+            Assert.AreEqual(expectedLines.Length, actualLines.Length);
+            int lineCount = expectedLines.Length;
+            for(int i = 0; i < lineCount; i++)
+            {
+                Assert.AreEqual(expectedLines[i].Trim(), actualLines[i].Trim());
+            }
         }
     }
 }
