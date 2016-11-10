@@ -1,6 +1,6 @@
-﻿using Consola.SelfHost;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using System;
 using System.Collections.ObjectModel;
 
 

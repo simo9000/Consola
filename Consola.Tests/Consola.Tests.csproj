@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Scriptables\CreatorFunctions.cs" />
     <Compile Include="Scriptables\Progeny.cs" />
+    <Compile Include="Tests\HistoryTests.cs" />
     <Compile Include="Tests\TestUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scriptables\BasicFunctions.cs" />
