@@ -36,11 +36,12 @@ namespace Consola.Library
         /// Method used to initialize Scriptable derived classes generated from derived methods
         /// </summary>
         /// <param name="child">Progeny Scriptable instance</param>
-        protected void initialize(Scriptable child)
+        protected Scriptable initialize(Scriptable child)
         {
             if (session == null)
                 throw uninitializedException;
             child.setSession(session);
+            return child;
         }
 
         /// <summary>
