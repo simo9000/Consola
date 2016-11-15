@@ -22,7 +22,7 @@ module.exports = function lineManager() {
     },
 
     this.appendCommand = function(command) {
-        command = command.slice(0, command.length - 1);
+        command = command.slice(0, command.length);
         commands.push(command);
         currentCommand = commands.length;
     },

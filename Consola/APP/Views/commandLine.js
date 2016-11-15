@@ -41,6 +41,9 @@ module.exports = Backbone.View.extend({
             textArea.get(0).selectionStart =
             textArea.get(0).selectionEnd = start + 1;
         }
+        else if (e.keyCode == ENTER_KEY && !e.shiftKey) {
+            e.preventDefault();
+        }
     },
 
     keyUp: function (e) {
