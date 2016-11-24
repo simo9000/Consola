@@ -14,7 +14,6 @@ namespace Consola.Tests
             {
                 cout(String.Format("i = {0}", i));
                 cout(Keys.Enter);
-                browser.FindElementByClassName(getLineClass(i));
             };
 
             for (int i = 1; i < 4; i++) set(i);

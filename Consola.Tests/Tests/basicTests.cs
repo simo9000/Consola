@@ -28,9 +28,6 @@ namespace Consola.Tests
         public void simpleMathTest() {
             cout("i = 1 + 1");
             cout(Keys.Enter);
-
-            browser.FindElementByClassName(getLineClass(1));
-
             cout("print(i)");
             cout(Keys.Enter);
 

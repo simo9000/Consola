@@ -42,7 +42,6 @@ namespace Consola.Tests
         {
             cout("proxy.BasicFunctions.Name = 'steve'");
             cout(Keys.Enter);
-            Thread.Sleep(500); // needed to allow for script env state change
             cout("print(proxy.BasicFunctions.Name)");
             cout(Keys.Enter);
 
@@ -63,7 +62,6 @@ namespace Consola.Tests
         {
             cout("progeny = proxy.CreatorFunctions.CreateProgeny()");
             cout(Keys.Enter);
-            Thread.Sleep(500); // needed to allow for script env state change
             cout("progeny.show()");
             cout(Keys.Enter);
             var expected = @"Progeny:
