@@ -12,6 +12,7 @@ module.exports = Backbone.View.extend({
         this.prompt = "$>";
         this.hub = e.hub;
         this.lineManager = e.lineManager;
+        this.active = true;
     },
 
     events: {
@@ -86,7 +87,7 @@ module.exports = Backbone.View.extend({
             view.lineManager.appendCommand(line);
             view.hub.server.submitCommand(line);
         }
-        view.trigger('newLine',submit ? line : null);
+        this.active = false;
     },
 
     render: function () {

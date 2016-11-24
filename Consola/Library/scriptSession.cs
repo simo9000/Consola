@@ -63,12 +63,18 @@ namespace Consola.Library
                     client.output("\r\n");
                 }
             }
+            finally
+            {
+                client.returnControl();
+            }
         }
 
-        internal void WriteStartupMessage()
+        internal bool WriteStartupMessage()
         {
-            if (startupMessage != String.Empty)
+            bool hasMessage = startupMessage != String.Empty;
+            if (hasMessage)
                 WriteLine(startupMessage);
+            return hasMessage;
         }
 
         private void populateScope(ref dynamic ScriptScope)

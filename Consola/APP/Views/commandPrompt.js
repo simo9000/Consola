@@ -52,9 +52,13 @@ module.exports = Backbone.View.extend({
         })]).then( function() {
                 console.hub = $.connection.consoleHub;
                 console.hub.client.pushOutput = function(text) {
+                    if (!console.activeCommand.active)
+                        console.addNewLine();
                     console.activeCommand.appendText(text, true);
                 };
                 console.hub.client.pushHtmlOutput = function(html) {
+                    if (!console.activeCommand.active)
+                        console.addNewLine();
                     console.activeCommand.appendHTML(html);
                 };
                 console.hub.client.initiateDownload = function(key) {
@@ -64,6 +68,9 @@ module.exports = Backbone.View.extend({
                         }
                     });
                 };
+                console.hub.client.newLine = function() {
+                    prompt.addNewLine();
+                }
                 $.connection.hub.url = signalRLocation;
                 $.connection.hub.start({ transport: 'longPolling', jsonp:true }).done(function() {
                     console.addNewLine();
@@ -79,7 +86,6 @@ module.exports = Backbone.View.extend({
             hub: this.hub,
             lineManager: this.lineManager
         });
-        this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
     },
 
     render: function () {

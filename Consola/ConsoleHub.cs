@@ -28,7 +28,8 @@ namespace Consola
             {
                 output = pushOutput,
                 download = initiateDownload,
-                outputHtml = pushHtmlOutput
+                outputHtml = pushHtmlOutput,
+                returnControl = returnControl
             });
             sessions.Add(id, session);
             return base.OnConnected();
@@ -42,7 +43,8 @@ namespace Consola
 
         public void consoleReady()
         {
-            Session.WriteStartupMessage();
+            if (Session.WriteStartupMessage())
+                returnControl();
         }       
 
         public void submitCommand(string command)
@@ -58,6 +60,11 @@ namespace Consola
         public void pushHtmlOutput(string line)
         {
             Clients.Caller.pushHtmlOutput(line);
+        }
+
+        public void returnControl()
+        {
+            Clients.Caller.newLine();
         }
 
         public void initiateDownload(string key)
@@ -84,6 +91,7 @@ namespace Consola
         internal Action<string> output;
         internal Action<string> download;
         internal Action<string> outputHtml;
+        internal Action returnControl;
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
