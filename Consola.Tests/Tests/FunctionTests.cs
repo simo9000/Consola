@@ -5,6 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
 using System.Linq;
+using System.IO;
+using System.Net;
 
 namespace Consola.Tests
 {
@@ -58,6 +60,21 @@ namespace Consola.Tests
         }
 
         [TestMethod]
+        public void BasicFunctions_downloadTextFile()
+        {
+            String oracle = "Test";
+            browser.ExecuteScript("prompt.testDownload = true;");
+            cout(String.Format("proxy.BasicFunctions.download(\"{0}\")",oracle));
+            cout(Keys.Enter);
+            using (WebResponse response = DownloadFile())
+            using(StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                String Contents = reader.ReadToEnd();
+                Assert.AreEqual(oracle, Contents);
+            }
+        }
+
+        [TestMethod]
         public void CreatorFunctions_CreateProgeny()
         {
             cout("progeny = proxy.CreatorFunctions.CreateProgeny()");
@@ -74,5 +91,7 @@ namespace Consola.Tests
             showCompare(expected, result);
 
         }
+
+       
     }
 }

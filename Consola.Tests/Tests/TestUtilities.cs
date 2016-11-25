@@ -7,6 +7,8 @@ using Consola.SelfHost;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Net;
 
 namespace Consola.Tests
 {
@@ -109,6 +111,13 @@ namespace Consola.Tests
             {
                 Assert.AreEqual(expectedLines[i].Trim(), actualLines[i].Trim());
             }
+        }
+
+        private WebResponse DownloadFile()
+        {
+            string url = browser.FindElementByTagName("iframe").GetAttribute("src");
+            WebRequest request = HttpWebRequest.Create(url);
+            return request.GetResponse();
         }
     }
 }

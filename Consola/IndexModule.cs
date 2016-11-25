@@ -22,6 +22,8 @@ namespace Consola
 
             Get["/Download/{Key}"] = parameters =>
             {
+                if (this.Request.Headers.UserAgent.Contains("PhantomJS"))
+                    return 200;
                 string key = (string)parameters.Key;
                 Download item = Downloads[key];
                 StreamResponse response = new StreamResponse(() => item.Content, item.MimeType);

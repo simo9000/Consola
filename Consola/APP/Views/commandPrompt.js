@@ -30,6 +30,7 @@ module.exports = Backbone.View.extend({
         var prompt = this;
         this.history = [];
         var console = this;
+        this.testDownload = false;
         this.lineManager = new lineManager();
         this.hubStatus = 'starting';
         var signalRLocation = prompt.createHostPath('/signalr/js');
@@ -62,11 +63,16 @@ module.exports = Backbone.View.extend({
                     console.activeCommand.appendHTML(html);
                 };
                 console.hub.client.initiateDownload = function(key) {
-                    $.fileDownload(prompt.createHostPath('/Console/Download/' + key), {
-                        successCallback: function(url) {
-                            console.hub.server.confirmDownload(key);
-                        }
-                    });
+                    var downloadPath = prompt.createHostPath('/Console/Download/' + key);
+                    if (!prompt.testDownload)
+                        $.fileDownload(downloadPath, {
+                            successCallback: function(url) {
+                                console.hub.server.confirmDownload(key);
+                            }
+                        });
+                    else {
+                        $('body').append('<iframe src="' + downloadPath + '"></iframe>');
+                    }
                 };
                 console.hub.client.newLine = function() {
                     prompt.addNewLine();
