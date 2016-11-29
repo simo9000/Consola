@@ -96,6 +96,7 @@ module.exports = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.template({}));
+        this.$el.css('background-color', 'black');
         this.$el.css('height', '100vh');
         this.$el.css('width', '100vw');
     },
