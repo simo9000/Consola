@@ -109,6 +109,10 @@ namespace Consola.Library
             buffer.Write(output, 0, output.Length);
         }
 
+        /// <summary>
+        /// Output links and colored text
+        /// </summary>
+        /// <param name="line">Outputline to console</param>
         public void WriteLine(Outputline line)
         {
             client.outputHtml(line.generateString());
