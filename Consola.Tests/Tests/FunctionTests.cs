@@ -74,6 +74,13 @@ namespace Consola.Tests
             }
         }
 
+        private string expectedProgenyShow = @"Progeny:
+                                               -------
+                                               Properties:
+                                                    Name String Simple Name Field
+                                               Methods:
+                                                    Void show() Inherited: Displays info about class members";
+
         [TestMethod]
         public void CreatorFunctions_CreateProgeny()
         {
@@ -92,6 +99,14 @@ namespace Consola.Tests
 
         }
 
+        [TestMethod]
+        public void CreatorFunctions_LazyCreateProgeny()
+        {
+            cout("proxy.CreatorFunctions.LazyProgeny.show()");
+            cout(Keys.Enter);
+            var result = getLineText(2);
+            showCompare(expectedProgenyShow, result);
+        }
        
     }
 }

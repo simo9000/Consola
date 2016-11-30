@@ -17,6 +17,7 @@ namespace Consola.Library
         protected string PRIMATIVECOLOR = "#3333ff";
         protected readonly string TAB = string.Concat(Enumerable.Repeat("&nbsp;", 4));
         private ScriptSession session;
+        private List<Action> lazyInitialize = new List<Action>();
         private readonly TypeLoadException uninitializedException = new TypeLoadException("Scriptable types that do not contain the appropriate constructor must be initialized by Scriptable.initialize before calling show, initializing other Scriptables or otherwise accessing the session.");
         /// <summary>
         /// Reference to the script environment where the derived class is instantiated.
@@ -30,7 +31,10 @@ namespace Consola.Library
             }
         }
 
-        internal void setSession(ScriptSession session) { this.session = session; }
+        internal void setSession(ScriptSession session) {
+            this.session = session;
+            lazyInitialize.ForEach(a => a());
+        }
 
         /// <summary>
         /// Method used to initialize Scriptable derived classes generated from derived methods
@@ -39,7 +43,7 @@ namespace Consola.Library
         protected Scriptable initialize(Scriptable child)
         {
             if (session == null)
-                throw uninitializedException;
+                lazyInitialize.Add(() => child.setSession(session));
             child.setSession(session);
             return child;
         }
