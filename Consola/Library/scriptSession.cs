@@ -44,7 +44,11 @@ namespace Consola.Library
             startupMessage = startupMessage ?? defaultStartUpMessage;
             IEnumerable<Type> startUpClasses = Bootstrapper.getQualifiedTypes(typeof(SessionStartup));
             foreach (Type T in startUpClasses)
-                ((SessionStartup)T.GetConstructor(new Type[0]).Invoke(new dynamic[0])).Startup(this);
+            {
+                ConstructorInfo CI = (T.GetConstructor(new Type[0]));
+                if (CI != null) 
+                    ((SessionStartup)CI.Invoke(new dynamic[0])).Startup(this);
+            }
         }
 
         internal void executeCommand(string command)

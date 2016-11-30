@@ -112,7 +112,7 @@ namespace Consola
             }).SelectMany((assembly) =>
             {
                 return assembly.ExportedTypes.Where((t) => {
-                    return T.IsAssignableFrom(t);
+                    return T.IsAssignableFrom(t) && !T.IsInterface;
                 });
             });
         }
