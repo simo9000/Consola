@@ -10,12 +10,12 @@
     <projectUrl>https://github.com/simo9000/Consola</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>AspNet host for Consola (extendable web based python console)</description>
-    <releaseNotes>Updated to require Consola 0.1.4</releaseNotes>
+    <releaseNotes>Updated to require Consola 0.1.5</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <dependencies>
       <group targetFramework="net452">
         <dependency id="Nancy.Hosting.Aspnet" version="1.4.1"/>
-        <dependency id="Consola" version="0.1.4"/>
+        <dependency id="Consola" version="0.1.5"/>
         <dependency id="Microsoft.Owin.Host.SystemWeb" version ="2.1.0"/>
       </group>
     </dependencies>
