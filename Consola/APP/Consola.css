@@ -2,7 +2,6 @@
     resize:none;
     width:100%;
     border-style:none;
-
 }
 .consolaCommand:focus {
     outline: none;
@@ -11,6 +10,8 @@
     width:100%;
     border-collapse: collapse;
     font-family: Consolas;
+    background-color:black;
+    height:100vh;
 }
 .consola tr {
     display: flex;

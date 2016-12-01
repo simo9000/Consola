@@ -23,8 +23,7 @@ module.exports = Backbone.View.extend({
                             </thead>\
                             <tbody>\
                             </tbody>\
-                          </table>\
-                          <div class="spaceHolder" style="height:100%"/>'),
+                          </table>'),
 
     initialize: function() {
         var prompt = this;
@@ -96,9 +95,6 @@ module.exports = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.template({}));
-        this.$el.css('background-color', 'black');
-        this.$el.css('height', '100vh');
-        this.$el.css('width', '100vw');
     },
 
     addNewLine: function () {

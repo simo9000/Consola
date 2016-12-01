@@ -11,7 +11,7 @@ namespace Consola.Tests
         [TestMethod]
         public void pageLoadTest()
         {
-            ReadOnlyCollection<IWebElement> promptLines = browser.FindElementsByClassName("spaceHolder");
+            ReadOnlyCollection<IWebElement> promptLines = browser.FindElementsByClassName("consola");
             Assert.IsTrue(promptLines.Count == 1, genMessage("Prompt not found"));
         }
 
