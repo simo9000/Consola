@@ -15,7 +15,7 @@ namespace Tests
         public int hiddenField; 
 
         [Hidden]
-        public int hiddenProperty; 
+        public int hiddenProperty { get; set; }
 
         [Hidden]
         public void hiddenMethod() { }

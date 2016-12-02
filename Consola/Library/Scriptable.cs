@@ -18,6 +18,7 @@ namespace Consola.Library
         protected readonly string TAB = string.Concat(Enumerable.Repeat("&nbsp;", 4));
         private ScriptSession session;
         private List<Action> lazyInitialize = new List<Action>();
+        private Func<MethodInfo, Type, bool> indcludeMethod = (MI, type) => MI.IsPublic && !MI.IsSpecialName && (MI.DeclaringType == type || MI.DeclaringType == typeof(Scriptable));
         private readonly TypeLoadException uninitializedException = new TypeLoadException("Scriptable types that do not contain the appropriate constructor must be initialized by Scriptable.initialize before calling show, initializing other Scriptables or otherwise accessing the session.");
         /// <summary>
         /// Reference to the script environment where the derived class is instantiated.
@@ -56,12 +57,14 @@ namespace Consola.Library
         {
             if (session == null)
                 throw uninitializedException;
-            Type type = this.GetType();
+            Type type = GetType();
             Outputline builder = new Outputline();
             builder.AppendColor(type.Name, TYPECOLOR);
             builder.Append(":").Append(Environment.NewLine);
             builder.Append(new String('-', type.Name.Count())).Append(Environment.NewLine);
-            IEnumerable<FieldInfo> fields = this.GetType().GetFields().Where(FI => FI.IsPublic && FI.GetCustomAttribute(typeof(Hidden)) == null);
+            IEnumerable<FieldInfo> fields = type.GetFields();
+            IEnumerable<FieldInfo> hiddenFields = getHiddenMembers(type, (_type) => _type.GetFields());
+            fields = fields.Except(hiddenFields, new MemberComparer<FieldInfo>());
             if (fields.Count() > 0)
             {
                 builder.Append("Fields:").Append(Environment.NewLine);
@@ -77,7 +80,9 @@ namespace Consola.Library
                     builder.Append(Environment.NewLine);
                 }
             }
-            IEnumerable<PropertyInfo> properties = this.GetType().GetProperties().Where(PI => PI.GetCustomAttribute(typeof(Hidden)) == null);
+            IEnumerable<PropertyInfo> properties = type.GetProperties();
+            IEnumerable<PropertyInfo> hiddenProperties = getHiddenMembers(type, (_type) => _type.GetProperties());
+            properties = properties.Except(hiddenProperties, new MemberComparer<PropertyInfo>());
             if (properties.Count() > 0)
             {
                 builder.Append("Properties:").Append(Environment.NewLine);
@@ -93,15 +98,9 @@ namespace Consola.Library
                     builder.Append(Environment.NewLine);
                 }
             }
-            IEnumerable<MethodInfo> methods = this.GetType().GetMethods().Where((MI) => MI.IsPublic 
-                                                                                    && !MI.IsSpecialName
-                                                                                    && (
-                                                                                        MI.DeclaringType == this.GetType()
-                                                                                        ||
-                                                                                        MI.DeclaringType == typeof(Scriptable)
-                                                                                        )
-                                                                                    && MI.GetCustomAttribute(typeof(Hidden)) == null
-                                                                                    );
+            IEnumerable<MethodInfo> methods = type.GetMethods().Where((MI) => indcludeMethod(MI, type));
+            IEnumerable<MethodInfo> hiddenMethods = getHiddenMembers(type, (_type) => _type.GetMethods().Where((MI) => indcludeMethod(MI, _type)));
+            methods = methods.Except(hiddenMethods, new MemberComparer<MethodInfo>());
             if (methods.Count() > 0)
             {
                 builder.Append("Methods:").Append(Environment.NewLine);
@@ -134,6 +133,30 @@ namespace Consola.Library
         private bool isPrimative(Type type)
         {
             return type.IsPrimitive || type == typeof(string) || type == typeof(Decimal) || type == typeof(void);
+        }
+
+        private IEnumerable<T> getHiddenMembers<T>(Type type, Func<Type,IEnumerable<T>> getMembers) where T : MemberInfo
+        {
+            IEnumerable<T> properties = getMembers(type).ToList().Where(PI => PI.GetCustomAttribute(typeof(Hidden)) != null);
+            Type baseType = type.BaseType;
+            if (baseType == null)
+                return new List<T>();
+            IEnumerable<T> parentProperties = getHiddenMembers(baseType,getMembers);
+            return properties.Union(parentProperties,new MemberComparer<T>());
+
+        }
+    }
+
+    internal class MemberComparer<T> : IEqualityComparer<T> where T : MemberInfo
+    {
+        public bool Equals(T x, T y)
+        {
+            return x.Name + x.GetType().ToString() == y.Name + y.GetType().ToString();
+        }
+
+        public int GetHashCode(T obj)
+        {
+            return (obj.Name + obj.GetType().ToString()).GetHashCode();
         }
     }
 }
