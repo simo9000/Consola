@@ -20,8 +20,8 @@ namespace Consola.Tests
         }
 
 
-        [TestMethod]
-        public void History_SimplePreviousTest()
+        [TestMethod, TestCategory("History")]
+        public void SimplePreviousTest()
         {
             History_printStarter();
 
@@ -31,8 +31,8 @@ namespace Consola.Tests
             Assert.AreEqual("i = 3", getLineText(4));
         }
 
-        [TestMethod]
-        public void History_UpperBoundryTest()
+        [TestMethod, TestCategory("History")]
+        public void UpperBoundryTest()
         {
             History_printStarter();
 
@@ -47,8 +47,8 @@ namespace Consola.Tests
             Assert.AreEqual("i = 1", getLineText(4));
         }
 
-        [TestMethod]
-        public void History_EditLineTest()
+        [TestMethod, TestCategory("History")]
+        public void EditLineTest()
         {
             History_printStarter();
 

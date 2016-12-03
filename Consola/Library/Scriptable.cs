@@ -68,10 +68,9 @@ namespace Consola.Library
                 builder.Append("Fields:").Append(Environment.NewLine);
                 foreach(FieldInfo field in fields)
                 {
-                    builder.Append(TAB)
-                           .Append(field.Name)
-                           .Append(' ')
-                           .AppendColor(field.FieldType.Name, isPrimative(field.FieldType) ? PRIMATIVECOLOR : TYPECOLOR);
+                    builder.Append(TAB);
+                    addDataType(ref builder, field.FieldType);
+                    builder.Append(' ').Append(field.Name);
                     Attribute descriptionAttribute = field.GetCustomAttribute(typeof(Description));
                     if (descriptionAttribute != null)
                         builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
@@ -84,10 +83,9 @@ namespace Consola.Library
                 builder.Append("Properties:").Append(Environment.NewLine);
                 foreach (PropertyInfo property in properties)
                 {
-                    builder.Append(TAB)
-                           .Append(property.Name)
-                           .Append(' ')
-                           .AppendColor(property.PropertyType.Name, isPrimative(property.PropertyType) ? PRIMATIVECOLOR : TYPECOLOR);
+                    builder.Append(TAB);
+                    addDataType(ref builder, property.PropertyType);
+                    builder.Append(' ').Append(property.Name);
                     Attribute descriptionAttribute = property.GetCustomAttribute(typeof(Description));
                     if (descriptionAttribute != null)
                         builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
@@ -100,16 +98,14 @@ namespace Consola.Library
                 builder.Append("Methods:").Append(Environment.NewLine);
                 foreach(MethodInfo method in methods)
                 {
-                    builder.Append(TAB)
-                           .AppendColor(method.ReturnType.Name, isPrimative(method.ReturnType) ? PRIMATIVECOLOR : TYPECOLOR)
-                           .Append(' ')
-                           .Append(method.Name);
+                    builder.Append(TAB);
+                    addDataType(ref builder, method.ReturnType);
+                    builder.Append(' ').Append(method.Name);
                     ParameterInfo[] parameters = method.GetParameters();
                     builder.Append(parameters.Aggregate(new Outputline("("), (accum, param) =>
                      {
-                         accum.AppendColor(param.ParameterType.Name, isPrimative(param.ParameterType) ? PRIMATIVECOLOR : TYPECOLOR)
-                              .Append(' ')
-                              .Append(param.Name);
+                         addDataType(ref accum, param.ParameterType);
+                         accum.Append(' ').Append(param.Name);
                          if (param != parameters.Last())
                             accum.Append(',');
                          return accum;
@@ -125,8 +121,13 @@ namespace Consola.Library
         }
 
         private bool isPrimative(Type type)
-        {
+        {                      
             return type.IsPrimitive || type == typeof(string) || type == typeof(Decimal) || type == typeof(void);
+        }
+
+        private bool isNullable(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
         private IEnumerable<T> getAllMembers<T>(Type type, Func<Type,IEnumerable<T>> getMembers) where T : MemberInfo
@@ -138,18 +139,30 @@ namespace Consola.Library
             IEnumerable<T> parentProperties = getAllMembers(baseType,getMembers);
             return properties.Union(parentProperties,new MemberComparer<T>());
         }
-    }
 
-    internal class MemberComparer<T> : IEqualityComparer<T> where T : MemberInfo
-    {
-        public bool Equals(T x, T y)
+        private void addDataType(ref Outputline line, Type type)
         {
-            return x.Name + x.GetType().ToString() == y.Name + y.GetType().ToString();
+            bool _isPrimative = isPrimative(type);
+            bool _isNullable = isNullable(type);
+            string name = _isNullable ? Nullable.GetUnderlyingType(type).Name : type.Name;
+            line.AppendColor(name, _isPrimative ? PRIMATIVECOLOR : TYPECOLOR);
+            if (_isNullable)
+                line.Append("?");
         }
 
-        public int GetHashCode(T obj)
+        private class MemberComparer<T> : IEqualityComparer<T> where T : MemberInfo
         {
-            return (obj.Name + obj.GetType().ToString()).GetHashCode();
+            public bool Equals(T x, T y)
+            {
+                return x.Name + x.GetType().ToString() == y.Name + y.GetType().ToString();
+            }
+
+            public int GetHashCode(T obj)
+            {
+                return (obj.Name + obj.GetType().ToString()).GetHashCode();
+            }
         }
     }
+
+    
 }

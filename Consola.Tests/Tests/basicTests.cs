@@ -8,14 +8,14 @@ namespace Consola.Tests
 {
     public partial class Tests
     {
-        [TestMethod]
+        [TestMethod, TestCategory("Basic Tests")]
         public void pageLoadTest()
         {
             ReadOnlyCollection<IWebElement> promptLines = browser.FindElementsByClassName("consola");
             Assert.IsTrue(promptLines.Count == 1, genMessage("Prompt not found"));
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Basic Tests")]
         public void simplePrintTest()
         {
             cout("print('test')");
@@ -24,7 +24,7 @@ namespace Consola.Tests
             Assert.AreEqual("test", getLineText(2));
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Basic Tests")]
         public void simpleMathTest() {
             cout("i = 1 + 1");
             cout(Keys.Enter);

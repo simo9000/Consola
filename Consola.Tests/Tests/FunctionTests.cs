@@ -12,7 +12,7 @@ namespace Consola.Tests
 {
     public partial class Tests
     {
-        [TestMethod]
+        [TestMethod, TestCategory("Basic Tests")]
         public void ListObjectsTest()
         {
             cout("ListObjects()");
@@ -23,28 +23,33 @@ namespace Consola.Tests
             Assert.AreEqual("proxy.Child", getLineText(4));
         }
 
-        [TestMethod]
-        public void BasicFunctions_showTest()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void ShowTest()
         {
             cout("proxy.BasicFunctions.show()");
             cout(Keys.Enter);
             string expectation = @"BasicFunctions:
                                    --------------
+                                   Fields:
+                                       Int32 id Basic Id field
+                                       Byte? Byte Nullable field
                                    Properties:
-                                       Name String Basic Name field
+                                       String Name Basic Name property
+                                       DateTime? Time Nullable property
                                    Methods:
                                        Void printMessage() Prints Hello World
                                        Void printList() Prints List
                                        Void printHtml() Prints Html
                                        Void printHtmlList() Prints Html List
                                        Void download(String content) Downloads file
+                                       Int32? getNullableInt(Boolean? b) Method with nullables in signature
                                        Void show() Inherited: Displays info about class members";
             var result = getLineText(2);
             showCompare(expectation, result);
         }
 
-        [TestMethod]
-        public void BasicFunctions_getSetName()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void GetSetNameTest()
         {
             cout("proxy.BasicFunctions.Name = 'steve'");
             cout(Keys.Enter);
@@ -54,8 +59,8 @@ namespace Consola.Tests
             Assert.AreEqual("steve", getLineText(3));
         }
 
-        [TestMethod]
-        public void BasicFunctions_printMessage()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void PrintMessage()
         {
             cout("proxy.BasicFunctions.printMessage()");
             cout(Keys.Enter);
@@ -63,8 +68,8 @@ namespace Consola.Tests
             Assert.AreEqual("Hello World", getLineText(2));
         }
 
-        [TestMethod]
-        public void BasicFunctions_downloadTextFile()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void DownloadTextFile()
         {
             String oracle = "Test";
             browser.ExecuteScript("prompt.testDownload = true;");
@@ -78,8 +83,8 @@ namespace Consola.Tests
             }
         }
 
-        [TestMethod]
-        public void BasicFunctions_PrintTextList()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void PrintTextList()
         {
             cout("proxy.BasicFunctions.printList()");
             cout(Keys.Enter);
@@ -88,8 +93,8 @@ namespace Consola.Tests
             Assert.AreEqual("Line 2", getLineText(3));
         }
 
-        [TestMethod]
-        public void BasicFunctions_PrintHtml()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void PrintHtml()
         {
             cout("proxy.BasicFunctions.printHtml()");
             cout(Keys.Enter);
@@ -99,8 +104,8 @@ namespace Consola.Tests
             Assert.AreEqual("rgba(255, 0, 0, 1)", output.GetCssValue("color"));
         }
 
-        [TestMethod]
-        public void BasicFunctions_PrintHtmlList()
+        [TestMethod, TestCategory("Basic Functions")]
+        public void PrintHtmlList()
         {
             cout("proxy.BasicFunctions.printHtmlList()");
             cout(Keys.Enter);
@@ -113,15 +118,15 @@ namespace Consola.Tests
             Assert.AreEqual("http://home.simo9000.com/git", line2.GetAttribute("href"));
         }
 
-        private string expectedProgenyShow = @"Progeny:
+        private const string expectedProgenyShow = @"Progeny:
                                                -------
                                                Properties:
-                                                    Name String Simple Name Field
+                                                    String Name Simple Name Field
                                                Methods:
                                                     Void show() Inherited: Displays info about class members";
 
-        [TestMethod]
-        public void CreatorFunctions_CreateProgeny()
+        [TestMethod, TestCategory("Creator Functions")]
+        public void CreateProgeny()
         {
             cout("progeny = proxy.CreatorFunctions.CreateProgeny()");
             cout(Keys.Enter);
@@ -132,8 +137,8 @@ namespace Consola.Tests
 
         }
 
-        [TestMethod]
-        public void CreatorFunctions_LazyCreateProgeny()
+        [TestMethod, TestCategory("Creator Functions")]
+        public void LazyCreateProgeny()
         {
             cout("proxy.CreatorFunctions.LazyProgeny.show()");
             cout(Keys.Enter);
@@ -141,8 +146,8 @@ namespace Consola.Tests
             showCompare(expectedProgenyShow, result);
         }
 
-        [TestMethod]
-        public void Child_ShowTest()
+        [TestMethod, TestCategory("Child Functions")]
+        public void ShowTest_c()
         {
             cout("proxy.Child.show()");
             cout(Keys.Enter);
@@ -156,8 +161,8 @@ namespace Consola.Tests
             showCompare(result, getLineText(2));
         }
 
-        [TestMethod]
-        public void Child_Functions()
+        [TestMethod, TestCategory("Child Functions")]
+        public void Functions_c()
         {
             cout("proxy.Child.printParent()");
             cout(Keys.Enter);

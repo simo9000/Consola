@@ -22,8 +22,17 @@ namespace Tests
 
         #endregion
 
-        [Description("Basic Name field")]
+        [Description("Basic Id field")]
+        public int id;
+
+        [Description("Nullable field")]
+        public byte? Byte;
+
+        [Description("Basic Name property")]
         public string Name { get; set; }
+
+        [Description("Nullable property")]
+        public DateTime? Time { get; set; }
 
         public BasicFunctions(ScriptSession session)
         {
@@ -69,6 +78,12 @@ namespace Tests
             byte[] data = Encoding.Default.GetBytes(content);
             stream.Write(data, 0, data.Length);
             Session.pushDownload(new Download("test.txt", stream, "text/plain"));
+        }
+
+        [Description("Method with nullables in signature")]
+        public int? getNullableInt(bool? b)
+        {
+            return null;
         }
     }
 }
