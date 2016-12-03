@@ -74,7 +74,8 @@ module.exports = Backbone.View.extend({
                     }
                 };
                 console.hub.client.newLine = function() {
-                    prompt.addNewLine();
+                    if (!console.activeCommand.active)
+                        prompt.addNewLine();
                 }
                 $.connection.hub.url = signalRLocation;
                 $.connection.hub.start({ transport: 'longPolling', jsonp:true }).done(function() {

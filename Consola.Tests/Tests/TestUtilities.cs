@@ -39,6 +39,12 @@ namespace Consola.Tests
             browser.Navigate().GoToUrl(hostLocation + "Console");
         }
 
+        [TestCleanup]
+        public void test_end()
+        {
+            Assert.AreEqual(1, browser.FindElementsByClassName("consolaCommand").Count);
+        }
+
         private ReadOnlyCollection<LogEntry> jsErrors
         {
             get { return getErrors(LogType.Browser); }
