@@ -91,6 +91,7 @@ module.exports = Backbone.View.extend({
             hub: this.hub,
             lineManager: this.lineManager
         });
+        this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
     },
 
     render: function () {

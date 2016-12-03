@@ -36,6 +36,32 @@ namespace Tests
             Session.WriteLine("Hello World");
         }
 
+        [Description("Prints List")]
+        public void printList()
+        {
+            Session.WriteLine("Line 1");
+            Session.WriteLine("Line 2");
+        }
+
+        [Description("Prints Html")]
+        public void printHtml()
+        {
+            Outputline line = new Outputline();
+            line.AppendColor("text", "rgba(255, 0, 0, 1)");
+            Session.WriteLine(line);
+        }
+
+        [Description("Prints Html List")]
+        public void printHtmlList()
+        {
+            Outputline line1 = new Outputline();
+            line1.AppendColor("Line 1", "rgba(0, 128, 0, 1)");
+            Session.WriteLine(line1); 
+            Outputline line2 = new Outputline();
+            line2.AppendLink("http://home.simo9000.com/git", "Line 2");
+            Session.WriteLine(line2);
+        }
+
         [Description("Downloads file")]
         public void download(string content)
         {

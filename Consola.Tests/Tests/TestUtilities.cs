@@ -87,7 +87,7 @@ namespace Consola.Tests
         private static void startBrowser()
         {
             browser = new PhantomJSDriver();
-            browser.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 30));
+            browser.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 5));
         }
 
         private void cout(string text)
@@ -98,6 +98,11 @@ namespace Consola.Tests
         private string getLineText(int lineNumber)
         {
             return browser.FindElementByClassName(getLineClass(lineNumber)).Text;
+        }
+
+        private IWebElement getHtmlLine(int lineNumber)
+        {
+            return browser.FindElementByClassName(getLineClass(lineNumber));
         }
 
         private void showCompare(string expected, string actual)

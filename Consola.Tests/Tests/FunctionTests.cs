@@ -33,6 +33,9 @@ namespace Consola.Tests
                                        Name String Basic Name field
                                    Methods:
                                        Void printMessage() Prints Hello World
+                                       Void printList() Prints List
+                                       Void printHtml() Prints Html
+                                       Void printHtmlList() Prints Html List
                                        Void download(String content) Downloads file
                                        Void show() Inherited: Displays info about class members";
             var result = getLineText(2);
@@ -74,6 +77,41 @@ namespace Consola.Tests
             }
         }
 
+        [TestMethod]
+        public void BasicFunctions_PrintTextList()
+        {
+            cout("proxy.BasicFunctions.printList()");
+            cout(Keys.Enter);
+
+            Assert.AreEqual("Line 1", getLineText(2));
+            Assert.AreEqual("Line 2", getLineText(3));
+        }
+
+        [TestMethod]
+        public void BasicFunctions_PrintHtml()
+        {
+            cout("proxy.BasicFunctions.printHtml()");
+            cout(Keys.Enter);
+
+            IWebElement output = getHtmlLine(2).FindElement(By.CssSelector("span"));
+            Assert.AreEqual("text", output.Text);
+            Assert.AreEqual("rgba(255, 0, 0, 1)", output.GetCssValue("color"));
+        }
+
+        [TestMethod]
+        public void BasicFunctions_PrintHtmlList()
+        {
+            cout("proxy.BasicFunctions.printHtmlList()");
+            cout(Keys.Enter);
+
+            IWebElement line1 = getHtmlLine(2).FindElement(By.CssSelector("span"));
+            Assert.AreEqual("Line 1", line1.Text);
+            Assert.AreEqual("rgba(0, 128, 0, 1)", line1.GetCssValue("color"));
+            IWebElement line2 = getHtmlLine(3).FindElement(By.CssSelector("a"));
+            Assert.AreEqual("Line 2", line2.Text);
+            Assert.AreEqual("http://home.simo9000.com/git", line2.GetAttribute("href"));
+        }
+
         private string expectedProgenyShow = @"Progeny:
                                                -------
                                                Properties:
@@ -88,14 +126,8 @@ namespace Consola.Tests
             cout(Keys.Enter);
             cout("progeny.show()");
             cout(Keys.Enter);
-            var expected = @"Progeny:
-                             -------
-                             Properties:
-                                 Name String Simple Name Field
-                             Methods:
-                                 Void show() Inherited: Displays info about class members";
             var result = getLineText(3);
-            showCompare(expected, result);
+            showCompare(expectedProgenyShow, result);
 
         }
 
@@ -107,6 +139,5 @@ namespace Consola.Tests
             var result = getLineText(2);
             showCompare(expectedProgenyShow, result);
         }
-       
     }
 }
