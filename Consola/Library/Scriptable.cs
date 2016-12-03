@@ -62,9 +62,7 @@ namespace Consola.Library
             builder.AppendColor(type.Name, TYPECOLOR);
             builder.Append(":").Append(Environment.NewLine);
             builder.Append(new String('-', type.Name.Count())).Append(Environment.NewLine);
-            IEnumerable<FieldInfo> fields = type.GetFields();
-            IEnumerable<FieldInfo> hiddenFields = getHiddenMembers(type, (_type) => _type.GetFields());
-            fields = fields.Except(hiddenFields, new MemberComparer<FieldInfo>());
+            IEnumerable<FieldInfo> fields = getAllMembers(type, (_type) => _type.GetFields().Where( fi => fi.IsPublic));
             if (fields.Count() > 0)
             {
                 builder.Append("Fields:").Append(Environment.NewLine);
@@ -80,9 +78,7 @@ namespace Consola.Library
                     builder.Append(Environment.NewLine);
                 }
             }
-            IEnumerable<PropertyInfo> properties = type.GetProperties();
-            IEnumerable<PropertyInfo> hiddenProperties = getHiddenMembers(type, (_type) => _type.GetProperties());
-            properties = properties.Except(hiddenProperties, new MemberComparer<PropertyInfo>());
+            IEnumerable<PropertyInfo> properties = getAllMembers(type, (_type) => _type.GetProperties());
             if (properties.Count() > 0)
             {
                 builder.Append("Properties:").Append(Environment.NewLine);
@@ -98,9 +94,7 @@ namespace Consola.Library
                     builder.Append(Environment.NewLine);
                 }
             }
-            IEnumerable<MethodInfo> methods = type.GetMethods().Where((MI) => indcludeMethod(MI, type));
-            IEnumerable<MethodInfo> hiddenMethods = getHiddenMembers(type, (_type) => _type.GetMethods().Where((MI) => indcludeMethod(MI, _type)));
-            methods = methods.Except(hiddenMethods, new MemberComparer<MethodInfo>());
+            IEnumerable<MethodInfo> methods = getAllMembers(type, (_type) => _type.GetMethods().Where((MI) => indcludeMethod(MI, _type)));
             if (methods.Count() > 0)
             {
                 builder.Append("Methods:").Append(Environment.NewLine);
@@ -135,15 +129,14 @@ namespace Consola.Library
             return type.IsPrimitive || type == typeof(string) || type == typeof(Decimal) || type == typeof(void);
         }
 
-        private IEnumerable<T> getHiddenMembers<T>(Type type, Func<Type,IEnumerable<T>> getMembers) where T : MemberInfo
+        private IEnumerable<T> getAllMembers<T>(Type type, Func<Type,IEnumerable<T>> getMembers) where T : MemberInfo
         {
-            IEnumerable<T> properties = getMembers(type).ToList().Where(PI => PI.GetCustomAttribute(typeof(Hidden)) != null);
+            IEnumerable<T> properties = getMembers(type).Where(PI => PI.GetCustomAttribute(typeof(Hidden)) == null);
             Type baseType = type.BaseType;
             if (baseType == null)
                 return new List<T>();
-            IEnumerable<T> parentProperties = getHiddenMembers(baseType,getMembers);
+            IEnumerable<T> parentProperties = getAllMembers(baseType,getMembers);
             return properties.Union(parentProperties,new MemberComparer<T>());
-
         }
     }
 

@@ -20,6 +20,7 @@ namespace Consola.Tests
             
             Assert.AreEqual("proxy.BasicFunctions", getLineText(2));
             Assert.AreEqual("proxy.CreatorFunctions", getLineText(3));
+            Assert.AreEqual("proxy.Child", getLineText(4));
         }
 
         [TestMethod]
@@ -138,6 +139,35 @@ namespace Consola.Tests
             cout(Keys.Enter);
             var result = getLineText(2);
             showCompare(expectedProgenyShow, result);
+        }
+
+        [TestMethod]
+        public void Child_ShowTest()
+        {
+            cout("proxy.Child.show()");
+            cout(Keys.Enter);
+
+            var result = @"Child:
+                           -----
+                           Methods:
+                                Void printChild() Child Function
+                                Void show() Inherited: Displays info about class members
+                                Void printParent() Parent Function";
+            showCompare(result, getLineText(2));
+        }
+
+        [TestMethod]
+        public void Child_Functions()
+        {
+            cout("proxy.Child.printParent()");
+            cout(Keys.Enter);
+
+            Assert.AreEqual("Parent", getLineText(2));
+
+            cout("proxy.Child.printChild()");
+            cout(Keys.Enter);
+
+            Assert.AreEqual("Child", getLineText(4));
         }
     }
 }

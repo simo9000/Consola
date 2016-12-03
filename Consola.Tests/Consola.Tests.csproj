@@ -79,7 +79,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Scriptables\Child.cs" />
     <Compile Include="Scriptables\CreatorFunctions.cs" />
+    <Compile Include="Scriptables\Parent.cs" />
     <Compile Include="Scriptables\Progeny.cs" />
     <Compile Include="Tests\HistoryTests.cs" />
     <Compile Include="Tests\TestUtilities.cs" />
