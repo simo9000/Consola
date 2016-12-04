@@ -33,9 +33,11 @@ namespace Consola.Tests
                                    Fields:
                                        Int32 id Basic Id field
                                        Byte? Byte Nullable field
+                                       Dictionary<Int32, String> Dictionary Generic field
                                    Properties:
                                        String Name Basic Name property
                                        DateTime? Time Nullable property
+                                       IEnumerable<DateTime> Dates Generic property
                                    Methods:
                                        Void printMessage() Prints Hello World
                                        Void printList() Prints List

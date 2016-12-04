@@ -4,6 +4,7 @@ using System.Text;
 
 using Consola.Library;
 using Consola.Library.util;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -28,11 +29,17 @@ namespace Tests
         [Description("Nullable field")]
         public byte? Byte;
 
+        [Description("Generic field")]
+        public Dictionary<int, string> Dictionary;
+
         [Description("Basic Name property")]
         public string Name { get; set; }
 
         [Description("Nullable property")]
         public DateTime? Time { get; set; }
+
+        [Description("Generic property")]
+        public IEnumerable<DateTime> Dates { get; set; }
 
         public BasicFunctions(ScriptSession session)
         {

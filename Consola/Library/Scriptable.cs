@@ -145,9 +145,22 @@ namespace Consola.Library
             bool _isPrimative = isPrimative(type);
             bool _isNullable = isNullable(type);
             string name = _isNullable ? Nullable.GetUnderlyingType(type).Name : type.Name;
-            line.AppendColor(name, _isPrimative ? PRIMATIVECOLOR : TYPECOLOR);
+            if (_isPrimative || _isNullable || !type.IsGenericType)
+                line.AppendColor(name, _isPrimative ? PRIMATIVECOLOR : TYPECOLOR);
             if (_isNullable)
                 line.Append("?");
+            else if(type.IsGenericType)
+            {
+                line.AppendColor(type.Name.Substring(0,type.Name.IndexOf('`')), TYPECOLOR).Append('<');
+                Type[] genericArguments = type.GetGenericArguments();
+                foreach (Type t in genericArguments)
+                {
+                    addDataType(ref line, t);
+                    if (t != genericArguments.Last())
+                        line.Append(", ");
+                }
+                line.Append('>');
+            }
         }
 
         private class MemberComparer<T> : IEqualityComparer<T> where T : MemberInfo
