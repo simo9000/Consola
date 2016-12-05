@@ -1,16 +1,19 @@
 ﻿ .consolaCommand {
     resize:none;
-    width:100%;
+    width:99%;
+    height:100vh;
     border-style:none;
 }
 .consolaCommand:focus {
     outline: none;
+    word-wrap:break-word;
 }
 .consola {
     width:100%;
     border-collapse: collapse;
     font-family: Consolas;
     background-color:black;
+    table-layout: fixed;
     height:100vh;
 }
 .consola tr {

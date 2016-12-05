@@ -18,6 +18,7 @@ module.exports = function lineManager() {
     this.createFinishedHtmlLine = function(element) {
         lines++;
         element.addClass('LN' + lines);
+        element.addClass('word-wrap', 'break-word');
         return element;
     },
 

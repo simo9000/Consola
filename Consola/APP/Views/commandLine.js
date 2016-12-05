@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
     },
 
     emptyTemplate: _.template('<td class="consolaPromptSymbol" style="font-size:17px;color:white;"><%= prompt %></td>\
-                          <td><textarea spellcheck="false" class="consolaCommand" style="font-size:15px;color:white;background-color:black;" rows="1"></textarea></td>'),
+                          <td style="word-wrap:break-word"><textarea spellcheck="false" class="consolaCommand" style="font-size:15px;color:white;background-color:black;"></textarea></td>'),
 
     keyDown: function(e){
         if (e.keyCode == TAB_KEY) {
@@ -66,10 +66,6 @@ module.exports = Backbone.View.extend({
         else if (e.which === DOWN_KEY) {
             historyFetch('getNextCommand');
         }
-        else {
-            var numberOfLines = this.numberOfLines(line);
-            textArea.attr('rows', numberOfLines);
-        }
     },
 
     addNewLine: function (submit) {
@@ -104,7 +100,11 @@ module.exports = Backbone.View.extend({
     },
 
     numberOfLines: function(line){
-        return (line.match(/\n/g) || []).length + 1;
+        //return (line.match(/\n/g) || []).length + 1;
+        var textarea = this.$el.find('.consolaCommand');
+        var lht = parseInt(textarea.css('lineHeight'), 10);
+        var lines = textarea.attr('scrollHeight') / lht;
+        return lines;
     },
 
     appendText: function (text, isExternal) {
