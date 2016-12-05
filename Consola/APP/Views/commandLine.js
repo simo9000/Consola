@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
     },
 
     emptyTemplate: _.template('<td class="consolaPromptSymbol" style="font-size:17px;color:white;"><%= prompt %></td>\
-                          <td style="word-wrap:break-word"><textarea spellcheck="false" class="consolaCommand" style="font-size:15px;color:white;background-color:black;"></textarea></td>'),
+                          <td><textarea spellcheck="false" class="consolaCommand" style="font-size:15px;color:white;background-color:black;"></textarea></td>'),
 
     keyDown: function(e){
         if (e.keyCode == TAB_KEY) {
