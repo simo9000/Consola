@@ -13,6 +13,16 @@ module.exports = Backbone.View.extend({
         this.hub = e.hub;
         this.lineManager = e.lineManager;
         this.active = true;
+        if (window.attachEvent) {
+            this.observe = function(element, event, handler) {
+                element.attachEvent('on' + event, handler);
+            };
+        }
+        else {
+            this.observe = function(element, event, handler) {
+                element.addEventListener(event, handler, false);
+            };
+        }
     },
 
     events: {
@@ -95,8 +105,22 @@ module.exports = Backbone.View.extend({
         return this;
     },
 
-    focus: function () {
-        this.$el.find('.consolaCommand').focus();
+    focus: function() {
+        var view = this;
+        var text = view.$el.find('.consolaCommand')[0];
+        function resize() {
+            text.style.height = 'auto';
+            text.style.height = text.scrollHeight + 'px';
+        }
+        function delayedResize() {
+            window.setTimeout(resize, 0);
+        }
+        view.observe(text, 'change', resize);
+        underscore.each(['cut', 'paste', 'drop', 'keydown'], function(e) {
+            view.observe(text, e, delayedResize);
+        });
+        text.focus();
+        resize();
     },
 
     numberOfLines: function(line){
