@@ -21,6 +21,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Consola.AspNet.dll" target="lib\net452\"/>
+    <file src="bin\Consola.AspNet.dll" target="lib\net45\"/>
   </files>
 </package>
