@@ -18,5 +18,8 @@ namespace Consola.Tests.Scriptables
             Session.WriteLine("Child");
         }
 
+        // should not display
+        public int hiddenInParent { get; set; }
+
     }
 }

@@ -15,5 +15,8 @@ namespace Consola.Tests.Scriptables
         {
             Session.WriteLine("Parent");
         }
+
+        [Hidden]
+        public virtual int hiddenInParent { get; set; }
     }
 }
