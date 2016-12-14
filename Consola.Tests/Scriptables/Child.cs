@@ -15,8 +15,7 @@ namespace Consola.Tests.Scriptables
         [Description("Child Function")]
         public void printChild()
         {
-            Session.WriteLine("Child");
-        }
+            Session.WriteLine("Child");}
 
         // should not display
         public int hiddenInParent { get; set; }

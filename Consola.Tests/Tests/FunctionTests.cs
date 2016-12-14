@@ -45,6 +45,7 @@ namespace Consola.Tests
                                        Void printHtmlList() Prints Html List
                                        Void download(String content) Downloads file
                                        Int32? getNullableInt(Boolean? b) Method with nullables in signature
+                                       Void printMonth(DateTime date) Method accepting DateTime
                                        Void show() Inherited: Displays info about class members";
             var result = getLineText(2);
             showCompare(expectation, result);
@@ -118,6 +119,15 @@ namespace Consola.Tests
             IWebElement line2 = getHtmlLine(3).FindElement(By.CssSelector("a"));
             Assert.AreEqual("Line 2", line2.Text);
             Assert.AreEqual("http://home.simo9000.com/git", line2.GetAttribute("href"));
+        }
+
+        [TestMethod, TestCategory("Basic Functions")]
+        public void PrintMonthTest()
+        {
+            cout("proxy.BasicFunctions.printMonth(Date('1/1/2015'))");
+            cout(Keys.Enter);
+
+            Assert.AreEqual("1", getLineText(2));
         }
 
         private const string expectedProgenyShow = @"Progeny:

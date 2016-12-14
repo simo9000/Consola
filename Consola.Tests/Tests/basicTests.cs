@@ -33,5 +33,20 @@ namespace Consola.Tests
 
             Assert.AreEqual("2", getLineText(3));
         }
+
+        [TestMethod, TestCategory("List Test")]
+        public void listTest()
+        {
+            cout("list = List[int]([1,2])");
+            cout(Keys.Enter);
+            cout("list.Add(3)");
+            cout(Keys.Enter);
+            cout(@"for item in list:
+                    print(item)");
+            cout(Keys.Enter);
+
+            for (int i = 1; i < 4; i++)
+                Assert.AreEqual(i.ToString(), getLineText(i + 4));
+        }
     }
 }

@@ -92,5 +92,11 @@ namespace Tests
         {
             return null;
         }
+
+        [Description("Method accepting DateTime")]
+        public void printMonth(DateTime date)
+        {
+            Session.WriteLine(date.Month.ToString());
+        }
     }
 }
