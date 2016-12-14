@@ -49,14 +49,14 @@ namespace Consola.Library
                 if (CI != null) 
                     ((SessionStartup)CI.Invoke(new dynamic[0])).Startup(this);
             }
+            initalizeScope();
         }
 
         internal void executeCommand(string command)
         {
-            ScriptSource source = engine.CreateScriptSourceFromString(command);
             try
             {
-                source.Execute(scope);
+                execute(command);       
             }
             catch(Exception e){
                 Type exceptionType = e.GetType();
@@ -71,6 +71,12 @@ namespace Consola.Library
             {
                 client.returnControl();
             }
+        }
+
+        private void execute(string command)
+        {
+            ScriptSource source = engine.CreateScriptSourceFromString(command);
+            source.Execute(scope);
         }
 
         internal bool WriteStartupMessage()
@@ -93,12 +99,25 @@ namespace Consola.Library
             }
             ScriptScope.proxy = proxy;
             ScriptScope.ListObjects = new Action(ListObjects);
+            ScriptScope.Date = new Func<String, DateTime>(parseDate);
+
         }
 
         private void ListObjects()
         {
             foreach (Type t in scriptObjects)
                 WriteLine(String.Concat("proxy.",t.Name));
+        }
+
+        private DateTime parseDate(string dateString)
+        {
+            return DateTime.Parse(dateString);
+        }
+
+        private void initalizeScope()
+        {
+            execute("from System import *");
+            execute("from System.Collections.Generic import *");
         }
 
         /// <summary>

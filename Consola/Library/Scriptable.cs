@@ -110,7 +110,7 @@ namespace Consola.Library
                          addDataType(ref accum, param.ParameterType);
                          accum.Append(' ').Append(param.Name);
                          if (param != parameters.Last())
-                            accum.Append(',');
+                            accum.Append(", ");
                          return accum;
                      }));
                     builder.Append(") ");
