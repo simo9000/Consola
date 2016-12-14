@@ -64,8 +64,10 @@ module.exports = Backbone.View.extend({
         var historyFetch = function(fetchCallback) {
             e.preventDefault();
             var historyCommand = view.lineManager[fetchCallback]();
-            if (historyCommand != undefined)
+            if (historyCommand != undefined) {
                 view.replaceText(historyCommand);
+                view.focus();
+            }
         }
         if (e.which === ENTER_KEY && !e.shiftKey) {
             view.addNewLine(true);
