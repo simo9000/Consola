@@ -41,12 +41,10 @@ namespace Consola.Tests
             cout(Keys.Enter);
             cout("list.Add(3)");
             cout(Keys.Enter);
-            cout(@"for item in list:
-                    print(item)");
+            cout(@"print(list[2])");
             cout(Keys.Enter);
 
-            for (int i = 1; i < 4; i++)
-                Assert.AreEqual(i.ToString(), getLineText(i + 4));
+            Assert.AreEqual("3", getLineText(4));
         }
     }
 }

@@ -7,7 +7,7 @@ Backbone.$ = $;
 var signalR = require('ms-signalr-client');
 var commandLine = require('./commandLine');
 var lineManager = require('../lineManager');
-require('jquery-file-download');
+var download = require('downloadjs');
 var Promise = require('promise');
 
 module.exports = Backbone.View.extend({
@@ -63,12 +63,17 @@ module.exports = Backbone.View.extend({
                 };
                 console.hub.client.initiateDownload = function(key) {
                     var downloadPath = prompt.createHostPath('/Console/Download/' + key);
-                    if (!prompt.testDownload)
-                        $.fileDownload(downloadPath, {
-                            successCallback: function(url) {
-                                console.hub.server.confirmDownload(key);
-                            }
-                        });
+                    if (!prompt.testDownload) {
+                        var x = new XMLHttpRequest();
+                        x.open("GET", downloadPath, true);
+                        x.responseType = 'blob';
+                        x.onload = function(e, o) {
+                            var fileName = x.getResponseHeader('Content-Disposition').replace('attachment; filename=', '');
+                            download(x.response, fileName, e.target.response.type);
+                            console.hub.server.confirmDownload(key);
+                        }
+                        x.send();
+                    }
                     else {
                         $('body').append('<iframe src="' + downloadPath + '"></iframe>');
                     }
