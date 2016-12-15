@@ -12,5 +12,10 @@ namespace Tests.Scriptables
     {
         [Description("Simple Name Field")]
         public string Name { get; set; }
+
+        public Progeny()
+        {
+            Name = String.Empty;
+        }
     }
 }

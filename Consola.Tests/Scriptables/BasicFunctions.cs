@@ -24,13 +24,13 @@ namespace Tests
         #endregion
 
         [Description("Basic Id field")]
-        public int id;
+        public int id = 1;
 
         [Description("Nullable field")]
-        public byte? Byte;
+        public byte? Byte = 0;
 
         [Description("Generic field")]
-        public Dictionary<int, string> Dictionary;
+        public Dictionary<int, string> Dictionary = new Dictionary<int, string>();
 
         [Description("Basic Name property")]
         public string Name { get; set; }
@@ -44,6 +44,9 @@ namespace Tests
         public BasicFunctions(ScriptSession session)
         {
             session.startupMessage = String.Empty;
+            Name = String.Empty;
+            Time = DateTime.Now;
+            Dates = new List<DateTime>();
         }
 
         [Description("Prints Hello World")]

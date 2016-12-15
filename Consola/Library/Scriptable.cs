@@ -69,13 +69,16 @@ namespace Consola.Library
                 builder.Append("Fields:").Append(Environment.NewLine);
                 foreach(FieldInfo field in fields)
                 {
-                    builder.Append(TAB);
-                    addDataType(ref builder, field.FieldType);
-                    builder.Append(' ').Append(field.Name);
-                    Attribute descriptionAttribute = field.GetCustomAttribute(typeof(Description));
-                    if (descriptionAttribute != null)
-                        builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
-                    builder.Append(Environment.NewLine);
+                    if (field.GetValue(this) != null)
+                    {
+                        builder.Append(TAB);
+                        addDataType(ref builder, field.FieldType);
+                        builder.Append(' ').Append(field.Name);
+                        Attribute descriptionAttribute = field.GetCustomAttribute(typeof(Description));
+                        if (descriptionAttribute != null)
+                            builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
+                        builder.Append(Environment.NewLine);
+                    }
                 }
             }
             IEnumerable<PropertyInfo> hiddenProperties = new List<PropertyInfo>();
@@ -85,13 +88,16 @@ namespace Consola.Library
                 builder.Append("Properties:").Append(Environment.NewLine);
                 foreach (PropertyInfo property in properties)
                 {
-                    builder.Append(TAB);
-                    addDataType(ref builder, property.PropertyType);
-                    builder.Append(' ').Append(property.Name);
-                    Attribute descriptionAttribute = property.GetCustomAttribute(typeof(Description));
-                    if (descriptionAttribute != null)
-                        builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
-                    builder.Append(Environment.NewLine);
+                    if (property.GetValue(this) != null)
+                    {
+                        builder.Append(TAB);
+                        addDataType(ref builder, property.PropertyType);
+                        builder.Append(' ').Append(property.Name);
+                        Attribute descriptionAttribute = property.GetCustomAttribute(typeof(Description));
+                        if (descriptionAttribute != null)
+                            builder.Append(' ').AppendColor(descriptionAttribute.ToString(), COMMENTCOLOR);
+                        builder.Append(Environment.NewLine);
+                    }
                 }
             }
             IEnumerable<MethodInfo> hiddenMethods = new List<MethodInfo>();
