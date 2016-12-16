@@ -11,7 +11,7 @@ namespace Consola
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class ConsoleHub : Hub
     {
-        private static Dictionary<string, ScriptSession> sessions = new Dictionary<string, ScriptSession>();
+        internal static Dictionary<string, ScriptSession> sessions = new Dictionary<string, ScriptSession>();
 
         private ScriptSession Session
         {

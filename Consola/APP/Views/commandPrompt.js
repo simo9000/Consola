@@ -83,7 +83,8 @@ module.exports = Backbone.View.extend({
                         prompt.addNewLine();
                 }
                 $.connection.hub.url = signalRLocation;
-                $.connection.hub.start({ transport: 'longPolling', jsonp:true }).done(function() {
+                $.connection.hub.start({ transport: 'longPolling', jsonp: true }).done(function() {
+                    prompt.connectionID = $.connection.hub.id;
                     console.addNewLine();
                     console.hubStatus = 'connected';
                     prompt.hub.server.consoleReady();
@@ -94,10 +95,21 @@ module.exports = Backbone.View.extend({
     createNewLine: function () {
         var view = this;
         this.activeCommand = new commandLine({
-            hub: this.hub,
             lineManager: this.lineManager
         });
         this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
+        this.listenTo(this.activeCommand, 'submit', this.submit);
+    },
+
+    submit: function(code) {
+        $.ajax({
+            url: this.createHostPath("/Console/Command"),
+            method: 'POST',
+            data: code,
+            headers: {
+                'CONNECTION_ID' : this.connectionID
+            }
+        });
     },
 
     render: function () {
