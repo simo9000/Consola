@@ -6,6 +6,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var signalR = require('ms-signalr-client');
 var commandLine = require('./commandLine');
+var editor = require('./editor');
 var lineManager = require('../lineManager');
 var download = require('downloadjs');
 var Promise = require('promise');
@@ -27,6 +28,7 @@ module.exports = Backbone.View.extend({
 
     initialize: function() {
         var prompt = this;
+        this.editor = editor;
         this.history = [];
         var console = this;
         this.testDownload = false;
@@ -114,6 +116,7 @@ module.exports = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.template({}));
+        return this;
     },
 
     addNewLine: function () {
@@ -127,5 +130,31 @@ module.exports = Backbone.View.extend({
         var scriptLocation = '/app/output/bundle.js';
         var signalRLocation = document.querySelector('script[src*="' + scriptLocation + '"]');
         return signalRLocation.src.replace(scriptLocation,path);
+    },
+
+    renderEditor: function() {
+        var prompt = this;
+        this.editor = new this.editor({});
+        this.listenTo(this.editor, 'submit', this.submit);
+        this.listenTo(this.editor, 'resize', this.resize);
+        this.editor.render();
+        this.$el.prepend(this.editor.$el);
+        this.windowed = true;
+        this.resize(prompt);
+        var resizeInt = null;
+        this.editor.$el.on('mousedown', function(e) {
+            resizeInt = setInterval(function() { prompt.resize(prompt); }, 1000 / 15);
+        });
+        this.editor.$el.on('mouseup', function(e) {
+            if (resizeInt !== null) {
+                clearInterval(resizeInt);
+            }
+            prompt.resize(prompt);
+        });
+    },
+
+    resize: function(prompt) {
+        var parentHeight = prompt.$el.parent().height();
+        prompt.$el.find('.consola').height(parentHeight -prompt.editor.$el.height());
     }
 });

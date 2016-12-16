@@ -1,8 +1,11 @@
-﻿ .consolaCommand {
+﻿.consolaCommand {
     resize:none;
     width:99%;
     border-style:none;
     padding:0px;
+    font-size:15px;
+    color:white;
+    background-color:black;
 }
 .consolaCommand:focus {
     outline: none;
@@ -23,4 +26,61 @@
 .consola td:last-child {
     flex: 1;
     display:inline-block;
+}
+.consolaClear {
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    display: block;
+}
+.consolaTab-container{
+    font-family: Arial,  Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height:14px;
+    background-color: black;
+    overflow: hidden;
+}
+.consolaTab-container ul{
+    list-style: none;
+    list-style-position: outside;
+    width: 100%;
+}
+.consolaTab-container ul.tab-menu li{
+    display: block;
+    float: left;
+    position: relative;
+    font-weight: 700;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #ddc;
+    border-bottom: none;
+    border-width: 1px;
+    color: #999;
+    cursor: default;
+    margin-bottom: -1px;
+    margin-right: 5px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.consolaTab-container ul.tab-menu li.active{
+    background: #fff;
+    color: #0088CC;
+    border-bottom: 0;
+}
+.consolaTab-content{
+    margin: 0 auto;
+    border: 1px solid #ddc;
+    border-top-style: none;
+    text-align: left;
+    padding: 10px;
+    height: 500px;
+    padding-bottom: 20px;
+    font-size: 11px;
+    display: none;
+}
+.consolaTab-container div.active{
+    display: block;
+}
+.consolaTab-content h1{
+    line-height: 1em;
+    font-size: 22px;
 }

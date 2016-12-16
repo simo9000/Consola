@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Script Editor</title>
+    <script src="../app/output/bundle.js"></script>
+    <script>
+        var commandPrompt = require('commandPrompt');
+        $(document).ready(function() {
+            prompt = new commandPrompt({});
+            prompt.render();
+            $('#console').append(prompt.el);
+            prompt.renderEditor();
+        });
+    </script>
+</head>
+<body style="background-color:black;margin:0px">
+    <div id="console" style="height:100vh"></div>
+</body>
+</html>

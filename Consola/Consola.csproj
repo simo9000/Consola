@@ -120,9 +120,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\Editor.html" />
     <None Include="app.config" />
     <Content Include="APP\lineManager.js" />
     <EmbeddedResource Include="APP\Consola.css" />
+    <Content Include="APP\Views\codeFile.js" />
+    <Content Include="APP\Views\editor.js" />
     <Content Include="package.json" />
     <None Include="Consola.nuspec">
       <SubType>Designer</SubType>

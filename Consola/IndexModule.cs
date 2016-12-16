@@ -21,6 +21,11 @@ namespace Consola
                 return View["Home"];
             };
 
+            Get["/Editor"] = parameters =>
+            {
+                return View["Editor"];
+            };
+
             Get["/Download/{Key}"] = parameters =>
             {
                 if (this.Request.Headers.UserAgent.Contains("PhantomJS"))
