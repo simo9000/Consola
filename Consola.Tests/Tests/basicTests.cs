@@ -8,14 +8,16 @@ namespace Consola.Tests
 {
     public partial class Tests
     {
-        [TestMethod, TestCategory("Basic Tests")]
+        private const string BASIC_TESTS = "Basic Tests";
+
+        [TestMethod, TestCategory(BASIC_TESTS)]
         public void pageLoadTest()
         {
             ReadOnlyCollection<IWebElement> promptLines = browser.FindElementsByClassName("consola");
             Assert.IsTrue(promptLines.Count == 1, genMessage("Prompt not found"));
         }
 
-        [TestMethod, TestCategory("Basic Tests")]
+        [TestMethod, TestCategory(BASIC_TESTS)]
         public void simplePrintTest()
         {
             cout("print('test')");
@@ -24,7 +26,7 @@ namespace Consola.Tests
             Assert.AreEqual("test", getLineText(2));
         }
 
-        [TestMethod, TestCategory("Basic Tests")]
+        [TestMethod, TestCategory(BASIC_TESTS)]
         public void simpleMathTest() {
             cout("i = 1 + 1");
             cout(Keys.Enter);
@@ -34,7 +36,7 @@ namespace Consola.Tests
             Assert.AreEqual("2", getLineText(3));
         }
 
-        [TestMethod, TestCategory("List Test")]
+        [TestMethod, TestCategory(BASIC_TESTS)]
         public void listTest()
         {
             cout("list = List[int]([1,2])");
@@ -45,6 +47,16 @@ namespace Consola.Tests
             cout(Keys.Enter);
 
             Assert.AreEqual("3", getLineText(4));
+        }
+
+        [TestMethod, TestCategory(BASIC_TESTS)]
+        public void longCommandTest()
+        {
+            string printString = new string('a', 2048);
+            cout(String.Format("print('{0}')", printString));
+            cout(Keys.Enter);
+            string line2 = getLineText(2);
+            Assert.AreEqual(printString, line2);
         }
     }
 }
