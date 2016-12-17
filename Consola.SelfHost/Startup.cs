@@ -10,11 +10,15 @@ namespace Consola.SelfHost
 {
     public class Startup
     {
+        public static bool usIISEmulation = false;
+
         public void Configuration(IAppBuilder app)
         {
-            GlobalHost.HubPipeline.AddModule(new IISemulationSignalR());
+            if (usIISEmulation) 
+                GlobalHost.HubPipeline.AddModule(new IISemulationSignalR());
             start.startApp(app);
-            app.Use(typeof(IISemulationOwin));
+            if (usIISEmulation)
+                app.Use(typeof(IISemulationOwin));
             app.UseNancy();
         }
     }

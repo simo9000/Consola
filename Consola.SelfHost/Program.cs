@@ -2,6 +2,7 @@
 using Microsoft.Owin.Hosting;
 using System;
 using System.Net;
+using System.Linq;
 
 namespace Consola.SelfHost
 {
@@ -9,18 +10,20 @@ namespace Consola.SelfHost
     {
         public static IDisposable app;
         static void Main(string[] args)
-        {
-            start();
+        {                
+            start(args.Contains("--IISemulation"));
             Console.WriteLine("Press enter to exit");
             Console.ReadLine();
             app.Dispose();
         }
 
-        public static void start()
+        public static void start(bool useIISEmulation = false)
         {
             var url = "http://+:80/";
             try
             {
+                if (useIISEmulation)
+                    Startup.usIISEmulation = true;
                 app = WebApp.Start<Startup>(url);
             }
             catch (HttpListenerException ex)
