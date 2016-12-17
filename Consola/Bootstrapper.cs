@@ -52,7 +52,7 @@ namespace Consola
             {
                 ctx.Response.WithHeader("Access-Control-Allow-Origin", "*")
                             .WithHeader("Access-Control-Allow-Methods", "GET")
-                            .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type")
+                            .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type, CONNECTION_ID")
                             .WithHeader("Access-Control-Expose-Headers", "Content-Disposition");
             });
         }
