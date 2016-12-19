@@ -47,9 +47,14 @@ namespace Consola
                 returnControl();
         }       
 
-        public void submitCommand(string command)
+        public void submitCommand(string command, string guid)
         {
-            Session.executeCommand(command);
+            Session.executeCommand(command, guid);
+        }
+
+        public void terminateScript(string guid)
+        {
+            Session.interuptScript(guid);
         }
                 
         public void pushOutput(string line)

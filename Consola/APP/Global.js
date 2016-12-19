@@ -2,3 +2,5 @@
 TAB_KEY = 9
 UP_KEY = 38
 DOWN_KEY = 40
+S_KEY = 83
+F5_KEY = 116;

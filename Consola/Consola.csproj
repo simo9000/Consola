@@ -126,6 +126,7 @@
     <EmbeddedResource Include="APP\Consola.css" />
     <Content Include="APP\Views\codeFile.js" />
     <Content Include="APP\Views\editor.js" />
+    <Content Include="APP\Views\editorTab.js" />
     <Content Include="package.json" />
     <None Include="Consola.nuspec">
       <SubType>Designer</SubType>

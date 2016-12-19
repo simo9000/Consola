@@ -26,7 +26,10 @@ module.exports = Backbone.View.extend({
                             </tbody>\
                           </table>'),
 
-    initialize: function() {
+    initialize: function(e) {
+        this.showEditor = e.showEditor;
+        this.editorVisible = false;
+        this.guid = this.generateGUID();
         var prompt = this;
         this.editor = editor;
         this.history = [];
@@ -83,6 +86,8 @@ module.exports = Backbone.View.extend({
                 console.hub.client.newLine = function() {
                     if (!console.activeCommand.active)
                         prompt.addNewLine();
+                    if (prompt.showEditor && !prompt.editorVisible)
+                        prompt.renderEditor();
                 }
                 $.connection.hub.url = signalRLocation;
                 $.connection.hub.start({ transport: 'longPolling', jsonp: true }).done(function() {
@@ -103,13 +108,17 @@ module.exports = Backbone.View.extend({
         this.listenTo(this.activeCommand, 'submit', this.submit);
     },
 
-    submit: function(code) {
+    submit: function(code,guid,callback) {
         $.ajax({
-            url: this.createHostPath("/Console/Command"),
+            url: this.createHostPath("/Console/Command/" + guid || this.guid),
             method: 'POST',
             data: code,
             headers: {
                 'CONNECTION_ID' : this.connectionID
+            },
+            success: function() {
+                if (callback)
+                    callback();
             }
         });
     },
@@ -134,7 +143,9 @@ module.exports = Backbone.View.extend({
 
     renderEditor: function() {
         var prompt = this;
-        this.editor = new this.editor({});
+        this.editor = new this.editor({
+            cmd : this
+        });
         this.listenTo(this.editor, 'submit', this.submit);
         this.listenTo(this.editor, 'resize', this.resize);
         this.editor.render();
@@ -151,10 +162,21 @@ module.exports = Backbone.View.extend({
             }
             prompt.resize(prompt);
         });
+        prompt.editorVisible = true;
     },
 
     resize: function(prompt) {
         var parentHeight = prompt.$el.parent().height();
         prompt.$el.find('.consola').height(parentHeight -prompt.editor.$el.height());
+    },
+
+    generateGUID: function() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
     }
 });

@@ -8,8 +8,7 @@ using System.Text;
 using Consola.Library.util;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
-
-
+using System.Threading;
 
 namespace Consola.Library
 {
@@ -21,9 +20,13 @@ namespace Consola.Library
         private const string pythonErrorNameSpace = "IronPython.Runtime";
         private const string scriptErrorNameSpace = "Microsoft.Scripting";
         private const string defaultStartUpMessage = @"Consola Startup";
+        private ScriptSource trace;
         private ScriptEngine engine;
         internal static List<Type> scriptObjects = new List<Type>();
         private ScriptScope scope { get; }
+        private Dictionary<string, bool> threadStates = new Dictionary<string, bool>();
+        private Dictionary<Thread, string> threads = new Dictionary<Thread, string>();
+        private object threadLock = new object();
         /// <summary>
         /// Message displayed at console start up.
         /// </summary>
@@ -36,6 +39,7 @@ namespace Consola.Library
         {
             this.client = callbacks;    
             engine = Python.CreateEngine();
+            trace = engine.CreateScriptSourceFromString("sys.settrace(isConsolaThreadAlive)");
             buffer = new ForwardingMemoryStream();
             buffer.writeEvent = callbacks.output;
             dynamic mScope = scope = engine.CreateScope();
@@ -52,11 +56,11 @@ namespace Consola.Library
             initalizeScope();
         }
 
-        internal void executeCommand(string command)
+        internal void executeCommand(string command, string threadID)
         {
             try
             {
-                execute(command);       
+                execute(command, threadID);       
             }
             catch(Exception e){
                 Type exceptionType = e.GetType();
@@ -73,8 +77,21 @@ namespace Consola.Library
             }
         }
 
-        private void execute(string command)
+        private void execute(string command, string threadID = null)
         {
+            /*if (threadID != null)
+            {
+                if (threadStates.ContainsKey(threadID))
+                    threadStates[threadID] = true;
+                else
+                    threadStates.Add(threadID, true);
+                if (threads.ContainsKey(Thread.CurrentThread))
+                    threads[Thread.CurrentThread] = threadID;
+                else
+                    threads.Add(Thread.CurrentThread, threadID);
+            }
+            if (threadID != null)
+                trace.Execute(scope);*/
             ScriptSource source = engine.CreateScriptSourceFromString(command);
             source.Execute(scope);
         }
@@ -100,6 +117,7 @@ namespace Consola.Library
             ScriptScope.proxy = proxy;
             ScriptScope.ListObjects = new Action(ListObjects);
             ScriptScope.Date = new Func<String, DateTime>(parseDate);
+            ScriptScope.checkAlive = new Func<dynamic,dynamic,dynamic,bool>(checkAlive);
 
         }
 
@@ -116,8 +134,21 @@ namespace Consola.Library
 
         private void initalizeScope()
         {
+            //execute("import sys");
             execute("from System import *");
             execute("from System.Collections.Generic import *");
+            /*execute(@"def isConsolaThreadAlive(frame, event, arg):
+    alive = checkAlive(frame, event, arg)
+    if not (alive):
+        sys.exit()");*/
+        }
+
+        internal void interuptScript(string threadID)
+        {
+            lock (threadLock)
+            {
+                threadStates[threadID] = false;
+            }
         }
 
         /// <summary>
@@ -156,6 +187,16 @@ namespace Consola.Library
         {
             IndexModule.Downloads[key].Clear();
             IndexModule.Downloads.Remove(key);
+        }
+
+        internal bool checkAlive(dynamic frame, dynamic e, dynamic arg)
+        {
+            bool returnVal;
+            lock (threadLock)
+            {
+                 returnVal = threadStates[threads[Thread.CurrentThread]];
+            }
+            return returnVal;
         }
     }
 

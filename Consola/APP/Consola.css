@@ -44,6 +44,7 @@
     list-style: none;
     list-style-position: outside;
     width: 100%;
+    margin-left:3vw;
 }
 .consolaTab-container ul.tab-menu li{
     display: block;
@@ -62,8 +63,8 @@
     border-top-right-radius: 3px;
 }
 .consolaTab-container ul.tab-menu li.active{
-    background: #fff;
-    color: #0088CC;
+    background: white;
+    color: black;
     border-bottom: 0;
 }
 .consolaTab-content{
@@ -83,4 +84,35 @@
 .consolaTab-content h1{
     line-height: 1em;
     font-size: 22px;
+}
+.consolaStart {
+    color:green;
+    position:absolute;
+    font-size:x-large;
+    margin-left:0.2em;
+    margin-top:0.2em;
+    background-color: transparent;
+    border:none;
+}
+.consolaStart:focus {
+    outline:0;
+}
+.consolaStart:disabled {
+    color:darkslategrey
+}
+.consolaStop{
+    color:red;
+    position:absolute;
+    font-size:xx-large;
+    margin-left:1.2em;
+    margin-top:-0.1em;
+    background-color: transparent;
+    border:none;
+    display:none;
+}
+.consolaStop:focus {
+    outline:0;
+}
+.consolaStop:disabled {
+    color:darkslategray
 }

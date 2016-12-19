@@ -36,13 +36,13 @@ namespace Consola
                 return response.AsAttachment(item.FileName);
             };
 
-            Post["/Command"] = parameters =>
+            Post["/Command/{threadID}"] = parameters =>
             {
                 ScriptSession session = ConsoleHub.sessions[Request.Headers[CONNECTION_ID_HEADER].FirstOrDefault()];
                 if (session != null)
                 {
                     string body = new StreamReader(Request.Body).ReadToEnd();
-                    session.executeCommand(body);
+                    session.executeCommand(body, parameters.threadID);
                     return new Response() { StatusCode = HttpStatusCode.Accepted };
                 }
                 return new Response() { StatusCode = HttpStatusCode.InternalServerError, ReasonPhrase = "Connection not found" };
