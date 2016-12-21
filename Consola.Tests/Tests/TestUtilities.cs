@@ -87,7 +87,7 @@ namespace Consola.Tests
 
         private static void startServer()
         {
-            Host.start();           
+            Host.start(true);           
         }
 
         private static void startBrowser()
