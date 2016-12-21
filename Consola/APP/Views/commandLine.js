@@ -71,6 +71,12 @@ module.exports = Backbone.View.extend({
         if (e.which === ENTER_KEY && !e.shiftKey) {
             view.addNewLine(true);
         }
+        else if (e.ctrlKey && e.keyCode == S_KEY) {
+            e.preventDefault();
+        }
+        else if (e.ctrlKey && e.keyCode == C_KEY) {
+            this.trigger('clearPrevious');
+        }
         else if (e.which === UP_KEY) {
             historyFetch('getPreviousCommand');
         }

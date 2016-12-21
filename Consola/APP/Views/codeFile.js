@@ -9,7 +9,7 @@ module.exports = Backbone.View.extend({
         "keydown textarea" : "keyCheck"
     },
 
-    template: _.template('<textarea spellcheck="false" maxlength="30000000" class="consolaCommand" style="height:30vh;border-style:solid;resize:vertical;width:99.5%"></textarea>'),
+    template: _.template('<textarea spellcheck="false" maxlength="30000000" class="consolaCommand" style="height:30vh;border-style:solid;resize:vertical;width:99.9%"></textarea>'),
 
     initialize: function(e){
         this.GUID = e.id;

@@ -18,6 +18,8 @@
     background-color:black;
     table-layout: fixed;
     height:100vh;
+    display:block;
+    overflow-y:auto;
 }
 .consola tr {
     display: flex;

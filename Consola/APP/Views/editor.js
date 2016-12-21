@@ -41,7 +41,6 @@ module.exports = Backbone.View.extend({
             }
         if (!lastTab)
             lastTab = this.newTab();
-        lastTab.$el.find('.delete').show();
         return this;
     },
 
@@ -177,17 +176,21 @@ module.exports = Backbone.View.extend({
             var scriptContents = codefile.getCode();
             codefile.name = name;
             localStorage.setItem('ConsolaScripts/' + name, scriptContents);
+            tab.name = name;
             tab.isSaved = true;
+            tab.render();
         }
     },
 
     deleteTab: function(tab) {
         this.frozen = false;
         var codefile = _.findWhere(this.codefiles, { GUID: this.activeTab });
+        var index = _.findIndex(this.codefiles, function(c) { return c.GUID == this.activeTab });
+        this.codefiles.splice(index, 1);
         if (codefile.name)
             localStorage.removeItem('ConsolaScripts/' + codefile.name);
-        this.$el.remove('#' + codefile.GUID);
-        this.$el.remove('#' + codefile.GUID + '_tab');
+        $('#' + codefile.GUID).remove();
+        $('#' + codefile.GUID + '_tab').remove();
         var tab = this.$el.find('li')[0];
         if (tab)
             tab.click();

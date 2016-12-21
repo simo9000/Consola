@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
 
     template: _.template('<span class="title" style="min-width:50px"><%= NAME %></span>\
                           <span class="ast"><%= SAVED ? "" : "*" %></span>\
-                          <span class="delete" style="border: solid 1px red;color:red;display:none">X</span>'),
+                          <span class="delete" style="border: solid 1px red;color:red;">X</span>'),
 
     render: function() {
         this.$el.html(this.template({

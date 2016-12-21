@@ -106,6 +106,7 @@ module.exports = Backbone.View.extend({
         });
         this.listenTo(this.activeCommand, 'newLine', this.addNewLine);
         this.listenTo(this.activeCommand, 'submit', this.submit);
+        this.listenTo(this.activeCommand, 'clearPrevious', this.clearConsole);
     },
 
     submit: function(code,guid,callback) {
@@ -132,6 +133,7 @@ module.exports = Backbone.View.extend({
         this.createNewLine();
         this.activeCommand.render();
         this.$el.find('tbody').append(this.activeCommand.$el);
+        this.activeCommand.el.scrollIntoView(true);
         this.activeCommand.focus();
     },
 
@@ -178,5 +180,9 @@ module.exports = Backbone.View.extend({
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
           s4() + '-' + s4() + s4() + s4();
+    },
+
+    clearConsole: function() {
+        this.$el.find('.finished').parent().parent().remove();
     }
 });
