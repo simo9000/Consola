@@ -8,11 +8,11 @@
     <script>
         var commandPrompt = require('commandPrompt');
         $(document).ready(function() {
-            prompt = new commandPrompt({
+            console_ = new commandPrompt({
                 showEditor: true
             });
-            prompt.render();
-            $('#console').append(prompt.el);
+            console_.render();
+            $('#console').append(console_.el);
         });
     </script>
 </head>

@@ -79,7 +79,7 @@ namespace Consola.Library
 
         private void execute(string command, string threadID = null)
         {
-            /*if (threadID != null)
+            if (threadID != null)
             {
                 if (threadStates.ContainsKey(threadID))
                     threadStates[threadID] = true;
@@ -89,9 +89,8 @@ namespace Consola.Library
                     threads[Thread.CurrentThread] = threadID;
                 else
                     threads.Add(Thread.CurrentThread, threadID);
-            }
-            if (threadID != null)
-                trace.Execute(scope);*/
+                trace.Execute(scope);
+            }                
             ScriptSource source = engine.CreateScriptSourceFromString(command);
             source.Execute(scope);
         }
@@ -134,13 +133,14 @@ namespace Consola.Library
 
         private void initalizeScope()
         {
-            //execute("import sys");
+            execute("import sys");
             execute("from System import *");
             execute("from System.Collections.Generic import *");
-            /*execute(@"def isConsolaThreadAlive(frame, event, arg):
+            execute(@"def isConsolaThreadAlive(frame, event, arg):
     alive = checkAlive(frame, event, arg)
     if not (alive):
-        sys.exit()");*/
+        sys.exit()
+    return isConsolaThreadAlive");
         }
 
         internal void interuptScript(string threadID)

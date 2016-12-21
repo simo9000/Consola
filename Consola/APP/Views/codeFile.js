@@ -39,14 +39,18 @@ module.exports = Backbone.View.extend({
             // put caret at right position again
             textArea.get(0).selectionStart =
             textArea.get(0).selectionEnd = start + 1;
+            this.trigger('change', this);
         }
-        else if (e.ctrlKey && e.keyCode == S_KEY){
-
+        else if (e.ctrlKey && e.keyCode == S_KEY) {
+            this.trigger('save', this);
+            e.preventDefault();
         }
         else if (e.keyCode == F5_KEY) {
             e.preventDefault();
             this.trigger('run', this);
         }
+        else
+            this.trigger('change', this);
     },
 
     disableEdit: function() {
@@ -63,6 +67,10 @@ module.exports = Backbone.View.extend({
 
     getCode: function() {
         return this.$el.find('textarea').val();
+    },
+
+    setCode: function(code) {
+        this.$el.find('textarea').val(code);
     },
 
     focus: function() {

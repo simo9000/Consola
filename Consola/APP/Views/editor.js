@@ -26,31 +26,69 @@ module.exports = Backbone.View.extend({
     initialize: function(e) {
         this.cmd = e.cmd;
         this.codefiles = [];
+        this.frozen = false;
     },
 
     render: function() {
         var prompt = this;
         this.$el.html(this.template({}));
         this.$el.addClass('consolaTab-container');
-        this.newTab();
+        var i = 0, key, lastTab;
+        for (; key = localStorage.key(i) ; i++)
+            if (key.match(/ConsolaScripts\/*/)) {
+                loadedScripts = true;
+                lastTab = this.loadTab(key.replace('ConsolaScripts/', ''), localStorage.getItem(key));
+            }
+        if (!lastTab)
+            lastTab = this.newTab();
+        lastTab.$el.find('.delete').show();
         return this;
     },
 
+    loadTab: function(name, code) {
+        var file = this.newTab();
+        file.tab.name = name;
+        file.tab.isSaved = true;
+        file.tab.render();
+        file.code.name = name;
+        file.code.setCode(code);
+        return file.tab;
+    },
+
     newTab: function() {
+        if (this.frozen)
+            return;
         var prompt = this;
         var newGUID = this.cmd.generateGUID();
         this.activeTab = newGUID;
-        this.$el.find('[id$=_tab]').removeClass('active');
-        this.$el.find('ul').append(new editorTab({
+        var allTabs = this.$el.find('[id$=_tab]');
+        allTabs.removeClass('active');
+        allTabs.find('.delete').hide();
+        var newTab = new editorTab({
             id: newGUID + '_tab',
             name: "untitled" + (this.tabCount || '')
-        }).render().$el);
+        }).render();
+        this.listenTo(newTab, 'save', this.saveFile);
+        this.listenTo(newTab, 'freeze', function() { prompt.frozen = true; });
+        this.listenTo(newTab, 'unfreeze', function() { prompt.frozen = false; });
+        this.listenTo(newTab, 'delete', this.deleteTab);
+        this.$el.find('ul').append(newTab.$el);
         this.$el.find('ul').append(this.$el.find('#addNew'));
         var codefile = new codeFile({
             id: newGUID
         });
         this.codefiles.push(codefile);
         this.listenTo(codefile, 'run', prompt.executeScript);
+        this.listenTo(codefile, 'change', function() {
+            newTab.isSaved = false;
+            newTab.render();
+        });
+        this.listenTo(codefile, 'save', function() {
+            if (codefile.name)
+                prompt.saveFile(codefile.name, newTab);
+            else
+                newTab.rename();
+        });
         codefile.render();
         this.$el.find('.codefile').hide();
         this.$el.append(codefile.$el);
@@ -59,13 +97,22 @@ module.exports = Backbone.View.extend({
         else
             this.tabCount = 1;
         codefile.focus();
+        return {
+            tab: newTab,
+            code: codefile
+        }
     },
 
     switchTab: function(e) {
+        if (this.frozen)
+            return;
         var li = e.target.tagName == 'LI' ? e.target : e.target.parentElement;
         if (li.id != "addNew" && li.id != this.activeTab + '_tab') {
-            this.$el.find('[id$=_tab]').removeClass('active');
+            var allTabs = this.$el.find('[id$=_tab]');
+            allTabs.removeClass('active');
+            allTabs.find('.delete').hide();
             $(li).addClass('active');
+            $(li).find('.delete').show();
             var id = li.id.replace('_tab', '');
             this.activeTab = id;
             this.$el.find('.codefile').hide();
@@ -80,6 +127,8 @@ module.exports = Backbone.View.extend({
     },
 
     getScriptToExecute: function(e) {
+        if (this.frozen)
+            return;
         var codefile = _.findWhere(this.codefiles, { GUID: this.activeTab });
         this.executeScript(codefile);
     },
@@ -102,6 +151,8 @@ module.exports = Backbone.View.extend({
     },
 
     terminateScript: function(e) {
+        if (this.frozen)
+            return;
         var codefile = _.findWhere(this.codefiles, { GUID: this.activeTab });
         this.cmd.hub.server.terminateScript(codefile.GUID);
         codefile.enableEdit();
@@ -117,6 +168,32 @@ module.exports = Backbone.View.extend({
             this.$el.find('.consolaStop').prop('disabled', false);
             this.$el.find('.consolaStart').prop('disabled', true);
         }
+    },
+
+    saveFile: function(name, tab) {
+        var codefile = _.findWhere(this.codefiles, { GUID: this.activeTab });
+        tab.isSaved = false;
+        if (name != '' && (codefile.name == name || !_.contains(_.pluck(this.codefiles, 'name'), name))){
+            var scriptContents = codefile.getCode();
+            codefile.name = name;
+            localStorage.setItem('ConsolaScripts/' + name, scriptContents);
+            tab.isSaved = true;
+        }
+    },
+
+    deleteTab: function(tab) {
+        this.frozen = false;
+        var codefile = _.findWhere(this.codefiles, { GUID: this.activeTab });
+        if (codefile.name)
+            localStorage.removeItem('ConsolaScripts/' + codefile.name);
+        this.$el.remove('#' + codefile.GUID);
+        this.$el.remove('#' + codefile.GUID + '_tab');
+        var tab = this.$el.find('li')[0];
+        if (tab)
+            tab.click();
+        else
+            this.newTab();
     }
+
 
 });

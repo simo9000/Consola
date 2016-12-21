@@ -75,7 +75,7 @@ namespace Consola.Tests
         public void DownloadTextFile()
         {
             String oracle = "Test";
-            browser.ExecuteScript("prompt.testDownload = true;");
+            browser.ExecuteScript("console_.testDownload = true;");
             cout(String.Format("proxy.BasicFunctions.download(\"{0}\")",oracle));
             cout(Keys.Enter);
             using (WebResponse response = DownloadFile())
