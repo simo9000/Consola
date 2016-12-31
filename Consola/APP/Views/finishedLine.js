@@ -15,7 +15,8 @@ module.exports = Backbone.View.extend({
         this.$el.css('color', 'white');
         this.$el.css('white-space', 'pre-wrap');
         this.$el.css('word-wrap', 'break-word');
-        this.$el.css('width', '97vw');
+        this.$el.css('width', '100%');
+        this.$el.css('max-width', '97vw');
         this.$el.css('display', 'inline-block');
         this.$el.addClass('LN' + this.lineNumber);
         this.$el.addClass('finished');

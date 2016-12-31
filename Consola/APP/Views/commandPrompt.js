@@ -22,7 +22,7 @@ module.exports = Backbone.View.extend({
     template: _.template('<table class="consola">\
                             <thead>\
                             </thead>\
-                            <tbody>\
+                            <tbody style="width:100%; height:100%">\
                             </tbody>\
                           </table>'),
 
@@ -126,6 +126,8 @@ module.exports = Backbone.View.extend({
 
     render: function () {
         this.$el.html(this.template({}));
+        this.$el.css('width', '100%');
+        this.$el.css('height', '100%');
         return this;
     },
 

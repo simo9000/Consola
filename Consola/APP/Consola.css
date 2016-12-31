@@ -1,6 +1,7 @@
 ﻿.consolaCommand {
     resize:none;
     width:99%;
+    max-width:97vw;
     border-style:none;
     padding:0px;
     font-size:15px;
@@ -17,7 +18,7 @@
     font-family: Consolas;
     background-color:black;
     table-layout: fixed;
-    height:100vh;
+    height:100%;
     display:block;
     overflow-y:auto;
 }
