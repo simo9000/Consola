@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Consola</id>
-    <version>0.1.7.1</version>
+    <version>0.2.0</version>
     <title>Consola</title>
     <authors>simo9000</authors>
     <owners>simo9000</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/simo9000/Consola</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>extendable web based python console</description>
-    <releaseNotes>Changed target to net45</releaseNotes>
+    <releaseNotes>Added editor view</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <dependencies>
       <group targetFramework="net452">
